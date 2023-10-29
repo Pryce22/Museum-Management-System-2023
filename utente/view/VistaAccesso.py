@@ -1,10 +1,13 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMessageBox
+
 from utente.model.Utente import Utente
+from home.view.VistaHomeCliente import *
 
 
 class Ui_VistaAccesso(object):
+
     def setupUi(self, VistaAccesso):
         VistaAccesso.setObjectName("VistaAccesso")
         VistaAccesso.resize(800, 600)
@@ -107,6 +110,9 @@ class Ui_VistaAccesso(object):
             utente_attivo.email = email_in
             utente_attivo.password = password_in
             print(utente_attivo.email, utente_attivo.password)
+            print("Login eseguito")
+            self.go_home_cliente()
+            VistaAccesso.close()
 
     def clicked_signup(self):
         email_in = self.lineEdit_2.text()
@@ -128,6 +134,12 @@ class Ui_VistaAccesso(object):
             msg.setText("Compila tutti i campi per il signup!")
         msg.setIcon(QMessageBox.Critical)
         x = msg.exec_()
+
+    def go_home_cliente(self):
+        self.VistaHomeCliente = QtWidgets.QWidget()
+        self.ui = Ui_VistaHomeCliente()
+        self.ui.setupUi(self.VistaHomeCliente)
+        self.VistaHomeCliente.show()
 
 
 def go_login_utente():

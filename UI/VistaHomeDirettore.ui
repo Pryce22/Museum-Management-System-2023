@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VistaHomeDirettore</class>
+ <widget class="QWidget" name="VistaHomeDirettore">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>421</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="pushButton_1">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>200</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Utente</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>140</y>
+     <width>200</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Informazioni e contatti</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>0</y>
+     <width>200</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Prenotazioni</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>140</y>
+     <width>200</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Beni</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>280</y>
+     <width>200</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Elimina dipendenti</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
