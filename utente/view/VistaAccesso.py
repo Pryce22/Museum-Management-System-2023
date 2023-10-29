@@ -1,7 +1,8 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMessageBox
 from utente.model.Utente import Utente
+
 
 class Ui_VistaAccesso(object):
     def setupUi(self, VistaAccesso):
@@ -99,29 +100,44 @@ class Ui_VistaAccesso(object):
     def clicked_login(self):
         email_in = self.lineEdit_1.text()
         password_in = self.lineEdit.text()
-        #utente_attivo = Utente(email_in, password_in)
-        utente_attivo.email = email_in
-        utente_attivo.password = password_in
-        print(utente_attivo.email, utente_attivo.password)
+        # utente_attivo = Utente(email_in, password_in)
+        if email_in == "" or password_in == "":
+            self.show_popup(0)
+        else:
+            utente_attivo.email = email_in
+            utente_attivo.password = password_in
+            print(utente_attivo.email, utente_attivo.password)
 
     def clicked_signup(self):
         email_in = self.lineEdit_2.text()
         password_in = self.lineEdit_3.text()
-        #utente_attivo = Utente(email_in, password_in)
-        utente_attivo.email = email_in
-        utente_attivo.password = password_in
-        print(utente_attivo.email, utente_attivo.password)
+        if email_in == "" or password_in == "":
+            self.show_popup(1)
+        else:
+            utente_attivo.email = email_in
+            utente_attivo.password = password_in
+            print(utente_attivo.email, utente_attivo.password)
 
+    def show_popup(self, n):
+        msg = QMessageBox()
+        if n == 0:
+            msg.setWindowTitle("Errore")
+            msg.setText("Compila tutti i campi per il login!")
+        else:
+            msg.setWindowTitle("Errore")
+            msg.setText("Compila tutti i campi per il signup!")
+        msg.setIcon(QMessageBox.Critical)
+        x = msg.exec_()
 
 
 def go_login_utente():
     import sys
-    app = QtWidgets.QApplication(sys.argv)
-    VistaAccesso = QtWidgets.QMainWindow()
     ui = Ui_VistaAccesso()
     ui.setupUi(VistaAccesso)
     VistaAccesso.show()
     sys.exit(app.exec_())
 
 
-utente_attivo = Utente("temp", "temp")
+app = QtWidgets.QApplication(sys.argv)
+VistaAccesso = QtWidgets.QMainWindow()
+utente_attivo = Utente(None, None)
