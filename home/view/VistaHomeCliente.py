@@ -24,18 +24,21 @@ class Ui_VistaHomeCliente(object):
 
     def retranslateUi(self, VistaHomeCliente):
         _translate = QtCore.QCoreApplication.translate
-        VistaHomeCliente.setWindowTitle(_translate("VistaHomeCliente", "Form"))
+        VistaHomeCliente.setWindowTitle(_translate("VistaHomeCliente", "Home"))
         self.pushButton_1.setText(_translate("VistaHomeCliente", "Utente"))
         self.pushButton_2.setText(_translate("VistaHomeCliente", "Beni"))
         self.pushButton_3.setText(_translate("VistaHomeCliente", "Prenotazioni"))
         self.pushButton_4.setText(_translate("VistaHomeCliente", "Informazioni e contatti"))
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    VistaHomeCliente = QtWidgets.QWidget()
+def show_home_cliente():
     ui = Ui_VistaHomeCliente()
     ui.setupUi(VistaHomeCliente)
     VistaHomeCliente.show()
-    sys.exit(app.exec_())
+    return ui
+    #sys.exit(app.exec_())
+
+
+app = QtWidgets.QApplication(sys.argv)
+VistaHomeCliente = QtWidgets.QMainWindow()
 

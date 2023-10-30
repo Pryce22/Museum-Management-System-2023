@@ -90,7 +90,7 @@ class Ui_VistaAccesso(object):
 
     def retranslateUi(self, VistaAccesso):
         _translate = QtCore.QCoreApplication.translate
-        VistaAccesso.setWindowTitle(_translate("VistaAccesso", "MainWindow"))
+        VistaAccesso.setWindowTitle(_translate("VistaAccesso", "Accesso"))
         self.label_1.setText(_translate("VistaAccesso", "Login"))
         self.lineEdit_1.setPlaceholderText(_translate("VistaAccesso", "e-mail"))
         self.lineEdit.setPlaceholderText(_translate("VistaAccesso", "password"))
@@ -105,13 +105,17 @@ class Ui_VistaAccesso(object):
         password_in = self.lineEdit.text()
         # utente_attivo = Utente(email_in, password_in)
         if email_in == "" or password_in == "":
-            self.show_popup(0)
+            #self.show_popup(0)
+            utente_attivo.email = email_in
+            utente_attivo.password = password_in
+            print(utente_attivo.email, utente_attivo.password)
+            show_home_cliente()
+            VistaAccesso.close()
         else:
             utente_attivo.email = email_in
             utente_attivo.password = password_in
             print(utente_attivo.email, utente_attivo.password)
-            print("Login eseguito")
-            self.go_home_cliente()
+            show_home_cliente()
             VistaAccesso.close()
 
     def clicked_signup(self):
@@ -135,14 +139,16 @@ class Ui_VistaAccesso(object):
         msg.setIcon(QMessageBox.Critical)
         x = msg.exec_()
 
+    '''
     def go_home_cliente(self):
         self.VistaHomeCliente = QtWidgets.QWidget()
         self.ui = Ui_VistaHomeCliente()
         self.ui.setupUi(self.VistaHomeCliente)
         self.VistaHomeCliente.show()
+    '''
 
 
-def go_login_utente():
+def show_login_utente():
     import sys
     ui = Ui_VistaAccesso()
     ui.setupUi(VistaAccesso)
@@ -152,4 +158,4 @@ def go_login_utente():
 
 app = QtWidgets.QApplication(sys.argv)
 VistaAccesso = QtWidgets.QMainWindow()
-utente_attivo = Utente(None, None)
+utente_attivo = Utente(None, None, None, None)
