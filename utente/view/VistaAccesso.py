@@ -105,12 +105,7 @@ class Ui_VistaAccesso(object):
         password_in = self.lineEdit.text()
         # utente_attivo = Utente(email_in, password_in)
         if email_in == "" or password_in == "":
-            #self.show_popup(0)
-            utente_attivo.email = email_in
-            utente_attivo.password = password_in
-            print(utente_attivo.email, utente_attivo.password)
-            show_home_cliente()
-            VistaAccesso.close()
+            self.show_popup(0)
         else:
             utente_attivo.email = email_in
             utente_attivo.password = password_in
