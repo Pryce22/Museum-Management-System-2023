@@ -37,6 +37,8 @@ class Ui_InformazioniEContattiDipendente(object):
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_informazioni.setFont(font)
+        '''if utente_attivo.is_direttore = False:
+            self.Text_informazioni.setReadOnly(True)'''
         self.Text_informazioni.setObjectName("Text_informazioni")
         self.verticalLayout.addWidget(self.Text_informazioni)
         spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
@@ -50,11 +52,14 @@ class Ui_InformazioniEContattiDipendente(object):
         self.label_contatti.setFont(font)
         self.label_contatti.setObjectName("label_contatti")
         self.verticalLayout.addWidget(self.label_contatti)
+
         self.Text_contatti = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_contatti.setFont(font)
+        '''if utente_attivo.is_direttore = False:
+            self.Text_informazioni.setReadOnly(True)'''
         self.Text_contatti.setObjectName("Text_contatti")
         self.verticalLayout.addWidget(self.Text_contatti)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
