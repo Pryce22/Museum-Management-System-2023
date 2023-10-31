@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_InformazioniEContattiDipendente(object):
-    def setupUi(self, InformazioniEContattiDipendente):
+    def setupUi(self, InformazioniEContattiDipendente, utente_attivo):
         InformazioniEContattiDipendente.setObjectName("InformazioniEContattiDipendente")
         InformazioniEContattiDipendente.resize(898, 557)
         self.verticalLayoutWidget = QtWidgets.QWidget(InformazioniEContattiDipendente)
@@ -37,8 +37,8 @@ class Ui_InformazioniEContattiDipendente(object):
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_informazioni.setFont(font)
-        '''if utente_attivo.is_direttore = False:
-            self.Text_informazioni.setReadOnly(True)'''
+        if not utente_attivo.is_direttore:
+            self.Text_informazioni.setReadOnly(True)
         self.Text_informazioni.setObjectName("Text_informazioni")
         self.verticalLayout.addWidget(self.Text_informazioni)
         spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
@@ -58,8 +58,8 @@ class Ui_InformazioniEContattiDipendente(object):
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_contatti.setFont(font)
-        '''if utente_attivo.is_direttore = False:
-            self.Text_informazioni.setReadOnly(True)'''
+        if not utente_attivo.is_direttore:
+            self.Text_contatti.setReadOnly(True)
         self.Text_contatti.setObjectName("Text_contatti")
         self.verticalLayout.addWidget(self.Text_contatti)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
