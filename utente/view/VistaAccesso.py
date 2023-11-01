@@ -2,11 +2,17 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMessageBox
 
+from listautenti.model.ListaUtenti import *
+from listautenti.controller.ControlloreListaUtenti import *
 from utente.model.Utente import Utente
 from home.view.VistaHomeCliente import *
 
 
 class Ui_VistaAccesso(object):
+
+    def __init__(self):
+        super(Ui_VistaAccesso, self).__init__()
+        self.controller = ControlloreListaUtenti()
 
     def setupUi(self, VistaAccesso):
         VistaAccesso.setObjectName("VistaAccesso")
@@ -121,7 +127,7 @@ class Ui_VistaAccesso(object):
         else:
             utente_attivo.email = email_in
             utente_attivo.password = password_in
-            print(utente_attivo.email, utente_attivo.password)
+            self.controller.inserisci_utente(Utente(email_in, password_in, False, False))
 
     def show_popup(self, n):
         msg = QMessageBox()
