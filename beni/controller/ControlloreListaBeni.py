@@ -12,8 +12,8 @@ class ControlloreListaBeni:
                 lista_beni_salvata = pickle.load(f)
             self.model.lista_beni = lista_beni_salvata
 
-            with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
-                pickle.dump(self.model.lista_beni, f)
+        with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
+            pickle.dump(self.model.lista_beni, f)
 
     def inserisci_bene(self, bene):
         self.model.aggiungi_bene(bene)
