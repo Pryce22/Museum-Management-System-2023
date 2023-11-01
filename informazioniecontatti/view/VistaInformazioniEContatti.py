@@ -9,7 +9,6 @@ class Ui_InformazioniEContatti(object):
     def __init__(self, utente_attivo):
         super(Ui_InformazioniEContatti, self).__init__()
         self.controller = ControlloreInformazioniEContatti()
-        self.contatti = self.controller.contatti
         self.utente_attivo = utente_attivo
 
     def setupUi(self, InformazioniEContatti):
@@ -58,7 +57,7 @@ class Ui_InformazioniEContatti(object):
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_contatti.setFont(font)
-        if not self.utente_attivo.is_direttore:
+        if self.utente_attivo.is_direttore:
             self.Text_contatti.setReadOnly(True)
         self.Text_contatti.setObjectName("Text_contatti")
         self.verticalLayout.addWidget(self.Text_contatti)
@@ -72,9 +71,9 @@ class Ui_InformazioniEContatti(object):
         _translate = QtCore.QCoreApplication.translate
         InformazioniEContatti.setWindowTitle(_translate("InformazioniEContatti", "Informazioni e contatti"))
         self.label_informazioni.setText(_translate("InformazioniEContatti", "Informazioni"))
-        self.Text_informazioni.setPlainText(_translate("InformazioniEContatti", "Ciao"))
+        self.Text_informazioni.setPlainText(_translate("InformazioniEContatti", self.controller.get_informazioni()))
         self.label_contatti.setText(_translate("InformazioniEContatti", "Contatti"))
-        self.Text_contatti.setPlainText(_translate("InformazioniEContatti", None))
+        self.Text_contatti.setPlainText(_translate("InformazioniEContatti", self.controller.get_contatti()))
 
 
 def show_vista_informazioni_e_contatti(utente_attivo):

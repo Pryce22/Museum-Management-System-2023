@@ -12,8 +12,8 @@ class ControlloreGestioneUtenti:
                 lista_clienti_salvata = pickle.load(f)
             self.model.lista_utenti = lista_clienti_salvata
 
-            with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
-                pickle.dump(self.model.lista_utenti, f)
+        with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
+            pickle.dump(self.model.lista_utenti, f)
 
         print("\nlista_utenti:")
         for u in self.model.get_lista_utenti():

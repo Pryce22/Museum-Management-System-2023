@@ -146,14 +146,6 @@ class Ui_VistaAccesso(object):
             msg.setText(text)
         x = msg.exec_()
 
-    '''
-    def go_home_cliente(self):
-        self.VistaHomeCliente = QtWidgets.QWidget()
-        self.ui = Ui_VistaHomeCliente()
-        self.ui.setupUi(self.VistaHomeCliente)
-        self.VistaHomeCliente.show()
-    '''
-
 
 def show_login_utente():
     import sys
@@ -165,4 +157,3 @@ def show_login_utente():
 
 app = QtWidgets.QApplication(sys.argv)
 VistaAccesso = QtWidgets.QMainWindow()
-#utente_attivo = Utente(None, None, None, None)
