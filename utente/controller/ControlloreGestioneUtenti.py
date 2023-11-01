@@ -17,7 +17,13 @@ class ControlloreGestioneUtenti:
 
         print("\nlista_utenti:")
         for u in self.model.get_lista_utenti():
-            print(u.email, u.password, sep="; ")
+            if u.is_direttore:
+                tipo = "Direttore"
+            elif u.is_dipendente:
+                tipo = "Dipendente"
+            else:
+                tipo = "Cliente"
+            print(u.email, u.password, tipo, sep="; ")
 
     def inserisci_utente(self, utente):
         self.model.aggiungi_utente(utente)

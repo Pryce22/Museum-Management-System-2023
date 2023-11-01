@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMessageBox
 from utente.controller.ControlloreGestioneUtenti import *
 from utente.model.Utente import Utente
 from home.view.VistaHomeCliente import *
+from home.view.VistaHomeDirettore import *
 
 
 class Ui_VistaAccesso(object):
@@ -115,9 +116,11 @@ class Ui_VistaAccesso(object):
             else:
                 utente_trovato = self.controller.trova_utente(email_in)
                 if utente_trovato.email == email_in and utente_trovato.password == password_in:
-                    print("Acount trovato")
                     self.utente_attivo = utente_trovato
-                    show_home_cliente(self.utente_attivo)
+                    if self.utente_attivo.is_direttore:
+                        show_home_direttore(self.utente_attivo)
+                    else:
+                        show_home_cliente(self.utente_attivo)
                     VistaAccesso.close()
                 else:
                     self.show_popup(0, "Account non trovato!")

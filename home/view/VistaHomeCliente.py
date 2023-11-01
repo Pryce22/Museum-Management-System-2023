@@ -11,7 +11,6 @@ class Ui_VistaHomeCliente(object):
     def __init__(self, utente_attivo):
         super(Ui_VistaHomeCliente, self).__init__()
         self.utente_attivo = utente_attivo
-        #self.controller = ControlloreListaUtenti()
 
     def setupUi(self, VistaHomeCliente):
         VistaHomeCliente.setObjectName("VistaHomeCliente")
