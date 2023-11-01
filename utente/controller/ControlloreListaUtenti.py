@@ -40,4 +40,3 @@ class ControlloreListaUtenti:
             if u.email == email_in:
                 return u
         return ""
-

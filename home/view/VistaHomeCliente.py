@@ -1,5 +1,6 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from utente.view.VistaGestioneUtente import *
 
 
 class Ui_VistaHomeCliente(object):
@@ -24,6 +25,8 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_4 = QtWidgets.QPushButton(VistaHomeCliente)
         self.pushButton_4.setGeometry(QtCore.QRect(200, 140, 200, 140))
         self.pushButton_4.setObjectName("pushButton_4")
+
+        self.pushButton_1.clicked.connect(lambda: show_gestione_utetne(self.utente_attivo))
 
         self.retranslateUi(VistaHomeCliente)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeCliente)
