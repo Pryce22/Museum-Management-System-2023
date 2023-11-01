@@ -3,9 +3,9 @@ import pickle
 import os
 
 
-class ControlloreListaUtenti:
+class ControlloreGestioneUtenti:
     def __init__(self):
-        super(ControlloreListaUtenti, self).__init__()
+        super(ControlloreGestioneUtenti, self).__init__()
         self.model = ListaUtenti()
         if os.path.isfile('utente/data/lista_utenti_salvata.pickle'):
             with open('utente/data/lista_utenti_salvata.pickle', 'rb') as f:
@@ -25,9 +25,10 @@ class ControlloreListaUtenti:
             pickle.dump(self.model.lista_utenti, f)
 
     def elimina_utente(self, utente):
-        self.model.elimina_utente(utente)
-        with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
-            pickle.dump(self.model.lista_utenti, f)
+        if self.model.elimina_utente(utente):
+            with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
+                pickle.dump(self.model.lista_utenti, f)
+            sys.exit()
 
     def controlla_email(self, email_in):
         for u in self.model.get_lista_utenti():

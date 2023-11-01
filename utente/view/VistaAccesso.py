@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMessageBox
 
-from utente.controller.ControlloreListaUtenti import *
+from utente.controller.ControlloreGestioneUtente import *
 from utente.model.Utente import Utente
 from home.view.VistaHomeCliente import *
 
@@ -10,7 +10,7 @@ class Ui_VistaAccesso(object):
     def __init__(self):
         super(Ui_VistaAccesso, self).__init__()
         self.utente_attivo = None
-        self.controller = ControlloreListaUtenti()
+        self.controller = ControlloreGestioneUtenti()
 
     def setupUi(self, VistaAccesso):
         VistaAccesso.setObjectName("VistaAccesso")

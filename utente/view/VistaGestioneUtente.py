@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from utente.controller.ControlloreGestioneUtente import *
 
 
 class Ui_VistaUtente(object):
@@ -7,7 +8,7 @@ class Ui_VistaUtente(object):
     def __init__(self, utente_attivo):
         super(Ui_VistaUtente, self).__init__()
         self.utente_attivo = utente_attivo
-        #self.controller = ControlloreListaUtenti()
+        self.controller = ControlloreGestioneUtenti()
 
     def setupUi(self, VistaUtente):
         VistaUtente.setObjectName("VistaUtente")
@@ -50,6 +51,8 @@ class Ui_VistaUtente(object):
         self.pushButton_2 = QtWidgets.QPushButton(VistaUtente)
         self.pushButton_2.setGeometry(QtCore.QRect(140, 110, 91, 41))
         self.pushButton_2.setObjectName("pushButton_2")
+
+        self.pushButton_2.clicked.connect(lambda: self.controller.elimina_utente(self.utente_attivo))
 
         self.retranslateUi(VistaUtente)
         QtCore.QMetaObject.connectSlotsByName(VistaUtente)
