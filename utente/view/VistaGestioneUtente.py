@@ -65,7 +65,7 @@ class Ui_VistaUtente(object):
         self.pushButton_2.setText(_translate("VistaUtente", "Elimina"))
 
 
-def show_gestione_utetne(utente_attivo):
+def show_gestione_utente(utente_attivo):
     ui = Ui_VistaUtente(utente_attivo)
     ui.setupUi(VistaGestioneUtente)
     VistaGestioneUtente.show()
