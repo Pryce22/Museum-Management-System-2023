@@ -1,5 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from beni.view.VistaListaBeniCliente import *
+from beni.view.VistaListaBeniDipendente import *
 from utente.view.VistaGestioneUtente import *
 
 
@@ -26,7 +28,9 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_4.setGeometry(QtCore.QRect(200, 140, 200, 140))
         self.pushButton_4.setObjectName("pushButton_4")
 
+        self.pushButton_2.clicked.connect(self.clicked_beni)
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
+
 
         self.retranslateUi(VistaHomeCliente)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeCliente)
@@ -38,6 +42,13 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_2.setText(_translate("VistaHomeCliente", "Beni"))
         self.pushButton_3.setText(_translate("VistaHomeCliente", "Prenotazioni"))
         self.pushButton_4.setText(_translate("VistaHomeCliente", "Informazioni e contatti"))
+
+    def clicked_beni(self, utente_attivo):
+        if utente_attivo.is_direttore or utente_attivo.is_dipenente:
+            show_listabeni_dipendente(utente_attivo)
+        else:
+            print("pene")
+            show_listabeni_cliente(utente_attivo)
 
 
 def show_home_cliente(utente_attivo):
