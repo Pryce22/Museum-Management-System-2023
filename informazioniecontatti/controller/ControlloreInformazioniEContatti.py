@@ -7,6 +7,7 @@ class ControlloreInformazioniEContatti:
     def __int__(self):
         super(ControlloreInformazioniEContatti, self).__init__()
         self.model = InformazioniEContatti()
+        self.contatti = self.model.contatti
         if os.path.isfile('informazioniecontatti/data/informazioni_salvate.pickle'):
             with open('informazioniecontatti/data/informazioni_salvate.pickle', 'rb') as f:
                 informazioni_salvate = pickle.load(f)
@@ -23,8 +24,8 @@ class ControlloreInformazioniEContatti:
         with open('informazioniecontatti/data/informazioni_salvate.pickle', 'wb') as f:
             pickle.dump(self.model.get_contatti(), f)
 
-    def get_informazioni(self):
-        return self.model.get_informazioni()
+    '''def get_informazioni(self):
+        return self.model.get_informazioni()'''
 
-    def get_contatti(self):
-        return self.model.get_contatti()
+    '''def get_contatti(self):
+        return self.model.get_contatti()'''

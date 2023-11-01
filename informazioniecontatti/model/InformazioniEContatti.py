@@ -2,8 +2,8 @@ class InformazioniEContatti:
 
         def __init__ (self):
             super(InformazioniEContatti, self).__init__()
-            self.informazioni = ""
-            self.contatti = ""
+            self.informazioni = "Ciao\n"
+            self.contatti = "Peni\n"
 
         def aggiorna_informazioni(self, informazioni_aggiornate):
             self.informazioni = informazioni_aggiornate
@@ -15,4 +15,4 @@ class InformazioniEContatti:
             return self.informazioni
 
         def get_contatti(self):
-            return self.contatti
+            return str: self.contatti
