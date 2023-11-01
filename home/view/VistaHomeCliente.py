@@ -3,6 +3,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_VistaHomeCliente(object):
+
+    def __init__(self, utente_attivo):
+        super(Ui_VistaHomeCliente, self).__init__()
+        self.utente_attivo = utente_attivo
+        #self.controller = ControlloreListaUtenti()
+
     def setupUi(self, VistaHomeCliente):
         VistaHomeCliente.setObjectName("VistaHomeCliente")
         VistaHomeCliente.resize(400, 281)
@@ -31,12 +37,11 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_4.setText(_translate("VistaHomeCliente", "Informazioni e contatti"))
 
 
-def show_home_cliente():
-    ui = Ui_VistaHomeCliente()
+def show_home_cliente(utente_attivo):
+    ui = Ui_VistaHomeCliente(utente_attivo)
     ui.setupUi(VistaHomeCliente)
     VistaHomeCliente.show()
     return ui
-    #sys.exit(app.exec_())
 
 
 app = QtWidgets.QApplication(sys.argv)

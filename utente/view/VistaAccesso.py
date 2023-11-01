@@ -1,9 +1,6 @@
-import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
-from listautenti.model.ListaUtenti import *
-from listautenti.controller.ControlloreListaUtenti import *
+from utente.controller.ControlloreListaUtenti import *
 from utente.model.Utente import Utente
 from home.view.VistaHomeCliente import *
 
@@ -12,6 +9,7 @@ class Ui_VistaAccesso(object):
 
     def __init__(self):
         super(Ui_VistaAccesso, self).__init__()
+        self.utente_attivo = None
         self.controller = ControlloreListaUtenti()
 
     def setupUi(self, VistaAccesso):
@@ -109,35 +107,43 @@ class Ui_VistaAccesso(object):
     def clicked_login(self):
         email_in = self.lineEdit_1.text()
         password_in = self.lineEdit.text()
-        # utente_attivo = Utente(email_in, password_in)
         if email_in == "" or password_in == "":
-            self.show_popup(0)
+            self.show_popup(0, "Compila tutti i campi per il login!")
         else:
-            utente_attivo.email = email_in
-            utente_attivo.password = password_in
-            print(utente_attivo.email, utente_attivo.password)
-            show_home_cliente()
-            VistaAccesso.close()
+            if self.controller.trova_utente(email_in) == "":
+                self.show_popup(0, "Account non trovato!")
+            else:
+                utente_trovato = self.controller.trova_utente(email_in)
+                if utente_trovato.email == email_in and utente_trovato.password == password_in:
+                    print("Acount trovato")
+                    self.utente_attivo = utente_trovato
+                    show_home_cliente(self.utente_attivo)
+                    VistaAccesso.close()
+                else:
+                    self.show_popup(0, "Account non trovato!")
 
     def clicked_signup(self):
         email_in = self.lineEdit_2.text()
         password_in = self.lineEdit_3.text()
         if email_in == "" or password_in == "":
-            self.show_popup(1)
+            self.show_popup(0, "Compila tutti i campi per il signup!")
         else:
-            utente_attivo.email = email_in
-            utente_attivo.password = password_in
-            self.controller.inserisci_utente(Utente(email_in, password_in, False, False))
+            if self.controller.controlla_email(email_in):
+                self.controller.inserisci_utente(Utente(email_in, password_in, False, False))
+                self.show_popup(1, "Account registrato!")
+            else:
+                self.show_popup(0, "Email non valida!")
 
-    def show_popup(self, n):
+    def show_popup(self, n, text):
         msg = QMessageBox()
         if n == 0:
+            msg.setIcon(QMessageBox.Critical)
             msg.setWindowTitle("Errore")
-            msg.setText("Compila tutti i campi per il login!")
-        else:
+            msg.setText(text)
+        elif n == 1:
+            msg.setIcon(QMessageBox.Information)
             msg.setWindowTitle("Errore")
-            msg.setText("Compila tutti i campi per il signup!")
-        msg.setIcon(QMessageBox.Critical)
+            msg.setText(text)
         x = msg.exec_()
 
     '''
@@ -159,4 +165,4 @@ def show_login_utente():
 
 app = QtWidgets.QApplication(sys.argv)
 VistaAccesso = QtWidgets.QMainWindow()
-utente_attivo = Utente(None, None, None, None)
+#utente_attivo = Utente(None, None, None, None)
