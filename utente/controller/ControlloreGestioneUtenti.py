@@ -41,3 +41,10 @@ class ControlloreGestioneUtenti:
             if u.email == email_in:
                 return u
         return ""
+
+    def aggiorna_utente(self, email_vecchia, email_nuova, password_nuova):
+        u = self.trova_utente(email_vecchia)
+        u.email = email_nuova
+        u.password = password_nuova
+        with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
+            pickle.dump(self.model.lista_utenti, f)

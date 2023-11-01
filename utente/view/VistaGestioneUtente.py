@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from utente.controller.ControlloreGestioneUtente import *
+from utente.controller.ControlloreGestioneUtenti import *
+from utente.view.VistaAggiornaUtente import *
 
 
 class Ui_VistaUtente(object):
@@ -52,6 +53,7 @@ class Ui_VistaUtente(object):
         self.pushButton_2.setGeometry(QtCore.QRect(140, 110, 91, 41))
         self.pushButton_2.setObjectName("pushButton_2")
 
+        self.pushButton_1.clicked.connect(lambda: show_aggiorna_utente(self.utente_attivo))
         self.pushButton_2.clicked.connect(lambda: self.controller.elimina_utente(self.utente_attivo))
 
         self.retranslateUi(VistaUtente)

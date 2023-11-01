@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMessageBox
 
-from utente.controller.ControlloreGestioneUtente import *
+from utente.controller.ControlloreGestioneUtenti import *
 from utente.model.Utente import Utente
 from home.view.VistaHomeCliente import *
 
