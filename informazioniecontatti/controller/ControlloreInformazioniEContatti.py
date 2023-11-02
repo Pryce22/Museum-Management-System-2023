@@ -28,7 +28,6 @@ class ControlloreInformazioniEContatti:
         return self.model.get_informazioni()
 
     def get_contatti(self):
-        print("x")
         return self.model.get_contatti()
 
     def aggiorna_informazioni(self, informazioni_aggiornate):
