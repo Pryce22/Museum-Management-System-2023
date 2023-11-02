@@ -34,7 +34,6 @@ class ControlloreInformazioniEContatti:
     def aggiorna_informazioni(self, informazioni_aggiornate):
         with open('informazioniecontatti/data/informazioni_salvate.pickle', 'wb') as f:
             pickle.dump(informazioni_aggiornate, f)
-            print(informazioni_aggiornate)
 
     def aggiorna_contatti(self, contatti_aggiornati):
         with open('informazioniecontatti/data/contatti_salvati.pickle', 'wb') as f:

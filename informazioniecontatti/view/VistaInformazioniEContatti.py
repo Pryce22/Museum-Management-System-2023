@@ -82,7 +82,6 @@ class Ui_InformazioniEContatti(object):
         self.Text_informazioni.setPlainText(_translate("InformazioniEContatti", self.controller.get_informazioni()))
         self.label_contatti.setText(_translate("InformazioniEContatti", "Contatti"))
         self.Text_contatti.setPlainText(_translate("InformazioniEContatti", self.controller.get_contatti()))
-        print(self.Text_contatti.toPlainText())
         if self.utente_attivo.is_direttore:
             self.pushButton1.setText(_translate("InformazioniEContatti", "Aggiorna"))
 

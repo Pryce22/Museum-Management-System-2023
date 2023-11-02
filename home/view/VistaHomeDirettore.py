@@ -16,7 +16,10 @@ class Ui_VistaHomeDirettore(object):
 
     def setupUi(self, VistaHomeDirettore):
         VistaHomeDirettore.setObjectName("VistaHomeDirettore")
-        VistaHomeDirettore.resize(400, 421)
+        if self.utente_attivo.is_direttore:
+            VistaHomeDirettore.resize(400, 421)
+        else:
+            VistaHomeDirettore.resize(400, 281)
         self.pushButton_1 = QtWidgets.QPushButton(VistaHomeDirettore)
         self.pushButton_1.setGeometry(QtCore.QRect(0, 0, 200, 140))
         self.pushButton_1.setObjectName("pushButton_1")
@@ -29,17 +32,19 @@ class Ui_VistaHomeDirettore(object):
         self.pushButton_2 = QtWidgets.QPushButton(VistaHomeDirettore)
         self.pushButton_2.setGeometry(QtCore.QRect(0, 140, 200, 140))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_5 = QtWidgets.QPushButton(VistaHomeDirettore)
-        self.pushButton_5.setGeometry(QtCore.QRect(200, 280, 200, 140))
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_6 = QtWidgets.QPushButton(VistaHomeDirettore)
-        self.pushButton_6.setGeometry(QtCore.QRect(0, 280, 200, 140))
-        self.pushButton_6.setObjectName("pushButton_6")
+        if self.utente_attivo.is_direttore:
+            self.pushButton_5 = QtWidgets.QPushButton(VistaHomeDirettore)
+            self.pushButton_5.setGeometry(QtCore.QRect(200, 280, 200, 140))
+            self.pushButton_5.setObjectName("pushButton_5")
+            self.pushButton_6 = QtWidgets.QPushButton(VistaHomeDirettore)
+            self.pushButton_6.setGeometry(QtCore.QRect(0, 280, 200, 140))
+            self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
         self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
-        self.pushButton_5.clicked.connect(lambda: show_elimina_dipendente(self))
-        self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
+        if self.utente_attivo.is_direttore:
+            self.pushButton_5.clicked.connect(lambda: show_elimina_dipendente(self))
+            self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
 
 
 
@@ -53,8 +58,9 @@ class Ui_VistaHomeDirettore(object):
         self.pushButton_4.setText(_translate("VistaHomeDirettore", "Informazioni e contatti"))
         self.pushButton_3.setText(_translate("VistaHomeDirettore", "Prenotazioni"))
         self.pushButton_2.setText(_translate("VistaHomeDirettore", "Beni"))
-        self.pushButton_5.setText(_translate("VistaHomeDirettore", "Elimina dipendenti"))
-        self.pushButton_6.setText(_translate("VistaHomeDirettore", "Aggiungi dipendente"))
+        if self.utente_attivo.is_direttore:
+            self.pushButton_5.setText(_translate("VistaHomeDirettore", "Elimina dipendenti"))
+            self.pushButton_6.setText(_translate("VistaHomeDirettore", "Aggiungi dipendente"))
 
 
 def show_home_direttore(utente_attivo):
