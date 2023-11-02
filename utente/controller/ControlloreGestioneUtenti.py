@@ -1,6 +1,7 @@
 from utente.model.ListaUtenti import *
 import pickle
 import os
+from utente.model.Utente import Utente
 
 
 class ControlloreGestioneUtenti:
@@ -30,11 +31,11 @@ class ControlloreGestioneUtenti:
         with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
             pickle.dump(self.model.lista_utenti, f)
 
-    def elimina_utente(self, utente):
-        if self.model.elimina_utente(utente):
+    def elimina_utente(self, email_in):
+        if self.model.elimina_utente(email_in):
             with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
                 pickle.dump(self.model.lista_utenti, f)
-            sys.exit()
+            return True
 
     def controlla_email(self, email_in):
         for u in self.model.get_lista_utenti():
@@ -54,3 +55,26 @@ class ControlloreGestioneUtenti:
         u.password = password_nuova
         with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
             pickle.dump(self.model.lista_utenti, f)
+
+    def inserisci_dipendente(self, email_in):
+        if email_in == "":
+            self.show_popup(0, "Compila tutti i campi per il signup!")
+        else:
+            if self.controlla_email(email_in):
+                self.inserisci_utente(Utente(email_in, email_in, True, False))
+                self.show_popup(1, "Account registrato!")
+                return True
+            else:
+                self.show_popup(0, "Email non valida!")
+
+    def show_popup(self, n, text):
+        msg = QMessageBox()
+        if n == 0:
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        elif n == 1:
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        x = msg.exec_()

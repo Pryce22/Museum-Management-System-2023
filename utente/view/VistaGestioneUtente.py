@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 from utente.controller.ControlloreGestioneUtenti import *
 from utente.view.VistaAggiornaUtente import *
+from utente.view.VistaAccesso import *
 
 
 class Ui_VistaUtente(object):
@@ -75,7 +76,7 @@ class Ui_VistaUtente(object):
         if not self.utente_attivo.is_direttore:
             self.pushButton_1.clicked.connect(lambda: show_aggiorna_utente(self.utente_attivo))
             if not self.utente_attivo.is_dipendente:
-                self.pushButton_2.clicked.connect(lambda: self.controller.elimina_utente(self.utente_attivo))
+                self.pushButton_2.clicked.connect(lambda: self.elimina_utente_clicked())
 
         self.retranslateUi(VistaUtente)
         QtCore.QMetaObject.connectSlotsByName(VistaUtente)
@@ -94,6 +95,11 @@ class Ui_VistaUtente(object):
         if self.utente_attivo.is_dipendente:
             self.label_5.setText(_translate("VistaUtente", "Tipo account:"))
             self.label_6.setText(_translate("VistaUtente", self.tipo_account()))
+
+    def elimina_utente_clicked(self):
+        if self.controller.elimina_utente(self.utente_attivo.email):
+            VistaAccesso.show_login_utente()
+            VistaGestioneUtente.close()
 
     def tipo_account(self):
         if self.utente_attivo.is_direttore:

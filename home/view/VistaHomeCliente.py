@@ -51,7 +51,6 @@ def clicked_beni(utente_attivo):
         show_listabeni_cliente(utente_attivo)
 
 
-
 def show_home_cliente(utente_attivo):
     ui = Ui_VistaHomeCliente(utente_attivo)
     ui.setupUi(VistaHomeCliente)

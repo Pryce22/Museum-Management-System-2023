@@ -2,6 +2,8 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from utente.view.VistaGestioneUtente import *
+from utente.view.VistaInserisciDipendente import *
+from utente.view.VistaEliminaDipendente import *
 
 
 class Ui_VistaHomeDirettore(object):
@@ -9,7 +11,6 @@ class Ui_VistaHomeDirettore(object):
     def __init__(self, utente_attivo):
         super(Ui_VistaHomeDirettore).__init__()
         self.utente_attivo = utente_attivo
-        print("Direttore: ", self.utente_attivo.is_direttore)
 
     def setupUi(self, VistaHomeDirettore):
         VistaHomeDirettore.setObjectName("VistaHomeDirettore")
@@ -27,10 +28,15 @@ class Ui_VistaHomeDirettore(object):
         self.pushButton_2.setGeometry(QtCore.QRect(0, 140, 200, 140))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_5 = QtWidgets.QPushButton(VistaHomeDirettore)
-        self.pushButton_5.setGeometry(QtCore.QRect(100, 280, 200, 140))
+        self.pushButton_5.setGeometry(QtCore.QRect(200, 280, 200, 140))
         self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_6 = QtWidgets.QPushButton(VistaHomeDirettore)
+        self.pushButton_6.setGeometry(QtCore.QRect(0, 280, 200, 140))
+        self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
+        self.pushButton_5.clicked.connect(lambda: show_elimina_dipendente(self))
+        self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
 
         self.retranslateUi(VistaHomeDirettore)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeDirettore)
@@ -43,6 +49,7 @@ class Ui_VistaHomeDirettore(object):
         self.pushButton_3.setText(_translate("VistaHomeDirettore", "Prenotazioni"))
         self.pushButton_2.setText(_translate("VistaHomeDirettore", "Beni"))
         self.pushButton_5.setText(_translate("VistaHomeDirettore", "Elimina dipendenti"))
+        self.pushButton_6.setText(_translate("VistaHomeDirettore", "Aggiungi dipendente"))
 
 
 def show_home_direttore(utente_attivo):

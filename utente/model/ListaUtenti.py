@@ -11,9 +11,9 @@ class ListaUtenti:
     def aggiungi_utente(self, utente):
         self.lista_utenti.append(utente)
 
-    def elimina_utente(self, utente_eliminare):
+    def elimina_utente(self, email_eliminare):
         for utente in self.lista_utenti:
-            if utente.email == utente_eliminare.email:
+            if utente.email == email_eliminare:
                 self.lista_utenti.remove(utente)
                 self.show_popup("Account eliminato.")
                 return True

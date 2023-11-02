@@ -124,7 +124,7 @@
     <rect>
      <x>20</x>
      <y>100</y>
-     <width>86</width>
+     <width>114</width>
      <height>23</height>
     </rect>
    </property>
@@ -137,13 +137,13 @@
     </font>
    </property>
    <property name="text">
-    <string>Password:</string>
+    <string>Tipo account:</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>140</x>
      <y>100</y>
      <width>82</width>
      <height>23</height>
