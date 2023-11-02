@@ -98,8 +98,7 @@ class Ui_VistaUtente(object):
 
     def elimina_utente_clicked(self):
         if self.controller.elimina_utente(self.utente_attivo.email):
-            VistaAccesso.show_login_utente()
-            VistaGestioneUtente.close()
+            sys.exit()
 
     def tipo_account(self):
         if self.utente_attivo.is_direttore:
