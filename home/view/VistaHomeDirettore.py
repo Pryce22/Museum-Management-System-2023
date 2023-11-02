@@ -1,7 +1,9 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from informazioniecontatti.view.VistaInformazioniEContatti import show_vista_informazioni_e_contatti
 from utente.view.VistaGestioneUtente import *
+from utente.view.VistaGestioneUtente import show_gestione_utente
 from utente.view.VistaInserisciDipendente import *
 from utente.view.VistaEliminaDipendente import *
 
@@ -35,8 +37,11 @@ class Ui_VistaHomeDirettore(object):
         self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
+        self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
         self.pushButton_5.clicked.connect(lambda: show_elimina_dipendente(self))
         self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
+
+
 
         self.retranslateUi(VistaHomeDirettore)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeDirettore)

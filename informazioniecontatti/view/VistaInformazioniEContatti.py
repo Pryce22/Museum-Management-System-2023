@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from informazioniecontatti.controller.ControlloreInformazioniEContatti import *
 import sys
@@ -57,23 +56,39 @@ class Ui_InformazioniEContatti(object):
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_contatti.setFont(font)
-        if self.utente_attivo.is_direttore:
+        if not self.utente_attivo.is_direttore:
             self.Text_contatti.setReadOnly(True)
         self.Text_contatti.setObjectName("Text_contatti")
         self.verticalLayout.addWidget(self.Text_contatti)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem2)
 
-        self.retranslateUi(InformazioniEContatti, self.controller)
+        if self.utente_attivo.is_direttore:
+            self.pushButton1 = QtWidgets.QPushButton(InformazioniEContatti)
+            self.pushButton1.setGeometry(QtCore.QRect(0, 0, 300, 40))
+            self.verticalLayout.addWidget(self.pushButton1)
+
+        if self.utente_attivo.is_direttore:
+            self.pushButton1.clicked.connect(lambda: self.aggiorna_informazioni_e_contatti_clicked
+            (self.Text_informazioni.toPlainText(), self.Text_contatti.toPlainText()))
+
+        self.retranslateUi(InformazioniEContatti)
         QtCore.QMetaObject.connectSlotsByName(InformazioniEContatti)
 
-    def retranslateUi(self, InformazioniEContatti, controller):
+    def retranslateUi(self, InformazioniEContatti):
         _translate = QtCore.QCoreApplication.translate
         InformazioniEContatti.setWindowTitle(_translate("InformazioniEContatti", "Informazioni e contatti"))
         self.label_informazioni.setText(_translate("InformazioniEContatti", "Informazioni"))
         self.Text_informazioni.setPlainText(_translate("InformazioniEContatti", self.controller.get_informazioni()))
         self.label_contatti.setText(_translate("InformazioniEContatti", "Contatti"))
         self.Text_contatti.setPlainText(_translate("InformazioniEContatti", self.controller.get_contatti()))
+        print(self.Text_contatti.toPlainText())
+        if self.utente_attivo.is_direttore:
+            self.pushButton1.setText(_translate("InformazioniEContatti", "Aggiorna"))
+
+    def aggiorna_informazioni_e_contatti_clicked(self, informazioni_aggiornate, contatti_aggiornati):
+        self.controller.aggiorna_informazioni(informazioni_aggiornate)
+        self.controller.aggiorna_contatti(contatti_aggiornati)
 
 
 def show_vista_informazioni_e_contatti(utente_attivo):
@@ -85,7 +100,3 @@ def show_vista_informazioni_e_contatti(utente_attivo):
 
 app = QtWidgets.QApplication(sys.argv)
 InformazioniEContatti = QtWidgets.QWidget()
-
-
-
-
