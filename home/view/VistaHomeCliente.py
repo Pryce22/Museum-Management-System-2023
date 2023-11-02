@@ -28,7 +28,7 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_4.setGeometry(QtCore.QRect(200, 140, 200, 140))
         self.pushButton_4.setObjectName("pushButton_4")
 
-        self.pushButton_2.clicked.connect(lambda: clicked_beni(self.utente_attivo))
+        self.pushButton_2.clicked.connect(lambda: show_listabeni_cliente(self.utente_attivo))
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
         self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
 
@@ -42,13 +42,6 @@ class Ui_VistaHomeCliente(object):
         self.pushButton_2.setText(_translate("VistaHomeCliente", "Beni"))
         self.pushButton_3.setText(_translate("VistaHomeCliente", "Prenotazioni"))
         self.pushButton_4.setText(_translate("VistaHomeCliente", "Informazioni e contatti"))
-
-
-def clicked_beni(utente_attivo):
-    if utente_attivo.is_dipendente or utente_attivo.is_direttore:
-        show_listabeni_dipendente(utente_attivo)
-    else:
-        show_listabeni_cliente(utente_attivo)
 
 
 def show_home_cliente(utente_attivo):
