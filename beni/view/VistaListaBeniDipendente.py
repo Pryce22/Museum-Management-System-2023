@@ -106,8 +106,6 @@ class Ui_VistaListaBeniDipendente(object):
 
 
 
-def chiudi_listabeni_dipendente():
-    VistaListaBeniDipendente.close()
 
 def show_listabeni_dipendente(utente_attivo):
     ui = Ui_VistaListaBeniDipendente(utente_attivo)

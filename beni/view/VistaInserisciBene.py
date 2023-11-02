@@ -161,7 +161,6 @@ class Ui_VistaInserisciBene(object):
                     id_bene_in = self.controller.crea_id_bene()
                     self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in,descrizione_in, stato_in,stato_area_in,id_bene_in,data_aggiunta_in))
                     self.show_popup(1, "Bene inserito!")
-                    show_listabeni_dipendente(self.utente_attivo)
                     VistaInserisciBene.close()
                 else:
                     self.show_popup(0, "Nome già presente!")
