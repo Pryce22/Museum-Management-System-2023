@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from beni.controller.ControlloreListaBeni import *
+from beni.view.VistaInserisciBene import *
 
 
 class Ui_VistaListaBeniDipendente(object):
@@ -9,6 +10,7 @@ class Ui_VistaListaBeniDipendente(object):
         super(Ui_VistaListaBeniDipendente, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
+        self.list_model = None
     def setupUi(self, VistaListaBeniDipendente):
         VistaListaBeniDipendente.setObjectName("VistaListaBeniDipendente")
         VistaListaBeniDipendente.resize(858, 646)
@@ -49,9 +51,9 @@ class Ui_VistaListaBeniDipendente(object):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(170, 110, 101, 31))
         self.pushButton_3.setObjectName("pushButton_3")
-        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(-20, 180, 881, 441))
-        self.listWidget.setObjectName("listWidget")
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setGeometry(QtCore.QRect(0, 180, 871, 431))
+        self.listView.setObjectName("listView")
         VistaListaBeniDipendente.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(VistaListaBeniDipendente)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 858, 22))
@@ -60,9 +62,22 @@ class Ui_VistaListaBeniDipendente(object):
         self.statusbar = QtWidgets.QStatusBar(VistaListaBeniDipendente)
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
+        def popola_listview():
+            lista_beni = self.controller.model.get_lista_beni()
+            bene_names = list(set([bene.nome for bene in lista_beni]))
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+
+
+        popola_listview()
+        self.listView.doubleClicked.connect(lambda: self.item_clicked())
+
+        self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo))
 
         self.retranslateUi(VistaListaBeniDipendente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniDipendente)
+
+
 
     def retranslateUi(self, VistaListaBeniDipendente):
         _translate = QtCore.QCoreApplication.translate
@@ -80,11 +95,24 @@ class Ui_VistaListaBeniDipendente(object):
         self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
         self.pushButton_3.setText(_translate("VistaListaBeniDipendente", "Stato Aree"))
 
+
+    def item_clicked(self):
+        index = self.listView.currentIndex()
+        if index.isValid():
+            item = self.list_model.data(index, QtCore.Qt.DisplayRole)
+            print("Hai cliccato su:", item)
+        else:
+            print("Nessun elemento selezionato")
+
+
+
+
 def show_listabeni_dipendente(utente_attivo):
     ui = Ui_VistaListaBeniDipendente(utente_attivo)
     ui.setupUi(VistaListaBeniDipendente)
     VistaListaBeniDipendente.show()
     return ui
+
 
 app = QtWidgets.QApplication(sys.argv)
 VistaListaBeniDipendente = QtWidgets.QMainWindow()

@@ -8,6 +8,7 @@ class Ui_VistaListaBeniCliente(object):
         super(Ui_VistaListaBeniCliente, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
+        self.list_model = None
     def setupUi(self, VistaListaBeniCliente):
         VistaListaBeniCliente.setObjectName("VistaListaBeniCliente")
         VistaListaBeniCliente.resize(857, 645)
@@ -34,7 +35,7 @@ class Ui_VistaListaBeniCliente(object):
         self.pushButton.setGeometry(QtCore.QRect(650, 20, 181, 41))
         self.pushButton.setObjectName("pushButton")
         self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(-10, 180, 871, 431))
+        self.listView.setGeometry(QtCore.QRect(0, 180, 871, 431))
         self.listView.setObjectName("listView")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(310, 120, 331, 51))
@@ -54,6 +55,22 @@ class Ui_VistaListaBeniCliente(object):
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniCliente.setStatusBar(self.statusbar)
 
+        #aggiunta selezione beni dalla lista
+
+        def popola_listview():
+            lista_beni = self.controller.model.get_lista_beni()
+            bene_names = list(set([bene.nome for bene in lista_beni]))
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+
+
+        popola_listview()
+        self.listView.doubleClicked.connect(lambda: self.item_clicked())
+        self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+
+        #
+
+
         self.retranslateUi(VistaListaBeniCliente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniCliente)
 
@@ -72,11 +89,23 @@ class Ui_VistaListaBeniCliente(object):
         self.label.setText(_translate("VistaListaBeniCliente", "LISTA DEI BENI"))
 
 
+
+    def item_clicked(self):
+        index = self.listView.currentIndex()
+        if index.isValid():
+            item = self.list_model.data(index, QtCore.Qt.DisplayRole)
+            print("Hai cliccato su:", item)
+        else:
+            print("Nessun elemento selezionato")
+
 def show_listabeni_cliente(utente_attivo):
     ui = Ui_VistaListaBeniCliente(utente_attivo)
     ui.setupUi(VistaListaBeniCliente)
     VistaListaBeniCliente.show()
     return ui
+
+
+
 
 
 app = QtWidgets.QApplication(sys.argv)

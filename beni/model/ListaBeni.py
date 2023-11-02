@@ -6,7 +6,11 @@ class ListaBeni:
         self.lista_beni = []
 
     def aggiungi_bene(self, bene):
-        self.lista_beni.append(bene)
+        if bene not in self.lista_beni:
+            self.lista_beni.append(bene)
+            return True
+        else:
+            return False
 
     def elimina_bene(self, bene_eliminare):
         for bene in self.lista_beni:
