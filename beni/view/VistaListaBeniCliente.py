@@ -1,8 +1,9 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from beni.controller.ControlloreListaBeni import *
+from beni.view.VistaBene import *
 
-
+''' ora è INUTILE'''
 class Ui_VistaListaBeniCliente(object):
     def __init__(self, utente_attivo):
         super(Ui_VistaListaBeniCliente, self).__init__()
@@ -88,13 +89,13 @@ class Ui_VistaListaBeniCliente(object):
         self.pushButton.setText(_translate("VistaListaBeniCliente", "RICERCA"))
         self.label.setText(_translate("VistaListaBeniCliente", "LISTA DEI BENI"))
 
-
-
     def item_clicked(self):
         index = self.listView.currentIndex()
         if index.isValid():
-            item = self.list_model.data(index, QtCore.Qt.DisplayRole)
-            print("Hai cliccato su:", item)
+            nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
+            url = self.controller.ottieni_url_immagine_bene(nome_bene)
+            bene = self.controller.cerca_bene_per_nome(nome_bene)
+            show_vista_bene(self.utente_attivo, url, bene)
         else:
             print("Nessun elemento selezionato")
 

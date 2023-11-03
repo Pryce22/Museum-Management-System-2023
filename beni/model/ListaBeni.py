@@ -1,3 +1,6 @@
+import os
+import pickle
+
 from beni.model.Bene import *
 class ListaBeni:
     def __init__(self):
@@ -19,6 +22,10 @@ class ListaBeni:
         return False
 
     def get_lista_beni(self):
+        if os.path.isfile('beni/data/lista_beni_salvata.pickle'):
+            with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
+                lista_beni_salvata = pickle.load(f)
+            return lista_beni_salvata
         return self.lista_beni
 
     def get_bene_by_index(self, index):

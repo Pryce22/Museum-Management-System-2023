@@ -47,12 +47,13 @@ class Ui_VistaListaBeniDipendente(object):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(40, 110, 101, 31))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(170, 110, 101, 31))
-        self.pushButton_3.setObjectName("pushButton_3")
+        if self.utente_attivo.is_dipendente:
+            self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton_2.setGeometry(QtCore.QRect(40, 110, 101, 31))
+            self.pushButton_2.setObjectName("pushButton_2")
+            self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton_3.setGeometry(QtCore.QRect(170, 110, 101, 31))
+            self.pushButton_3.setObjectName("pushButton_3")
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setGeometry(QtCore.QRect(0, 180, 871, 431))
         self.listView.setObjectName("listView")
@@ -65,7 +66,7 @@ class Ui_VistaListaBeniDipendente(object):
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
         def popola_listview():
-            lista_beni = self.controller.model.get_lista_beni()
+            lista_beni = self.controller.get_lista_beni()
             bene_names = list(set([bene.nome for bene in lista_beni]))
             self.list_model = QtCore.QStringListModel(bene_names)
             self.listView.setModel(self.list_model)
@@ -73,9 +74,11 @@ class Ui_VistaListaBeniDipendente(object):
 
         popola_listview()
 
+
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
-        self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo))
+        if self.utente_attivo.is_dipendente:
+            self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.update_ui))
 
         self.retranslateUi(VistaListaBeniDipendente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniDipendente)
@@ -95,9 +98,16 @@ class Ui_VistaListaBeniDipendente(object):
         self.checkBox_2.setText(_translate("VistaListaBeniDipendente", "Beni Non Disponibili"))
         self.pushButton.setText(_translate("VistaListaBeniDipendente", "RICERCA"))
         self.label.setText(_translate("VistaListaBeniDipendente", "LISTA DEI BENI"))
-        self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
-        self.pushButton_3.setText(_translate("VistaListaBeniDipendente", "Stato Aree"))
+        if self.utente_attivo.is_dipendente:
+            self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
+            self.pushButton_3.setText(_translate("VistaListaBeniDipendente", "Stato Aree"))
 
+
+    def update_ui(self):
+        lista_beni = self.controller.get_lista_beni()
+        bene_names = list(set([bene.nome for bene in lista_beni]))
+        self.list_model = QtCore.QStringListModel(bene_names)
+        self.listView.setModel(self.list_model)
 
     def item_clicked(self):
         index = self.listView.currentIndex()
@@ -105,7 +115,7 @@ class Ui_VistaListaBeniDipendente(object):
             nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
             url = self.controller.ottieni_url_immagine_bene(nome_bene)
             bene = self.controller.cerca_bene_per_nome(nome_bene)
-            show_vista_bene(self.utente_attivo, url, bene)
+            show_vista_bene(self.utente_attivo, url, bene, self.update_ui)
         else:
             print("Nessun elemento selezionato")
 

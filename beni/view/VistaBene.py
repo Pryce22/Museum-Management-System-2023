@@ -1,19 +1,19 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-
 from beni.controller.ControlloreListaBeni import *
 import requests
 
 
 class Ui_VistaBene(object):
 
-    def __init__(self, utente_attivo, url, bene):
+    def __init__(self, utente_attivo, url, bene, callback):
         super(Ui_VistaBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
         self.image_url = url
         self.bene = bene
+        self.callback = callback
     def setupUi(self, VistaBene):
         VistaBene.setObjectName("VistaBene")
         VistaBene.resize(800, 600)
@@ -145,6 +145,7 @@ class Ui_VistaBene(object):
 
             self.pushButton_2.clicked.connect(lambda: self.aggiorna_bene())
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
+            self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
 
 
         response = requests.get(self.image_url)
@@ -162,7 +163,6 @@ class Ui_VistaBene(object):
 
         self.retranslateUi(VistaBene)
         QtCore.QMetaObject.connectSlotsByName(VistaBene)
-
         self.retranslateUi(VistaBene)
         QtCore.QMetaObject.connectSlotsByName(VistaBene)
 
@@ -185,9 +185,10 @@ class Ui_VistaBene(object):
         self.label_9.setText(_translate("VistaBene", "Bene"))
         self.checkBox_2.setText(_translate("VistaBene", "Disponibile"))
         self.label_2.setText(_translate("VistaBene", "URL immagine"))
-        self.pushButton.setText(_translate("VistaBene", "Conferma"))
-        self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
-        self.pushButton_3.setText(_translate("VistaBene", "Elimina bene"))
+        if self.utente_attivo.is_dipendente:
+            self.pushButton.setText(_translate("VistaBene", "Conferma"))
+            self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
+            self.pushButton_3.setText(_translate("VistaBene", "Elimina bene"))
 
 
     def aggiorna_bene(self):
@@ -201,6 +202,12 @@ class Ui_VistaBene(object):
         self.checkBox_2.setEnabled(True)
         self.pushButton.setVisible(True)
 
+    def elimina_bene(self):
+        self.controller.elimina_bene(self.bene)
+        self.callback()
+        VistaBene.close()
+
+
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
         immagine_in = self.lineEdit_2.text()
@@ -209,15 +216,22 @@ class Ui_VistaBene(object):
         stato_in = self.checkBox.isChecked()
         stato_area_in = self.checkBox_2.isChecked()
         data_aggiunta_in = self.lineEdit_8.text()
-        if nome_in == "" or immagine_in == "" or descrizione_in == "" or data_aggiunta_in == "":
-            self.show_popup(0, "Compila tutti i campi per inserire il bene!")
+        if self.controller.controlla_nome(nome_in) or nome_in == "":
+            if nome_in == "":
+                nome_in = self.bene
+            if immagine_in == "":
+                immagine_in = self.bene.immagine
+            if descrizione_in == "":
+                descrizione_in = self.bene.descrizione
+            if data_aggiunta_in == "":
+                data_aggiunta_in = self.bene.data_di_aggiunta
+
+            self.controller.aggiorna_bene(self.bene, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
+            self.show_popup(1, "Bene Aggiornato!")
+            self.callback()
+            VistaBene.close()
         else:
-            if self.controller.controlla_nome(nome_in):
-                self.controller.aggiorna_bene(self.bene,nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
-                self.show_popup(1, "Bene Aggiornato!")
-                VistaBene.close()
-            else:
-                self.show_popup(0, "Nome già presente!")
+            self.show_popup(0, "Nome già presente!")
 
 
     def show_popup(self, n, text):
@@ -236,8 +250,8 @@ class Ui_VistaBene(object):
 
 
 
-def show_vista_bene(utente_attivo, url, bene):
-    ui = Ui_VistaBene(utente_attivo, url, bene)
+def show_vista_bene(utente_attivo, url, bene, callback):
+    ui = Ui_VistaBene(utente_attivo, url, bene, callback)
     ui.setupUi(VistaBene)
     VistaBene.show()
     return ui

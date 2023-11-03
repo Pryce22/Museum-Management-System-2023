@@ -7,12 +7,12 @@ class ControlloreListaBeni:
     def __init__(self):
         super(ControlloreListaBeni, self).__init__()
         self.model = ListaBeni()
-        if os.path.isfile('beni/data/lista_beni_salvata.pickle') and os.path.getsize(
-                'beni/data/lista_beni_salvata.pickle') > 0:
+        if os.path.isfile('beni/data/lista_beni_salvata.pickle') and os.path.getsize('beni/data/lista_beni_salvata.pickle') > 0:
             with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
                 lista_beni_salvata = pickle.load(f)
                 if not self.model.lista_beni:  # Verifica se la lista è vuota
                     self.model.lista_beni = lista_beni_salvata
+
 
     def inserisci_bene(self, bene):
         if self.model.aggiungi_bene(bene):
@@ -43,6 +43,9 @@ class ControlloreListaBeni:
 
         return True
 
+    def get_lista_beni(self):
+        return self.model.get_lista_beni()
+
     def aggiorna_bene(self,bene,nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
         bene_vecchio = self.cerca_bene_per_nome(bene.nome)
         bene.nome = nome
@@ -52,8 +55,11 @@ class ControlloreListaBeni:
         bene.stato = stato
         bene.stato_area = stato_area
         bene.data_aggiunta_in = data_di_aggiunta
+        bene.id_bene = bene_vecchio.id_bene
         self.inserisci_bene(bene)
         self.elimina_bene(bene_vecchio)
+        with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
+            pickle.dump(self.model.lista_beni, f)
 
 
 

@@ -44,12 +44,11 @@ class Ui_VistaHomeDirettore(object):
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
         self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
-        if self.utente_attivo.is_direttore == False:
-            self.pushButton_2.clicked.connect(lambda: show_listabeni_cliente(self.utente_attivo))
+        self.pushButton_2.clicked.connect(lambda: show_listabeni_dipendente(self.utente_attivo))
         if self.utente_attivo.is_direttore:
             self.pushButton_5.clicked.connect(lambda: show_elimina_dipendente(self))
             self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
-            self.pushButton_2.clicked.connect(lambda: show_listabeni_dipendente(self.utente_attivo))
+
 
         self.retranslateUi(VistaHomeDirettore)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeDirettore)

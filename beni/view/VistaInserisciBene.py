@@ -7,10 +7,11 @@ from beni.model.Bene import *
 
 class Ui_VistaInserisciBene(object):
 
-    def __init__(self, utente_attivo):
+    def __init__(self, utente_attivo,callback):
         super(Ui_VistaInserisciBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
+        self.callback = callback
 
 
     def setupUi(self, VistaInserisciBene):
@@ -28,9 +29,6 @@ class Ui_VistaInserisciBene(object):
         self.lineEdit_4.setGeometry(QtCore.QRect(20, 200, 401, 51))
         self.lineEdit_4.setText("")
         self.lineEdit_4.setObjectName("lineEdit_4")
-        self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_7.setGeometry(QtCore.QRect(20, 380, 61, 21))
-        self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(20, 380, 91, 21))
         self.lineEdit_8.setObjectName("lineEdit_8")
@@ -84,12 +82,6 @@ class Ui_VistaInserisciBene(object):
         font.setPointSize(14)
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
-        self.label_7 = QtWidgets.QLabel(self.centralwidget)
-        self.label_7.setGeometry(QtCore.QRect(20, 360, 131, 21))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(20, 360, 161, 21))
         font = QtGui.QFont()
@@ -120,8 +112,6 @@ class Ui_VistaInserisciBene(object):
         self.retranslateUi(VistaInserisciBene)
         QtCore.QMetaObject.connectSlotsByName(VistaInserisciBene)
 
-        self.label_7.deleteLater()
-        self.lineEdit_7.deleteLater()
 
     def retranslateUi(self, VistaInserisciBene):
             _translate = QtCore.QCoreApplication.translate
@@ -139,7 +129,6 @@ class Ui_VistaInserisciBene(object):
             self.label_4.setText(_translate("VistaInserisciBene", "Descrizione"))
             self.label_5.setText(_translate("VistaInserisciBene", "Stato bene"))
             self.label_6.setText(_translate("VistaInserisciBene", "Stato area"))
-            self.label_7.setText(_translate("VistaInserisciBene", "ID"))
             self.label_8.setText(_translate("VistaInserisciBene", "Data di aggiunta"))
             self.label_9.setText(_translate("VistaInserisciBene", "Inserisci bene"))
             self.pushButton.setText(_translate("VistaInserisciBene", "Conferma"))
@@ -160,6 +149,7 @@ class Ui_VistaInserisciBene(object):
                 id_bene_in = self.controller.crea_id_bene()
                 self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_aggiunta_in))
                 self.show_popup(1, "Bene inserito!")
+                self.callback()
                 VistaInserisciBene.close()
             else:
                 self.show_popup(0, "Nome già presente!")
@@ -178,8 +168,8 @@ class Ui_VistaInserisciBene(object):
         x = msg.exec_()
 
 
-def show_inserisci_bene(utente_attivo):
-    ui = Ui_VistaInserisciBene(utente_attivo)
+def show_inserisci_bene(utente_attivo,callback):
+    ui = Ui_VistaInserisciBene(utente_attivo,callback)
     ui.setupUi(VistaInserisciBene)
     #ui.pushButton.clicked.connect(ui.conferma_aggiunta)
     VistaInserisciBene.show()
