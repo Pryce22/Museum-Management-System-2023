@@ -7,7 +7,6 @@ class ControlloreListaBeni:
     def __init__(self):
         super(ControlloreListaBeni, self).__init__()
         self.model = ListaBeni()
-
         if os.path.isfile('beni/data/lista_beni_salvata.pickle') and os.path.getsize(
                 'beni/data/lista_beni_salvata.pickle') > 0:
             with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:

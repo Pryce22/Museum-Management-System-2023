@@ -6,7 +6,7 @@ from beni.view.VistaInserisciBene import *
 
 class Ui_VistaListaBeniDipendente(object):
 
-    def __init__(self,utente_attivo):
+    def __init__(self, utente_attivo):
         super(Ui_VistaListaBeniDipendente, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
@@ -108,7 +108,9 @@ class Ui_VistaListaBeniDipendente(object):
 
 
 def show_listabeni_dipendente(utente_attivo):
+    print("2")
     ui = Ui_VistaListaBeniDipendente(utente_attivo)
+    print("1")
     ui.setupUi(VistaListaBeniDipendente)
     VistaListaBeniDipendente.show()
     return ui

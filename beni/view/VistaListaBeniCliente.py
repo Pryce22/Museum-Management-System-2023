@@ -4,7 +4,7 @@ from beni.controller.ControlloreListaBeni import *
 
 
 class Ui_VistaListaBeniCliente(object):
-    def __init__(self,utente_attivo):
+    def __init__(self, utente_attivo):
         super(Ui_VistaListaBeniCliente, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
@@ -58,8 +58,11 @@ class Ui_VistaListaBeniCliente(object):
         #aggiunta selezione beni dalla lista
 
         def popola_listview():
+            print("4")
             lista_beni = self.controller.model.get_lista_beni()
+            print("5")
             bene_names = list(set([bene.nome for bene in lista_beni]))
+            print("6")
             self.list_model = QtCore.QStringListModel(bene_names)
             self.listView.setModel(self.list_model)
 

@@ -1,14 +1,13 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from beni.view.VistaListaBeniDipendente import *
 from beni.controller.ControlloreListaBeni import *
 from beni.model.Bene import *
 
 
 class Ui_VistaInserisciBene(object):
 
-    def __init__(self,utente_attivo):
+    def __init__(self, utente_attivo):
         super(Ui_VistaInserisciBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
@@ -182,7 +181,7 @@ class Ui_VistaInserisciBene(object):
 def show_inserisci_bene(utente_attivo):
     ui = Ui_VistaInserisciBene(utente_attivo)
     ui.setupUi(VistaInserisciBene)
-    ui.pushButton.clicked.connect(ui.conferma_aggiunta)
+    #ui.pushButton.clicked.connect(ui.conferma_aggiunta)
     VistaInserisciBene.show()
     return ui
 
