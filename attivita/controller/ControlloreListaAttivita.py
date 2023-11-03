@@ -1,4 +1,5 @@
 from attivita.model.ListaAttivita import *
+from attivita.data import *
 import os
 import pickle
 
@@ -9,13 +10,14 @@ class ControlloreListaAttivita:
         super(ControlloreListaAttivita).__init__()
         self.model = ListaAttivita()
         if os.path.isfile('attivita/data/lista_attivita_salvata.pickle'):
+            print("ciao")
             with open('attivita/data/lista_attivita_salvata.pickle', 'rb') as f:
                 lista_attivita_salvata = pickle.load(f)
             self.model.lista_attivita = lista_attivita_salvata
             print(lista_attivita_salvata)
 
-        with open('attivita/data/lista_attivita_salvata.pickle', 'wb') as f:
-            pickle.dump(self.model.lista_attivita, f)
+            with open('attivita/data/lista_attivita_salvata.pickle', 'wb') as f:
+                pickle.dump(self.model.lista_attivita, f)
 
     def get_lista_attivita(self):
         with open('attivita/data/lista_attivita_salvata.pickle', 'rb') as f:
