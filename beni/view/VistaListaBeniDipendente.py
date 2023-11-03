@@ -104,7 +104,8 @@ class Ui_VistaListaBeniDipendente(object):
         if index.isValid():
             nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
             url = self.controller.ottieni_url_immagine_bene(nome_bene)
-            show_vista_bene(self.utente_attivo, url)
+            bene = self.controller.cerca_bene_per_nome(nome_bene)
+            show_vista_bene(self.utente_attivo, url, bene)
         else:
             print("Nessun elemento selezionato")
 

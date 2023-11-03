@@ -40,8 +40,18 @@ class ControlloreListaBeni:
         for b in self.model.get_lista_beni():
             if b.nome == nome:
                 return False
-            else:
-                return True
+
+        return True
+
+    def aggiorna_bene(self,bene,nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
+        bene.nome = nome
+        bene.immagine = immagine
+        bene.area = area
+        bene.descrizione = descrizione
+        bene.stato = stato
+        bene.stato_area = stato_area
+        bene.data_aggiunta_in = data_di_aggiunta
+
 
     def crea_id_bene(self):
         id_bene = len(self.model.lista_beni) + 1

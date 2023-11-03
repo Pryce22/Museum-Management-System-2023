@@ -156,13 +156,13 @@ class Ui_VistaInserisciBene(object):
         if nome_in == "" or immagine_in == "" or descrizione_in == "" or data_aggiunta_in == "":
             self.show_popup(0, "Compila tutti i campi per inserire il bene!")
         else:
-                if self.controller.controlla_nome(nome_in):
-                    id_bene_in = self.controller.crea_id_bene()
-                    self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in,descrizione_in, stato_in,stato_area_in,id_bene_in,data_aggiunta_in))
-                    self.show_popup(1, "Bene inserito!")
-                    VistaInserisciBene.close()
-                else:
-                    self.show_popup(0, "Nome già presente!")
+            if self.controller.controlla_nome(nome_in):
+                id_bene_in = self.controller.crea_id_bene()
+                self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_aggiunta_in))
+                self.show_popup(1, "Bene inserito!")
+                VistaInserisciBene.close()
+            else:
+                self.show_popup(0, "Nome già presente!")
 
 
     def show_popup(self, n, text):

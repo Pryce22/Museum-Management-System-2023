@@ -1,4 +1,4 @@
-
+from beni.model.Bene import *
 class ListaBeni:
     def __init__(self):
         super(ListaBeni, self).__init__()

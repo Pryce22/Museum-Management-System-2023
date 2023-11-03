@@ -1,16 +1,19 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
 from beni.controller.ControlloreListaBeni import *
 import requests
 
 
 class Ui_VistaBene(object):
 
-    def __init__(self, utente_attivo, url):
+    def __init__(self, utente_attivo, url, bene):
         super(Ui_VistaBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
         self.image_url = url
+        self.bene = bene
     def setupUi(self, VistaBene):
         VistaBene.setObjectName("VistaBene")
         VistaBene.resize(800, 600)
@@ -42,7 +45,6 @@ class Ui_VistaBene(object):
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(10, 400, 61, 21))
-        self.lineEdit_7.setReadOnly(True)
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(10, 270, 131, 21))
@@ -104,14 +106,6 @@ class Ui_VistaBene(object):
         self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(10, 460, 91, 21))
         self.lineEdit_8.setObjectName("lineEdit_8")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setEnabled(True)
-        self.pushButton.setGeometry(QtCore.QRect(670, 490, 121, 51))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setEnabled(True)
-        self.pushButton_2.setGeometry(QtCore.QRect(530, 490, 121, 51))
-        self.pushButton_2.setObjectName("pushButton_2")
         VistaBene.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(VistaBene)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -120,9 +114,38 @@ class Ui_VistaBene(object):
         self.statusbar = QtWidgets.QStatusBar(VistaBene)
         self.statusbar.setObjectName("statusbar")
         VistaBene.setStatusBar(self.statusbar)
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(390, 490, 121, 51))
-        self.pushButton_3.setObjectName("pushButton_3")
+
+
+        self.lineEdit_4.setReadOnly(True)
+        self.lineEdit_7.setReadOnly(True)
+        self.lineEdit_2.setReadOnly(True)
+        self.lineEdit.setReadOnly(True)
+        self.lineEdit_8.setReadOnly(True)
+        self.comboBox.setEnabled(False)
+        self.comboBox.setStyleSheet("QComboBox:disabled { color: black; }")
+        self.checkBox.setEnabled(False)
+        self.checkBox.setStyleSheet("QCheckBox:disabled { color: black; }")
+        self.checkBox_2.setEnabled(False)
+        self.checkBox_2.setStyleSheet("QCheckBox:disabled { color: black; }")
+
+        if self.utente_attivo.is_dipendente or self.utente_attivo.is_direttore:
+            self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton.setEnabled(True)
+            self.pushButton.setGeometry(QtCore.QRect(670, 490, 121, 51))
+            self.pushButton.setObjectName("pushButton")
+            self.pushButton.setVisible(False)
+            self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton_2.setEnabled(True)
+            self.pushButton_2.setGeometry(QtCore.QRect(530, 490, 121, 51))
+            self.pushButton_2.setObjectName("pushButton_2")
+            self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton_3.setGeometry(QtCore.QRect(390, 490, 121, 51))
+            self.pushButton_3.setObjectName("pushButton_3")
+            self.pushButton_3.setEnabled(True)
+
+            self.pushButton_2.clicked.connect(lambda: self.aggiorna_bene())
+            self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
+
 
         response = requests.get(self.image_url)
         image_data = response.content
@@ -156,19 +179,66 @@ class Ui_VistaBene(object):
         self.comboBox.setItemText(2, _translate("VistaBene", "Area Paleontologica"))
         self.comboBox.setItemText(3, _translate("VistaBene", "Area esposizione temporanee"))
         self.comboBox.setItemText(4, _translate("VistaBene", "Science room"))
-        self.checkBox.setText(_translate("VistaBene", "CheckBox"))
+        self.checkBox.setText(_translate("VistaBene", "Disponibile"))
         self.label_8.setText(_translate("VistaBene", "Data di aggiunta"))
         self.label_7.setText(_translate("VistaBene", "ID"))
         self.label_9.setText(_translate("VistaBene", "Bene"))
-        self.checkBox_2.setText(_translate("VistaBene", "CheckBox"))
+        self.checkBox_2.setText(_translate("VistaBene", "Disponibile"))
         self.label_2.setText(_translate("VistaBene", "URL immagine"))
         self.pushButton.setText(_translate("VistaBene", "Conferma"))
         self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
         self.pushButton_3.setText(_translate("VistaBene", "Elimina bene"))
 
 
-def show_vista_bene(utente_attivo, url):
-    ui = Ui_VistaBene(utente_attivo, url)
+    def aggiorna_bene(self):
+        self.lineEdit_4.setReadOnly(False)
+        self.lineEdit_7.setReadOnly(False)
+        self.lineEdit_2.setReadOnly(False)
+        self.lineEdit.setReadOnly(False)
+        self.lineEdit_8.setReadOnly(False)
+        self.comboBox.setEnabled(True)
+        self.checkBox.setEnabled(True)
+        self.checkBox_2.setEnabled(True)
+        self.pushButton.setVisible(True)
+
+    def conferma_aggiornamento_bene(self):
+        nome_in = self.lineEdit.text()
+        immagine_in = self.lineEdit_2.text()
+        area_in = self.comboBox.currentText()
+        descrizione_in = self.lineEdit_4.text()
+        stato_in = self.checkBox.isChecked()
+        stato_area_in = self.checkBox_2.isChecked()
+        data_aggiunta_in = self.lineEdit_8.text()
+        if nome_in == "" or immagine_in == "" or descrizione_in == "" or data_aggiunta_in == "":
+            self.show_popup(0, "Compila tutti i campi per inserire il bene!")
+        else:
+            if self.controller.controlla_nome(nome_in):
+                id_bene_in = self.controller.crea_id_bene()
+                self.controller.aggiorna_bene(self.bene,nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_aggiunta_in)
+                self.show_popup(1, "Bene inserito!")
+                VistaBene.close()
+            else:
+                self.show_popup(0, "Nome già presente!")
+
+
+    def show_popup(self, n, text):
+        msg = QMessageBox()
+        if n == 0:
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        elif n == 1:
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        x = msg.exec_()
+
+
+
+
+
+def show_vista_bene(utente_attivo, url, bene):
+    ui = Ui_VistaBene(utente_attivo, url, bene)
     ui.setupUi(VistaBene)
     VistaBene.show()
     return ui
