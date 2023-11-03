@@ -38,10 +38,13 @@ class ControlloreGestioneUtenti:
             return True
 
     def controlla_email(self, email_in):
-        for u in self.model.get_lista_utenti():
-            if u.email == email_in:
-                return False
-        return True
+        #if '@' in email_in and '.' in email_in:
+            for u in self.model.get_lista_utenti():
+                if u.email == email_in:
+                    return False
+            #return True
+        #else:
+            #return False
 
     def trova_utente(self, email_in):
         for u in self.model.get_lista_utenti():
