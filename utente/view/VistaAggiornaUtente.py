@@ -47,7 +47,7 @@ class Ui_VistaAggiornaUtente(object):
 
     def retranslateUi(self, VistaAggiornaUtente):
         _translate = QtCore.QCoreApplication.translate
-        VistaAggiornaUtente.setWindowTitle(_translate("VistaAggiornaUtente", "Form"))
+        VistaAggiornaUtente.setWindowTitle(_translate("VistaAggiornaUtente", "Aggiorna utente"))
         self.label_1.setText(_translate("VistaAggiornaUtente", "Email:"))
         self.label_2.setText(_translate("VistaAggiornaUtente", "Password:"))
         self.lineEdit.setPlaceholderText(_translate("VistaAggiornaUtente", "Nuova email"))

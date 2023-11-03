@@ -109,6 +109,7 @@ class Ui_Form(object):
         self.label_Posti_Max.setText(_translate("Form", "Posti massimi prenotabili:"))
         self.label_posti_max.setText(_translate("Form", self.attivita.n_posti))
 
+
 def show_vista_informazioni_e_contatti(attivita_selezionata):
     ui = Ui_Form(attivita_selezionata)
     ui.setupUi(Form)

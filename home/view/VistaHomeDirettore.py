@@ -56,14 +56,14 @@ class Ui_VistaHomeDirettore(object):
 
     def retranslateUi(self, VistaHomeDirettore):
         _translate = QtCore.QCoreApplication.translate
-        VistaHomeDirettore.setWindowTitle(_translate("VistaHomeDirettore", "Form"))
+        VistaHomeDirettore.setWindowTitle(_translate("VistaHomeDirettore", "Home"))
         self.pushButton_1.setText(_translate("VistaHomeDirettore", "Utente"))
         self.pushButton_4.setText(_translate("VistaHomeDirettore", "Informazioni e contatti"))
         self.pushButton_3.setText(_translate("VistaHomeDirettore", "Prenotazioni"))
-        self.pushButton_2.setText(_translate("VistaHomeDirettore", "Beni"))
+        self.pushButton_2.setText(_translate("VistaHomeDirettore", "Lista Beni"))
         if self.utente_attivo.is_direttore:
             self.pushButton_5.setText(_translate("VistaHomeDirettore", "Elimina dipendenti"))
-            self.pushButton_6.setText(_translate("VistaHomeDirettore", "Aggiungi dipendente"))
+            self.pushButton_6.setText(_translate("VistaHomeDirettore", "Inserisci dipendente"))
 
 
 def show_home_direttore(utente_attivo):
