@@ -2,6 +2,8 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from beni.controller.ControlloreListaBeni import *
 from beni.view.VistaInserisciBene import *
+from beni.view.VistaBene import *
+
 
 
 class Ui_VistaListaBeniDipendente(object):
@@ -70,8 +72,9 @@ class Ui_VistaListaBeniDipendente(object):
 
 
         popola_listview()
-        self.listView.doubleClicked.connect(lambda: self.item_clicked())
 
+        self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.listView.doubleClicked.connect(lambda: self.item_clicked())
         self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo))
 
         self.retranslateUi(VistaListaBeniDipendente)
@@ -99,8 +102,9 @@ class Ui_VistaListaBeniDipendente(object):
     def item_clicked(self):
         index = self.listView.currentIndex()
         if index.isValid():
-            item = self.list_model.data(index, QtCore.Qt.DisplayRole)
-            print("Hai cliccato su:", item)
+            nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
+            url = self.controller.ottieni_url_immagine_bene(nome_bene)
+            show_vista_bene(self.utente_attivo, url)
         else:
             print("Nessun elemento selezionato")
 
@@ -108,9 +112,7 @@ class Ui_VistaListaBeniDipendente(object):
 
 
 def show_listabeni_dipendente(utente_attivo):
-    print("2")
     ui = Ui_VistaListaBeniDipendente(utente_attivo)
-    print("1")
     ui.setupUi(VistaListaBeniDipendente)
     VistaListaBeniDipendente.show()
     return ui
