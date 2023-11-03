@@ -44,6 +44,7 @@ class ControlloreListaBeni:
         return True
 
     def aggiorna_bene(self,bene,nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
+        bene_vecchio = self.cerca_bene_per_nome(bene.nome)
         bene.nome = nome
         bene.immagine = immagine
         bene.area = area
@@ -51,6 +52,9 @@ class ControlloreListaBeni:
         bene.stato = stato
         bene.stato_area = stato_area
         bene.data_aggiunta_in = data_di_aggiunta
+        self.inserisci_bene(bene)
+        self.elimina_bene(bene_vecchio)
+
 
 
     def crea_id_bene(self):
