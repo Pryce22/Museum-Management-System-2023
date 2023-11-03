@@ -1,3 +1,5 @@
+import os
+import pickle
 import sys
 
 from PyQt5.QtWidgets import QMessageBox
@@ -12,6 +14,11 @@ class ListaUtenti:
         self.lista_utenti.append(utente)
 
     def elimina_utente(self, email_eliminare):
+        if os.path.isfile('utente/data/lista_utenti_salvata.pickle'):
+            with open('utente/data/lista_utenti_salvata.pickle', 'rb') as f:
+                lista_clienti_salvata = pickle.load(f)
+            self.lista_utenti = lista_clienti_salvata
+        self.print_lista_utenti()
         for utente in self.lista_utenti:
             if utente.email == email_eliminare:
                 self.lista_utenti.remove(utente)
@@ -30,3 +37,7 @@ class ListaUtenti:
         msg.setWindowTitle("Errore")
         msg.setText(text)
         x = msg.exec_()
+
+    def print_lista_utenti(self):
+        for utente in self.lista_utenti:
+            print("Email: ", utente.email, "Password: ", utente.password)

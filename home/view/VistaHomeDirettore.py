@@ -51,8 +51,6 @@ class Ui_VistaHomeDirettore(object):
             self.pushButton_6.clicked.connect(lambda: show_inserisci_dipendente())
             self.pushButton_2.clicked.connect(lambda: show_listabeni_dipendente(self.utente_attivo))
 
-
-
         self.retranslateUi(VistaHomeDirettore)
         QtCore.QMetaObject.connectSlotsByName(VistaHomeDirettore)
 

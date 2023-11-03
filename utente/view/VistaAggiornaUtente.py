@@ -7,10 +7,11 @@ import sys
 
 class Ui_VistaAggiornaUtente(object):
 
-    def __init__(self, utente_attivo):
+    def __init__(self, utente_attivo, callback):
         super(Ui_VistaAggiornaUtente).__init__()
         self.controller = ControlloreGestioneUtenti()
         self.utente_attivo = utente_attivo
+        self.callback = callback
 
     def setupUi(self, VistaAggiornaUtente):
         VistaAggiornaUtente.setObjectName("VistaAggiornaUtente")
@@ -67,7 +68,10 @@ class Ui_VistaAggiornaUtente(object):
             password_nuova = self.lineEdit_2.text()
         if ok:
             self.controller.aggiorna_utente(utente_attivo.email, email_nuova, password_nuova)
+            self.utente_attivo.email = email_nuova
+            self.utente_attivo.password = password_nuova
             self.show_popup(1, "Utente aggiornato.")
+            self.callback()
             VistaAggiornaUtente.close()
 
     def show_popup(self, n, text):
@@ -83,8 +87,8 @@ class Ui_VistaAggiornaUtente(object):
         x = msg.exec_()
 
 
-def show_aggiorna_utente(utente_attivo):
-    ui = Ui_VistaAggiornaUtente(utente_attivo)
+def show_aggiorna_utente(utente_attivo, callback):
+    ui = Ui_VistaAggiornaUtente(utente_attivo, callback)
     ui.setupUi(VistaAggiornaUtente)
     VistaAggiornaUtente.show()
     return ui

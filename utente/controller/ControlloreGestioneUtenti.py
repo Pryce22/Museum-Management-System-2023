@@ -55,6 +55,7 @@ class ControlloreGestioneUtenti:
         u.password = password_nuova
         with open('utente/data/lista_utenti_salvata.pickle', 'wb') as f:
             pickle.dump(self.model.lista_utenti, f)
+        self.model.print_lista_utenti()
 
     def inserisci_dipendente(self, email_in):
         if email_in == "":

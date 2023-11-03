@@ -74,7 +74,7 @@ class Ui_VistaUtente(object):
             self.label_6.setObjectName("label_6")
 
         if not self.utente_attivo.is_direttore:
-            self.pushButton_1.clicked.connect(lambda: show_aggiorna_utente(self.utente_attivo))
+            self.pushButton_1.clicked.connect(lambda: show_aggiorna_utente(self.utente_attivo, self.update_ui))
             if not self.utente_attivo.is_dipendente:
                 self.pushButton_2.clicked.connect(lambda: self.elimina_utente_clicked())
 
@@ -97,6 +97,7 @@ class Ui_VistaUtente(object):
             self.label_6.setText(_translate("VistaUtente", self.tipo_account()))
 
     def elimina_utente_clicked(self):
+        print(self.utente_attivo.email)
         if self.controller.elimina_utente(self.utente_attivo.email):
             sys.exit()
 
@@ -107,6 +108,10 @@ class Ui_VistaUtente(object):
             return "Dipendente"
         else:
             return "Cliente"
+
+    def update_ui(self):
+        self.label_3.setText(self.utente_attivo.email)
+        self.label_4.setText(self.utente_attivo.password)
 
 
 def show_gestione_utente(utente_attivo):
