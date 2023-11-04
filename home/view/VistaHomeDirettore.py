@@ -8,6 +8,7 @@ from utente.view.VistaInserisciDipendente import *
 from utente.view.VistaEliminaDipendente import *
 from beni.view.VistaListaBeniDipendente import *
 from beni.view.VistaListaBeniCliente import *
+from attivita.view.VistaListaAttivita import *
 
 
 class Ui_VistaHomeDirettore(object):
@@ -43,6 +44,7 @@ class Ui_VistaHomeDirettore(object):
             self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
+        self.pushButton_3.clicked.connect(lambda: show_lista_attivita())
         self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
         self.pushButton_2.clicked.connect(lambda: show_listabeni_dipendente(self.utente_attivo))
         if self.utente_attivo.is_direttore:

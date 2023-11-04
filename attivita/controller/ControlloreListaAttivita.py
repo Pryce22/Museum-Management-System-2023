@@ -10,20 +10,26 @@ class ControlloreListaAttivita:
         super(ControlloreListaAttivita).__init__()
         self.model = ListaAttivita()
         if os.path.isfile('attivita/data/lista_attivita_salvata.pickle'):
-            print("ciao")
             with open('attivita/data/lista_attivita_salvata.pickle', 'rb') as f:
                 lista_attivita_salvata = pickle.load(f)
             self.model.lista_attivita = lista_attivita_salvata
-            print(lista_attivita_salvata)
 
+        with open('attivita/data/lista_attivita_salvata.pickle', 'wb') as f:
+            pickle.dump(self.model.lista_attivita, f)
+
+    def get_lista_attivita(self):
+        return self.model.get_lista_attivita()
+
+    def aggiungi_attivita(self, attivita):
+        if self.model.aggiungi_attivita(attivita):
             with open('attivita/data/lista_attivita_salvata.pickle', 'wb') as f:
                 pickle.dump(self.model.lista_attivita, f)
 
-    def get_lista_attivita(self):
-        with open('attivita/data/lista_attivita_salvata.pickle', 'rb') as f:
-            print(pickle.load(f))
-            return pickle.load(f)
+    def get_attivita(self, titolo_in):
+        for a in self.model.get_lista_attivita():
+            if titolo_in == a.titolo:
+                return a
 
 
-attivita_prova = ControlloreListaAttivita()
-attivita_prova.get_lista_attivita()
+#attivita_prova = ControlloreListaAttivita()
+#.get_lista_attivita()
