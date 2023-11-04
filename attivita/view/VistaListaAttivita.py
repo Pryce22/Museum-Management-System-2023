@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from attivita.controller.ControlloreListaAttivita import *
 from attivita.model.Attivita import *
-from attivita.view.VistaAttivita import *
+from attivita.view.VistaAttivita_old import *
 
 
 class Ui_VistaListaAttivita(object):
@@ -69,15 +69,15 @@ def add_item_to_listview(text, list_model):
 
 def popola_lista(self):
     self.controller.aggiungi_attivita(
-        Attivita("Visita senza guida", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "3€"))
+        Attivita("Visita senza guida", "Descrizione prima attivita", "Lun-Dom", 1, 60, "10:30", "3€"))
     self.controller.aggiungi_attivita(
-        Attivita("Visita guidata", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "4€"))
+        Attivita("Visita guidata", "Descrizione seconda attivita", "Lun-Dom", 1, 60, "10:30", "4€"))
     self.controller.aggiungi_attivita(
-        Attivita("Attività didattiche per gruppi classe presso il museo", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "5€"))
+        Attivita("Attività didattiche per gruppi classe presso il museo", "Descrizione terza attivita", "Lun-Dom", 1, 60, "10:30", "5€"))
     self.controller.aggiungi_attivita(
-        Attivita("Attività didattiche per gruppi classe presso sede scolastica", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
+        Attivita("Attività didattiche per gruppi classe presso sede scolastica", "Descrizione quarta attivita", "Lun-Dom", 1, 60, "10:30", "6€"))
     self.controller.aggiungi_attivita(
-        Attivita("Escursioni geologiche per gruppi classe presso Parco\n    del Conero o Parco dei Monti Sibillini", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
+        Attivita("Escursioni geologiche per gruppi classe presso Parco\n    del Conero o Parco dei Monti Sibillini", "Descrizione quinta attivita", "Lun-Dom", 1, 60, "10:30", "6€"))
 
 
 def show_lista_attivita():

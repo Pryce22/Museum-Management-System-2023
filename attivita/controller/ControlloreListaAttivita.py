@@ -32,4 +32,4 @@ class ControlloreListaAttivita:
 
 
 #attivita_prova = ControlloreListaAttivita()
-#.get_lista_attivita()
+#attivita_prova.get_lista_attivita()

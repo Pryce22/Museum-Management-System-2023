@@ -100,6 +100,7 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Attività"))
         self.label_Titolo.setText(_translate("Form", "Titolo"))
         self.label_Descrizione.setText(_translate("Form", "Descrizione:"))
+        self.plainTextEdit_2.setPlainText(self.attivita.descrizione)
         self.label_Prezzo.setText(_translate("Form", "Prezzo:"))
         self.label_prezzo.setText(_translate("Form", str(self.attivita.prezzo)))
         self.label_Giorno.setText(_translate("Form", "Giorno:"))
@@ -107,7 +108,7 @@ class Ui_Form(object):
         self.label_Orario.setText(_translate("Form", "Orario:"))
         self.label_orario.setText(_translate("Form", self.attivita.orario))
         self.label_Posti_Max.setText(_translate("Form", "Posti massimi prenotabili:"))
-        self.label_posti_max.setText(_translate("Form", self.attivita.n_posti))
+        self.label_posti_max.setText(_translate("Form", str(self.attivita.n_posti)))
 
 
 def show_attivita(attivita_selezionata):
