@@ -125,10 +125,10 @@ class Ui_Attivita(object):
         self.label_8.setText(_translate("Attivita", "Giorno:"))
         self.label_9.setText(_translate("Attivita", "Orario:"))
         self.label_10.setText(_translate("Attivita", "Posti massimi:"))
-        self.label_2.setText(_translate("Attivita", self.attivita_selezionata.prezzo))
-        self.label_3.setText(_translate("Attivita", self.attivita_selezionata.giorno_della_settimana))
-        self.label_4.setText(_translate("Attivita", self.attivita_selezionata.orario))
-        self.label_6.setText(_translate("Attivita", str(self.attivita_selezionata.n_posti)))
+        self.label_2.setText(_translate("Attivita", self.attivita_selezionata.prezzo)) #
+        self.label_3.setText(_translate("Attivita", self.attivita_selezionata.giorno_della_settimana)) #
+        self.label_4.setText(_translate("Attivita", self.attivita_selezionata.orario)) #
+        self.label_6.setText(_translate("Attivita", str(self.attivita_selezionata.n_posti))) #
 
     def update_ui(self):
         self.label_1.setText(self.attivita_selezionata.titolo)
@@ -142,9 +142,8 @@ class Ui_Attivita(object):
 def show_attivita(attivita_selezionata):
     ui = Ui_Attivita(attivita_selezionata)
     ui.setupUi(Attivita)
-    ui.update_ui()
-
     Attivita.show()
+    # ui.update_ui()
     return ui
 
 

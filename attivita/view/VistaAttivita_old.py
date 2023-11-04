@@ -98,10 +98,10 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Attività"))
-        self.label_Titolo.setText(_translate("Form", self.attivita.titolo))
+        self.label_Titolo.setText(_translate("Form", "Titolo"))
         self.label_Descrizione.setText(_translate("Form", "Descrizione:"))
         self.label_Prezzo.setText(_translate("Form", "Prezzo:"))
-        self.label_prezzo.setText(_translate("Form", self.attivita.prezzo))
+        self.label_prezzo.setText(_translate("Form", str(self.attivita.prezzo)))
         self.label_Giorno.setText(_translate("Form", "Giorno:"))
         self.label_giorno.setText(_translate("Form", self.attivita.giorno_della_settimana))
         self.label_Orario.setText(_translate("Form", "Orario:"))
@@ -110,7 +110,7 @@ class Ui_Form(object):
         self.label_posti_max.setText(_translate("Form", self.attivita.n_posti))
 
 
-def show_vista_informazioni_e_contatti(attivita_selezionata):
+def show_attivita(attivita_selezionata):
     ui = Ui_Form(attivita_selezionata)
     ui.setupUi(Form)
     Form.show()

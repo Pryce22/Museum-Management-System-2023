@@ -9,6 +9,7 @@ class Ui_VistaListaAttivita(object):
     def __init__(self):
         super(Ui_VistaListaAttivita, self).__init__()
         self.controller = ControlloreListaAttivita()
+        self.list_model = None
 
     def setupUi(self, VistaListaAttivita):
         VistaListaAttivita.setObjectName("VistaListaAttivita")
@@ -24,7 +25,17 @@ class Ui_VistaListaAttivita(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
 
-        self.listView.doubleClicked.connect(lambda: self.doppio_click(self.listView))
+        def popola_lista_attivita():
+            lista_attivita = self.controller.get_lista_attivita()
+            print(lista_attivita)
+            attivita_names = list(set([attivita.titolo for attivita in lista_attivita]))
+            self.list_model = QtCore.QStringListModel(attivita_names)
+            self.listView.setModel(self.list_model)
+
+        popola_lista_attivita()
+        #print(self.controller.get_lista_attivita())
+        self.listView.doubleClicked.connect(lambda: self.doppio_click())
+        self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
         self.retranslateUi(VistaListaAttivita)
         QtCore.QMetaObject.connectSlotsByName(VistaListaAttivita)
@@ -34,27 +45,14 @@ class Ui_VistaListaAttivita(object):
         VistaListaAttivita.setWindowTitle(_translate("VistaListaAttivita", "Lista attività"))
         self.label.setText(_translate("VistaListaAttivita", "Attività disponibili"))
 
-    def doppio_click(self, listView):
+    def doppio_click(self):
         index = self.listView.currentIndex()
         if index.isValid():
-            item = self.listView.model().itemFromIndex(index)
-            if item is not None:
-                show_attivita(self.controller.get_attivita(item.text()))
-                #print("Titolo dell'oggetto selezionato:", item.text(), index)
+            nome_attivita = self.list_model.data(index, QtCore.Qt.DisplayRole)
+            show_attivita(self.controller.get_attivita(nome_attivita))
+            print("Titolo dell'oggetto selezionato:", self.controller.get_attivita(nome_attivita).titolo)
         else:
             print("Nessun elemento selezionato")
-
-    def popola_lista_attivita(self):
-        self.controller.aggiungi_attivita(
-            Attivita("Visita senza guida", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "3€"))
-        self.controller.aggiungi_attivita(
-            Attivita("Visita guidata", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "4€"))
-        self.controller.aggiungi_attivita(
-            Attivita("Attività didattiche per gruppi classe presso il museo", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "5€"))
-        self.controller.aggiungi_attivita(
-            Attivita("Attività didattiche per gruppi classe presso sede scolastica", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
-        self.controller.aggiungi_attivita(
-            Attivita("Escursioni geologiche per gruppi classe presso Parco\n    del Conero o Parco dei Monti Sibillini", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
 
     def stampa_lista_attivita(self, list_model):
         lista = self.controller.get_lista_attivita()
@@ -69,19 +67,33 @@ def add_item_to_listview(text, list_model):
     list_model.appendRow(item)
 
 
+def popola_lista(self):
+    self.controller.aggiungi_attivita(
+        Attivita("Visita senza guida", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "3€"))
+    self.controller.aggiungi_attivita(
+        Attivita("Visita guidata", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "4€"))
+    self.controller.aggiungi_attivita(
+        Attivita("Attività didattiche per gruppi classe presso il museo", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "5€"))
+    self.controller.aggiungi_attivita(
+        Attivita("Attività didattiche per gruppi classe presso sede scolastica", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
+    self.controller.aggiungi_attivita(
+        Attivita("Escursioni geologiche per gruppi classe presso Parco\n    del Conero o Parco dei Monti Sibillini", "Descrizione Attivita 1", "Lun-Dom", 1, 60, "10:30", "6€"))
+
+
 def show_lista_attivita():
     ui = Ui_VistaListaAttivita()
     ui.setupUi(VistaListaAttivita)
 
-    list_view = ui.listView
-    list_model = QtGui.QStandardItemModel()
-    list_view.setModel(list_model)
+    #list_view = ui.listView
+    #list_model = QtGui.QStandardItemModel()
+    #list_view.setModel(list_model)
 
     #LA SEGUENTE FUNZIONE RIGENERA IL PICKLE CON LE ATTIVITA PREDEFINITE
     #ui.popola_lista_attivita()
 
     #inserisci elementi nella listView
-    ui.stampa_lista_attivita(list_model)
+    #ui.stampa_lista()
+
 
     VistaListaAttivita.show()
     return ui
