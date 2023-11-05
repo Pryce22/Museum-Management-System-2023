@@ -66,12 +66,17 @@ class Ui_VistaListaBeniDipendente(object):
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
         def popola_listview():
-            lista_beni = self.controller.get_lista_beni()
-            bene_names = list(set(bene.nome for bene in lista_beni))
-            for item in bene_names:
-                print(type(item), item)
-            self.list_model = QtCore.QStringListModel(bene_names)
-            self.listView.setModel(self.list_model)
+            #lista_beni = self.controller.get_lista_beni()
+            bene_names = list(self.controller.get_lista_nomi_beni())
+            #bene_names = list(set(bene.nome for bene in lista_beni))
+            #for item in bene_names:
+                #print(type(item), item)
+            if bene_names:
+                self.list_model = QtCore.QStringListModel(bene_names)
+                self.listView.setModel(self.list_model)
+            else:
+                self.listView.setModel(None)
+
 
 
         popola_listview()
@@ -106,18 +111,24 @@ class Ui_VistaListaBeniDipendente(object):
 
 
     def update_ui(self):
-        lista_beni = self.controller.get_lista_beni()
-        bene_names = list(set([bene.nome for bene in lista_beni]))
-        self.list_model = QtCore.QStringListModel(bene_names)
-        self.listView.setModel(self.list_model)
+        # lista_beni = self.controller.get_lista_beni()
+        print("1")
+        bene_names = list(self.controller.get_lista_nomi_beni())
+        print("2")
+        # bene_names = list(set(bene.nome for bene in lista_beni))
+        if bene_names:
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+        else:
+            self.listView.setModel(None)
 
     def item_clicked(self):
         index = self.listView.currentIndex()
         if index.isValid():
             nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
-            url = self.controller.ottieni_url_immagine_bene(nome_bene)
+            #url = self.controller.ottieni_path_immagine_bene(nome_bene)
             bene = self.controller.cerca_bene_per_nome(nome_bene)
-            show_vista_bene(self.utente_attivo, url, bene, self.update_ui)
+            show_vista_bene(self.utente_attivo, bene, self.update_ui)
         else:
             print("Nessun elemento selezionato")
 

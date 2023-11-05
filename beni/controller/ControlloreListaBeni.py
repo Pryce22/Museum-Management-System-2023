@@ -18,6 +18,7 @@ class ControlloreListaBeni:
         if self.model.aggiungi_bene(bene):
             with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
                 pickle.dump(self.model.lista_beni, f)
+        self.model.print_lista_beni()
 
     def elimina_bene(self, bene):
         self.model.elimina_bene(bene)
@@ -44,25 +45,19 @@ class ControlloreListaBeni:
         return True
 
     def get_lista_nomi_beni(self):
+        self.model.print_lista_beni()
         return self.model.get_lista_nomi_beni()
 
     def get_lista_beni(self):
         return self.model.get_lista_beni()
 
-    def aggiorna_bene(self,bene,nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
-        bene_vecchio = self.cerca_bene_per_nome(bene.nome)
-        bene.nome = nome
-        bene.immagine = immagine
-        bene.area = area
-        bene.descrizione = descrizione
-        bene.stato = stato
-        bene.stato_area = stato_area
-        bene.data_aggiunta_in = data_di_aggiunta
-        bene.id_bene = bene_vecchio.id_bene
-        self.inserisci_bene(bene)
-        self.elimina_bene(bene_vecchio)
-        with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
-            pickle.dump(self.model.lista_beni, f)
+    def aggiorna_bene(self, nome_vecchio, nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
+        self.model.aggiorna_bene(nome_vecchio, nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta)
+        #self.inserisci_bene(bene)
+        #self.elimina_bene(bene_vecchio)
+        #with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
+            #pickle.dump(self.model.lista_beni, f)
+
 
 
 
@@ -70,7 +65,7 @@ class ControlloreListaBeni:
         id_bene = len(self.model.lista_beni) + 1
         return id_bene
 
-    def ottieni_url_immagine_bene(self,nome):
+    def ottieni_path_immagine_bene(self,nome):
         bene = self.cerca_bene_per_nome(nome)
         if bene:
             return bene.immagine

@@ -7,11 +7,11 @@ import requests
 
 class Ui_VistaBene(object):
 
-    def __init__(self, utente_attivo, url, bene, callback):
+    def __init__(self, utente_attivo, bene, callback):
         super(Ui_VistaBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
-        self.image_url = url
+        #self.image_url = url
         self.bene = bene
         self.callback = callback
     def setupUi(self, VistaBene):
@@ -59,7 +59,7 @@ class Ui_VistaBene(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_2.setGeometry(QtCore.QRect(610, 80, 171, 40))
+        self.lineEdit_2.setGeometry(QtCore.QRect(610, 70, 171, 40))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(10, 80, 171, 21))
@@ -239,8 +239,7 @@ class Ui_VistaBene(object):
                 descrizione_in = self.bene.descrizione
             if data_aggiunta_in == "":
                 data_aggiunta_in = self.bene.data_di_aggiunta
-
-            self.controller.aggiorna_bene(self.bene, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
+            self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
             self.show_popup(1, "Bene Aggiornato!")
             self.callback()
             VistaBene.close()
@@ -276,8 +275,8 @@ class Ui_VistaBene(object):
 
 
 
-def show_vista_bene(utente_attivo, url, bene, callback):
-    ui = Ui_VistaBene(utente_attivo, url, bene, callback)
+def show_vista_bene(utente_attivo, bene, callback):
+    ui = Ui_VistaBene(utente_attivo, bene, callback)
     ui.setupUi(VistaBene)
     VistaBene.show()
     return ui
