@@ -28,14 +28,14 @@ class ListaBeni:
         #bene_vecchio = self.cerca_bene_per_nome(bene.nome)
         bene = self.cerca_bene_per_nome(nome_vecchio)
         bene.nome = nome
-        print(bene.nome)
         bene.immagine = immagine
-        print(bene.immagine)
         bene.area = area
         bene.descrizione = descrizione
         bene.stato = stato
         bene.stato_area = stato_area
         bene.data_di_aggiunta = data_di_aggiunta
+        self.elimina_bene(bene)
+        self.aggiungi_bene(bene)
         #self.aggiungi_bene(bene)
         #self.elimina_bene(bene_vecchio)
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
@@ -61,6 +61,7 @@ class ListaBeni:
         if os.path.isfile('beni/data/lista_beni_salvata.pickle'):
             with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
                 lista_beni_salvata = pickle.load(f)
+                lista_beni_salvata = sorted(lista_beni_salvata, key=lambda x: x.id_bene)
                 for bene in lista_beni_salvata:
                     lista_nomi_beni.append(bene.nome)
         print("lista nomi", lista_nomi_beni)

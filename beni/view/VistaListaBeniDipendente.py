@@ -112,9 +112,7 @@ class Ui_VistaListaBeniDipendente(object):
 
     def update_ui(self):
         # lista_beni = self.controller.get_lista_beni()
-        print("1")
         bene_names = list(self.controller.get_lista_nomi_beni())
-        print("2")
         # bene_names = list(set(bene.nome for bene in lista_beni))
         if bene_names:
             self.list_model = QtCore.QStringListModel(bene_names)
