@@ -59,7 +59,7 @@ class Ui_VistaBene(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_2.setGeometry(QtCore.QRect(610, 80, 171, 21))
+        self.lineEdit_2.setGeometry(QtCore.QRect(610, 80, 171, 40))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(10, 80, 171, 21))
@@ -98,7 +98,7 @@ class Ui_VistaBene(object):
         self.checkBox_2.setGeometry(QtCore.QRect(10, 350, 141, 21))
         self.checkBox_2.setObjectName("checkBox_2")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(630, 50, 131, 21))
+        self.label_2.setGeometry(QtCore.QRect(610, 60, 191, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_2.setFont(font)
@@ -115,7 +115,7 @@ class Ui_VistaBene(object):
         self.statusbar.setObjectName("statusbar")
         VistaBene.setStatusBar(self.statusbar)
 
-
+        self.lineEdit_2.hide()
         self.lineEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
         self.lineEdit_2.setReadOnly(True)
@@ -148,12 +148,19 @@ class Ui_VistaBene(object):
             self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
 
 
-        response = requests.get(self.image_url)
+        '''response = requests.get(self.image_url)
         image_data = response.content
 
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(image_data)
 
+        label = QtWidgets.QLabel(self.centralwidget)
+        label.setGeometry(QtCore.QRect(610, 110, 171, 171))
+        label.setPixmap(pixmap)
+        label.setScaledContents(True)
+        label.setObjectName("imageLabel")
+        label.show()'''
+        pixmap = QtGui.QPixmap(self.bene.immagine)
         label = QtWidgets.QLabel(self.centralwidget)
         label.setGeometry(QtCore.QRect(610, 110, 171, 171))
         label.setPixmap(pixmap)
@@ -184,7 +191,7 @@ class Ui_VistaBene(object):
         self.label_7.setText(_translate("VistaBene", "ID"))
         self.label_9.setText(_translate("VistaBene", "Bene"))
         self.checkBox_2.setText(_translate("VistaBene", "Disponibile"))
-        self.label_2.setText(_translate("VistaBene", "URL immagine"))
+        self.label_2.setText(_translate("VistaBene", "Immagine"))
         if self.utente_attivo.is_dipendente:
             self.pushButton.setText(_translate("VistaBene", "Conferma"))
             self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
@@ -201,6 +208,13 @@ class Ui_VistaBene(object):
         self.checkBox.setEnabled(True)
         self.checkBox_2.setEnabled(True)
         self.pushButton.setVisible(True)
+        self.lineEdit_2.setPlaceholderText("Trascina un'immagine qui")
+        self.lineEdit_2.setDragEnabled(True)
+        self.lineEdit_2.setAcceptDrops(True)
+        self.lineEdit_2.setReadOnly(True)
+        self.lineEdit_2.dragEnterEvent = self.dragEnterEvent
+        self.lineEdit_2.dropEvent = self.dropEvent
+        self.lineEdit_2.show()
 
     def elimina_bene(self):
         self.controller.elimina_bene(self.bene)
@@ -245,6 +259,18 @@ class Ui_VistaBene(object):
             msg.setWindowTitle("Errore")
             msg.setText(text)
         x = msg.exec_()
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        files = event.mimeData().urls()
+        if files and files[0].isLocalFile():
+            path = files[0].toLocalFile()
+            self.lineEdit_2.setText(path)
 
 
 

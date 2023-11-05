@@ -30,3 +30,12 @@ class ListaBeni:
 
     def get_bene_by_index(self, index):
         return self.lista_beni[index]
+
+    def get_lista_nomi_beni(self):
+        lista_nome_beni = []
+        if os.path.isfile('beni/data/lista_beni_salvata.pickle'):
+            with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
+                lista_beni_salvata = pickle.load(f)
+        for b in lista_beni_salvata:
+            lista_nome_beni = b.nome
+        return lista_nome_beni

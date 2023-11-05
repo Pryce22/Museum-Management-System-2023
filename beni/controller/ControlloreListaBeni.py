@@ -43,6 +43,9 @@ class ControlloreListaBeni:
 
         return True
 
+    def get_lista_nomi_beni(self):
+        return self.model.get_lista_nomi_beni()
+
     def get_lista_beni(self):
         return self.model.get_lista_beni()
 
@@ -72,6 +75,10 @@ class ControlloreListaBeni:
         if bene:
             return bene.immagine
         return None
+
+    def get_bene_by_index(self, index):
+        return self.model.get_bene_by_index(index)
+
 
 
     def ottieni_beni_da_file(self):

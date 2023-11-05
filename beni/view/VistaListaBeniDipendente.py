@@ -67,7 +67,9 @@ class Ui_VistaListaBeniDipendente(object):
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
         def popola_listview():
             lista_beni = self.controller.get_lista_beni()
-            bene_names = list(set([bene.nome for bene in lista_beni]))
+            bene_names = list(set(bene.nome for bene in lista_beni))
+            for item in bene_names:
+                print(type(item), item)
             self.list_model = QtCore.QStringListModel(bene_names)
             self.listView.setModel(self.list_model)
 
