@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from attivita.controller.ControlloreListaAttivita import *
 from attivita.model.Attivita import *
-from attivita.view.VistaAttivita_old import *
+from attivita.view.VistaAttivita_PROVA import *
 
 
 class Ui_VistaListaAttivita(object):
@@ -89,7 +89,7 @@ def show_lista_attivita():
     #list_view.setModel(list_model)
 
     #LA SEGUENTE FUNZIONE RIGENERA IL PICKLE CON LE ATTIVITA PREDEFINITE
-    #ui.popola_lista_attivita()
+    #ui.popola_lista()
 
     #inserisci elementi nella listView
     #ui.stampa_lista()

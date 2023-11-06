@@ -7,7 +7,7 @@ from attivita.controller.ControlloreListaAttivita import *
 class Ui_Attivita(object):
 
     def __init__(self, attivita_selezionata):
-        super().__init__()
+        super(Ui_Attivita).__init__()
         self.controller = ControlloreListaAttivita()
         self.attivita_selezionata = attivita_selezionata
 
