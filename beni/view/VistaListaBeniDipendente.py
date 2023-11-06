@@ -26,6 +26,8 @@ class Ui_VistaListaBeniDipendente(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.setCurrentIndex(5)
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(30, 20, 581, 41))
         self.lineEdit.setObjectName("lineEdit")
@@ -89,8 +91,10 @@ class Ui_VistaListaBeniDipendente(object):
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
         self.pushButton.clicked.connect(self.ricerca_bene)
+        self.comboBox.currentIndexChanged.connect(lambda: self.ricerca_per_area(self.comboBox.currentText()))
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.update_ui))
+
 
 
         self.retranslateUi(VistaListaBeniDipendente)
@@ -105,6 +109,7 @@ class Ui_VistaListaBeniDipendente(object):
         self.comboBox.setItemText(2, _translate("VistaListaBeniDipendente", "Area Paleontologica"))
         self.comboBox.setItemText(3, _translate("VistaListaBeniDipendente", "Area esposizione temporanee"))
         self.comboBox.setItemText(4, _translate("VistaListaBeniDipendente", "Science room"))
+        self.comboBox.setItemText(5, _translate("VistaListaBeniDipendente", "Tutte"))
         self.checkBox.setText(_translate("VistaListaBeniDipendente", "Beni Disponibili"))
         self.checkBox_2.setText(_translate("VistaListaBeniDipendente", "Beni Non Disponibili"))
         self.pushButton.setText(_translate("VistaListaBeniDipendente", "Ricerca"))
@@ -133,6 +138,15 @@ class Ui_VistaListaBeniDipendente(object):
             show_vista_bene(self.utente_attivo, bene, self.update_ui)
         else:
             print("Nessun elemento selezionato")
+
+
+    def ricerca_per_area(self, area_selezionata):
+        beni_per_area = self.controller.get_lista_nomi_per_area(area_selezionata)
+        if beni_per_area:
+            self.list_model = QtCore.QStringListModel(beni_per_area)
+            self.listView.setModel(self.list_model)
+        else:
+            self.listView.setModel(None)
 
     def ricerca_bene(self):
         testo_ricerca = self.lineEdit.text().lower()

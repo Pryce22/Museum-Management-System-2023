@@ -60,7 +60,8 @@ class ControlloreListaBeni:
 
     def get_lista_nomi_da_id_o_nome(self,nome_o_id):
         beni_corrispondenti = []
-        for bene in self.get_lista_beni():
+
+        for bene in sorted(self.get_lista_beni(), key=lambda x: x.id_bene):
             nome_bene = bene.nome.lower()
             id_bene = str(bene.id_bene).lower()
 
@@ -69,10 +70,16 @@ class ControlloreListaBeni:
         return beni_corrispondenti
 
 
-
-
-
-
+    def get_lista_nomi_per_area(self, area_selezionata):
+        if area_selezionata.lower() == "tutte":
+            #lista_beni = self.get_lista_beni()
+            #sorted(lista_beni, key=lambda x: x.id_bene)
+            return [bene.nome for bene in sorted(self.get_lista_beni(), key=lambda x: x.id_bene)]
+        beni_per_area = []
+        for bene in  sorted(self.get_lista_beni(), key=lambda x: x.id_bene):
+            if bene.area == area_selezionata:
+                beni_per_area.append(bene.nome)
+        return beni_per_area
 
     def crea_id_bene(self):
         id_bene = len(self.model.lista_beni) + 1

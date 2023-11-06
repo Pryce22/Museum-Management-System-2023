@@ -30,6 +30,7 @@ class ListaBeni:
         bene.nome = nome
         bene.immagine = immagine
         bene.area = area
+        print(area)
         bene.descrizione = descrizione
         bene.stato = stato
         bene.stato_area = stato_area
