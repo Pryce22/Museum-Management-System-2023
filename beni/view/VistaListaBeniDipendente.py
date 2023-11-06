@@ -81,15 +81,20 @@ class Ui_VistaListaBeniDipendente(object):
 
         popola_listview()
 
+        self.lineEdit.setPlaceholderText("Inserisci Nome")
+        if self.utente_attivo.is_dipendente:
+            self.lineEdit.setPlaceholderText("Inserisci Nome o ID")
+
 
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
+        self.pushButton.clicked.connect(self.ricerca_bene)
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.update_ui))
 
+
         self.retranslateUi(VistaListaBeniDipendente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniDipendente)
-
 
 
     def retranslateUi(self, VistaListaBeniDipendente):
@@ -100,10 +105,9 @@ class Ui_VistaListaBeniDipendente(object):
         self.comboBox.setItemText(2, _translate("VistaListaBeniDipendente", "Area Paleontologica"))
         self.comboBox.setItemText(3, _translate("VistaListaBeniDipendente", "Area esposizione temporanee"))
         self.comboBox.setItemText(4, _translate("VistaListaBeniDipendente", "Science room"))
-        self.lineEdit.setPlaceholderText(_translate("VistaListaBeniDipendente", "Inserisci Nome o ID"))
         self.checkBox.setText(_translate("VistaListaBeniDipendente", "Beni Disponibili"))
         self.checkBox_2.setText(_translate("VistaListaBeniDipendente", "Beni Non Disponibili"))
-        self.pushButton.setText(_translate("VistaListaBeniDipendente", "RICERCA"))
+        self.pushButton.setText(_translate("VistaListaBeniDipendente", "Ricerca"))
         self.label.setText(_translate("VistaListaBeniDipendente", "LISTA DEI BENI"))
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
@@ -129,6 +133,31 @@ class Ui_VistaListaBeniDipendente(object):
             show_vista_bene(self.utente_attivo, bene, self.update_ui)
         else:
             print("Nessun elemento selezionato")
+
+    def ricerca_bene(self):
+        testo_ricerca = self.lineEdit.text().lower()
+        beni_corrispondenti = self.controller.get_lista_nomi_da_id_o_nome(testo_ricerca)
+
+        if beni_corrispondenti:
+            self.list_model = QtCore.QStringListModel(beni_corrispondenti)
+            self.listView.setModel(self.list_model)
+        else:
+            self.listView.setModel(None)
+
+
+
+
+    def show_popup(self, n, text):
+        msg = QMessageBox()
+        if n == 0:
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        elif n == 1:
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Errore")
+            msg.setText(text)
+        x = msg.exec_()
 
 
 

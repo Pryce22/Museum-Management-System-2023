@@ -58,6 +58,19 @@ class ControlloreListaBeni:
         #with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             #pickle.dump(self.model.lista_beni, f)
 
+    def get_lista_nomi_da_id_o_nome(self,nome_o_id):
+        beni_corrispondenti = []
+        for bene in self.get_lista_beni():
+            nome_bene = bene.nome.lower()
+            id_bene = str(bene.id_bene).lower()
+
+            if nome_o_id in nome_bene or nome_o_id in id_bene:
+                beni_corrispondenti.append(bene.nome)
+        return beni_corrispondenti
+
+
+
+
 
 
 

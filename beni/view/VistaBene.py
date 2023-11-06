@@ -48,7 +48,7 @@ class Ui_VistaBene(object):
         self.lineEdit_4.setText(self.bene.descrizione)
         #self.lineEdit_4.setStyleSheet("QlineEdit:disabled { color: black; }")
         self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_7.setGeometry(QtCore.QRect(10, 400, 61, 21))
+        self.lineEdit_7.setGeometry(QtCore.QRect(10, 460, 91, 21))
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_7.setText(str(self.bene.id_bene))
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
@@ -84,13 +84,13 @@ class Ui_VistaBene(object):
         self.checkBox.setGeometry(QtCore.QRect(10, 300, 141, 21))
         self.checkBox.setObjectName("checkBox")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(10, 430, 161, 21))
+        self.label_8.setGeometry(QtCore.QRect(10, 380, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
-        self.label_7.setGeometry(QtCore.QRect(10, 380, 131, 21))
+        self.label_7.setGeometry(QtCore.QRect(10, 430, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_7.setFont(font)
@@ -112,7 +112,7 @@ class Ui_VistaBene(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_8.setGeometry(QtCore.QRect(10, 460, 91, 21))
+        self.lineEdit_8.setGeometry(QtCore.QRect(10, 400, 61, 21))
         self.lineEdit_8.setObjectName("lineEdit_8")
         #self.lineEdit_8.setPlaceholderText(self.bene.data_di_aggiunta)
         self.lineEdit_8.setText(self.bene.data_di_aggiunta)
@@ -129,6 +129,8 @@ class Ui_VistaBene(object):
         self.lineEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
         self.lineEdit_2.setReadOnly(True)
+        self.lineEdit_7.hide()
+        self.label_7.hide()
         self.lineEdit.setReadOnly(True)
         self.lineEdit_8.setReadOnly(True)
         self.comboBox.setEnabled(False)
@@ -139,6 +141,8 @@ class Ui_VistaBene(object):
         self.checkBox_2.setStyleSheet("QCheckBox:disabled { color: black; }")
 
         if self.utente_attivo.is_dipendente or self.utente_attivo.is_direttore:
+            self.lineEdit_7.show()
+            self.label_7.show()
             self.pushButton = QtWidgets.QPushButton(self.centralwidget)
             self.pushButton.setEnabled(True)
             self.pushButton.setGeometry(QtCore.QRect(670, 490, 121, 51))
@@ -237,31 +241,35 @@ class Ui_VistaBene(object):
 
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
-        print(nome_in)
-        immagine_in = self.lineEdit_2.text()
-        print(immagine_in)
-        area_in = self.comboBox.currentText()
-        descrizione_in = self.lineEdit_4.text()
-        stato_in = self.checkBox.isChecked()
-        stato_area_in = self.checkBox_2.isChecked()
-        data_aggiunta_in = self.lineEdit_8.text()
-        if self.verifica_formato_data(data_aggiunta_in):
-            if self.controller.controlla_nome(nome_in) or nome_in == "" or nome_in == self.bene.nome:
-                if nome_in == "":
-                    nome_in = self.bene.nome
-                if immagine_in == "":
-                    immagine_in = self.bene.immagine
-                if descrizione_in == "":
-                    descrizione_in = self.bene.descrizione
-                if data_aggiunta_in == "":
-                    data_aggiunta_in = self.bene.data_di_aggiunta
-                self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
-                self.show_popup(1, "Bene Aggiornato!")
-                self.callback()
-                VistaBene.close()
+        if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
+            print(nome_in)
+            immagine_in = self.lineEdit_2.text()
+            print(immagine_in)
+            area_in = self.comboBox.currentText()
+            descrizione_in = self.lineEdit_4.text()
+            stato_in = self.checkBox.isChecked()
+            stato_area_in = self.checkBox_2.isChecked()
+            data_aggiunta_in = self.lineEdit_8.text()
+            if self.verifica_formato_data(data_aggiunta_in):
+                if self.controller.controlla_nome(nome_in) or nome_in == "" or nome_in == self.bene.nome:
+                    if nome_in == "":
+                        nome_in = self.bene.nome
+                    if immagine_in == "":
+                        immagine_in = self.bene.immagine
+                    if descrizione_in == "":
+                        descrizione_in = self.bene.descrizione
+                    if data_aggiunta_in == "":
+                        data_aggiunta_in = self.bene.data_di_aggiunta
+                    self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
+                    self.show_popup(1, "Bene Aggiornato!")
+                    self.callback()
+                    VistaBene.close()
+                else:
+                    self.show_popup(0, "Nome già presente!")
             else:
-                self.show_popup(0, "Nome già presente!")
-        else: self.show_popup(0, "La data deve essere nel formato gg-mm-aaaa numerico")
+                self.show_popup(0, "La data deve essere nel formato gg-mm-aaaa numerico")
+        else:
+            self.show_popup(0,"Il nome non deve contenere numeri")
 
 
     def verifica_formato_data(self, data):

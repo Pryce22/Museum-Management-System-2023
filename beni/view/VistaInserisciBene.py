@@ -150,23 +150,26 @@ class Ui_VistaInserisciBene(object):
 
     def conferma_aggiunta(self):
         nome_in = self.lineEdit.text()
-        immagine_in = self.lineEdit_2.text()
-        area_in = self.comboBox.currentText()
-        descrizione_in = self.lineEdit_4.text()
-        stato_in = self.checkBox.isChecked()
-        stato_area_in = self.checkBox_2.isChecked()
-        data_di_aggiunta_stringa = self.lineEdit_8.text()
-        if nome_in == "" or immagine_in == "" or descrizione_in == "":
-            self.show_popup(0, "Compila tutti i campi per inserire il bene!")
-        else:
-            if self.controller.controlla_nome(nome_in):
-                id_bene_in = self.controller.crea_id_bene()
-                self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_di_aggiunta_stringa))
-                self.show_popup(1, "Bene inserito!")
-                self.callback()
-                VistaInserisciBene.close()
+        if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
+            immagine_in = self.lineEdit_2.text()
+            area_in = self.comboBox.currentText()
+            descrizione_in = self.lineEdit_4.text()
+            stato_in = self.checkBox.isChecked()
+            stato_area_in = self.checkBox_2.isChecked()
+            data_di_aggiunta_stringa = self.lineEdit_8.text()
+            if nome_in == "" or immagine_in == "" or descrizione_in == "":
+                self.show_popup(0, "Compila tutti i campi per inserire il bene!")
             else:
-                self.show_popup(0, "Nome già presente!")
+                if self.controller.controlla_nome(nome_in):
+                    id_bene_in = self.controller.crea_id_bene()
+                    self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_di_aggiunta_stringa))
+                    self.show_popup(1, "Bene inserito!")
+                    self.callback()
+                    VistaInserisciBene.close()
+                else:
+                    self.show_popup(0, "Nome già presente!")
+        else:
+            self.show_popup(0,"Il nome non deve contenere numeri")
 
 
     def show_popup(self, n, text):
