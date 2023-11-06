@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from beni.controller.ControlloreListaBeni import *
 import requests
+import re
 
 
 class Ui_VistaBene(object):
@@ -49,6 +50,7 @@ class Ui_VistaBene(object):
         self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(10, 400, 61, 21))
         self.lineEdit_7.setObjectName("lineEdit_7")
+        self.lineEdit_7.setText(str(self.bene.id_bene))
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(10, 270, 131, 21))
         font = QtGui.QFont()
@@ -151,6 +153,7 @@ class Ui_VistaBene(object):
             self.pushButton_3.setObjectName("pushButton_3")
             self.pushButton_3.setEnabled(True)
 
+
             self.pushButton_2.clicked.connect(lambda: self.aggiorna_bene())
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
             self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
@@ -209,9 +212,8 @@ class Ui_VistaBene(object):
     def aggiorna_bene(self):
         self.lineEdit.setPlaceholderText("inserisci il nuovo nome")
         self.lineEdit_4.setPlaceholderText("inserisci la nuova descrizione")
-        self.lineEdit_8.setPlaceholderText("inserisci la nuova data")
+        self.lineEdit_8.setPlaceholderText("inserisci la nuova data(G-M-A)")
         self.lineEdit_4.setReadOnly(False)
-        self.lineEdit_7.setReadOnly(False)
         self.lineEdit_2.setReadOnly(False)
         self.lineEdit.setReadOnly(False)
         self.lineEdit_8.setReadOnly(False)
@@ -243,21 +245,31 @@ class Ui_VistaBene(object):
         stato_in = self.checkBox.isChecked()
         stato_area_in = self.checkBox_2.isChecked()
         data_aggiunta_in = self.lineEdit_8.text()
-        if self.controller.controlla_nome(nome_in) or nome_in == "":
-            if nome_in == "":
-                nome_in = self.bene.nome
-            if immagine_in == "":
-                immagine_in = self.bene.immagine
-            if descrizione_in == "":
-                descrizione_in = self.bene.descrizione
-            if data_aggiunta_in == "":
-                data_aggiunta_in = self.bene.data_di_aggiunta
-            self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
-            self.show_popup(1, "Bene Aggiornato!")
-            self.callback()
-            VistaBene.close()
+        if self.verifica_formato_data(data_aggiunta_in):
+            if self.controller.controlla_nome(nome_in) or nome_in == "" or nome_in == self.bene.nome:
+                if nome_in == "":
+                    nome_in = self.bene.nome
+                if immagine_in == "":
+                    immagine_in = self.bene.immagine
+                if descrizione_in == "":
+                    descrizione_in = self.bene.descrizione
+                if data_aggiunta_in == "":
+                    data_aggiunta_in = self.bene.data_di_aggiunta
+                self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
+                self.show_popup(1, "Bene Aggiornato!")
+                self.callback()
+                VistaBene.close()
+            else:
+                self.show_popup(0, "Nome già presente!")
+        else: self.show_popup(0, "La data deve essere nel formato gg-mm-aaaa numerico")
+
+
+    def verifica_formato_data(self, data):
+        pattern = re.compile(r'\d{1,2}-\d{1,2}-\d{4}')
+        if re.match(pattern, data):
+            return True
         else:
-            self.show_popup(0, "Nome già presente!")
+            return False
 
 
     def show_popup(self, n, text):

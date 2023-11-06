@@ -1,8 +1,10 @@
+import re
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from beni.controller.ControlloreListaBeni import *
 from beni.model.Bene import *
+from datetime import datetime
 
 
 class Ui_VistaInserisciBene(object):
@@ -33,6 +35,9 @@ class Ui_VistaInserisciBene(object):
         self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(20, 320, 91, 21))
         self.lineEdit_8.setObjectName("lineEdit_8")
+        data_aggiunta_in = datetime.now()
+        data_di_aggiunta_stringa = data_aggiunta_in.strftime('%d-%m-%Y')
+        self.lineEdit_8.setText(data_di_aggiunta_stringa)
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(20, 100, 141, 22))
         self.comboBox.setObjectName("comboBox")
@@ -108,6 +113,8 @@ class Ui_VistaInserisciBene(object):
         self.statusbar.setObjectName("statusbar")
         VistaInserisciBene.setStatusBar(self.statusbar)
 
+        self.lineEdit_8.setReadOnly(True)
+
         self.lineEdit_2.setDragEnabled(True)
         self.lineEdit_2.setAcceptDrops(True)
         self.lineEdit_2.setReadOnly(True)
@@ -148,13 +155,13 @@ class Ui_VistaInserisciBene(object):
         descrizione_in = self.lineEdit_4.text()
         stato_in = self.checkBox.isChecked()
         stato_area_in = self.checkBox_2.isChecked()
-        data_aggiunta_in = self.lineEdit_8.text()
-        if nome_in == "" or immagine_in == "" or descrizione_in == "" or data_aggiunta_in == "":
+        data_di_aggiunta_stringa = self.lineEdit_8.text()
+        if nome_in == "" or immagine_in == "" or descrizione_in == "":
             self.show_popup(0, "Compila tutti i campi per inserire il bene!")
         else:
             if self.controller.controlla_nome(nome_in):
                 id_bene_in = self.controller.crea_id_bene()
-                self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_aggiunta_in))
+                self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_di_aggiunta_stringa))
                 self.show_popup(1, "Bene inserito!")
                 self.callback()
                 VistaInserisciBene.close()
