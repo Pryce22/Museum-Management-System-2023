@@ -32,6 +32,7 @@ class Ui_VistaListaAttivita(object):
             self.list_model = QtCore.QStringListModel(attivita_names)
             self.listView.setModel(self.list_model)
 
+        #popola_lista(self)
         popola_lista_attivita()
         #print(self.controller.get_lista_attivita())
         self.listView.doubleClicked.connect(lambda: self.doppio_click())

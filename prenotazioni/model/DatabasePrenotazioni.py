@@ -1,5 +1,4 @@
 from prenotazioni.model.DatabaseEntry import *
-
 class DatabasePrenotazioni:
     def __init__(self):
         super(DatabasePrenotazioni, self).__init__()
@@ -25,6 +24,9 @@ class DatabasePrenotazioni:
                 if cliente.matrice_clienti[0] is email_utente:
                     lista_prenotazioni_email.append(cliente.matrice_clienti[[1], [2]])
         return lista_prenotazioni_email
+
+    def return_last_date(self):
+        return self.database_prenotazioni[-1].data
 
     '''def visualizza_date_prenotazioni(self, attivita):
         for prenotazione in self.database_prenotazioni:

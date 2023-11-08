@@ -3,7 +3,7 @@ class DataBaseEntry:
     def __init__(self, attivita, date, n_massimo):
         super(DataBaseEntry, self).__init__()
         self.attivita = attivita
-        self.date = date
+        self.data = date
         self.matrice_clienti = [[] for _ in range(3)]
         self.n_massimo = n_massimo
 
@@ -17,7 +17,7 @@ class DataBaseEntry:
                 self.matrice_clienti[i].append(riga[i])
 
 
-prova = DataBaseEntry("1", "20", 30)
+'''prova = DataBaseEntry("1", "20", 30)
 
 prova.aggiungi_riga("Matteo@gmail.com", "Matteo", "Colletta")
 prova.aggiungi_riga("Angjelo@gmail.com", "Angjelo", "Libosch")
@@ -25,5 +25,5 @@ prova.aggiungi_riga("Valério@gmail.com", "Valério", "Crocetti")
 
 print(prova.matrice_clienti)
 
-print(prova.get_numero_posti_prenotati())
+print(prova.get_numero_posti_prenotati())'''
 

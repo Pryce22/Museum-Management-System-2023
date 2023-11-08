@@ -103,13 +103,13 @@ class Ui_Vista_attivita(object):
         self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.plainTextEdit_5)
         self.verticalLayout.addLayout(self.formLayout_2)
 
+        self.label_Titolo.hide()
         self.retranslateUi(Vista_attivita)
         QtCore.QMetaObject.connectSlotsByName(Vista_attivita)
 
     def retranslateUi(self, Vista_attivita):
         _translate = QtCore.QCoreApplication.translate
-        Vista_attivita.setWindowTitle(_translate("Vista_attivita", "Attivita"))
-        self.label_Titolo.setText(_translate("Vista_attivita", self.attivita_selezionata.titolo))
+        Vista_attivita.setWindowTitle(_translate("Vista_attivita", self.attivita_selezionata.titolo))
         self.label.setText(_translate("Vista_attivita", "Descrizione:"))
         self.label_2.setText(_translate("Vista_attivita", "Prezzo:"))
         self.label_3.setText(_translate("Vista_attivita", "Giorno:"))
