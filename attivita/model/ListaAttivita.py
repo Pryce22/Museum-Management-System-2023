@@ -17,6 +17,11 @@ class ListaAttivita:
             if attivita is attivita_selezionata:
                 return attivita
 
+    def get_attivita_by_ID(self, ID_attivita):
+        for attivita in self.lista_attivita:
+            if attivita.ID_attivita is ID_attivita:
+                return attivita
+
     def aggiungi_attivita(self, attivita):
         self.lista_attivita.append(attivita)
         return True
