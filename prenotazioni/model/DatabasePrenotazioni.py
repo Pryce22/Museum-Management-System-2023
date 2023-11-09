@@ -19,7 +19,7 @@ class DatabasePrenotazioni:
 
     def elimina_data_prenotabile(self, data):
         for database_entry in self.database_prenotazioni:
-            if database_entry.data is data:
+            if database_entry is data:
                 self.database_prenotazioni.remove(database_entry)
                 with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
                     pickle.dump(self.database_prenotazioni, f)

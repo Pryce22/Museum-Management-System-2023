@@ -47,10 +47,14 @@ class ControlloreBackupEManutenzione:
                     self.lista.get_attivita_by_ID(4),
                     self.lista.get_attivita_by_ID(4).n_posti
                 )
-            if (self.database.return_last_date().strftime("%w") == "6" or
-                    self.database.return_last_date().strftime("%w") == "0"):
+            if self.database.return_last_date().strftime("%w") == "6" or self.database.return_last_date().strftime("%w") == "0":
                 self.database.aggiungi_data_prenotabile(
                     self.database.return_last_date(),
                     self.lista.get_attivita_by_ID(2),
-                    self.lista.get_attivita_by_ID(2).n_posti
+                    self.lista.get_attivita_by_ID(2)
                 )
+
+    def elimina_prenotazioni_scadute(self):
+        for prenotazione in self.DatabasePrenotazioni:
+            if prenotazione.data < datetime.date.today():
+                self.database.elimina_data_prenotabile(prenotazione)
