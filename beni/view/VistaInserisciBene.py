@@ -194,8 +194,8 @@ class Ui_VistaInserisciBene(object):
         files = event.mimeData().urls()
         if files and files[0].isLocalFile():
             path = files[0].toLocalFile()
-            path_tagliato = path.split('beni')[0] + 'beni'
-            self.lineEdit_2.setText(path_tagliato)
+            #path_tagliato = path.split('beni')[0] + 'beni'
+            self.lineEdit_2.setText(path)
 
 
 def show_inserisci_bene(utente_attivo,callback):

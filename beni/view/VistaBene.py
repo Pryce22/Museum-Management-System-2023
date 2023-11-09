@@ -122,7 +122,7 @@ class Ui_VistaBene(object):
         VistaBene.setStatusBar(self.statusbar)
 
         self.checkBox.setChecked(self.bene.stato)
-        self.checkBox_2.setChecked(self.bene.stato_area)
+        self.checkBox_2.setChecked(self.controller.stato_area(self.bene.area))
         self.lineEdit_2.hide()
         self.lineEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
@@ -255,7 +255,7 @@ class Ui_VistaBene(object):
             area_in = self.comboBox.currentText()
             descrizione_in = self.lineEdit_4.text()
             stato_in = self.checkBox.isChecked()
-            stato_area_in = self.checkBox_2.isChecked()
+            stato_area_in = self.controller.stato_area(area_in)
             data_aggiunta_in = self.lineEdit_8.text()
             if self.verifica_formato_data(data_aggiunta_in):
                 if self.controller.controlla_nome(nome_in) or nome_in == "" or nome_in == self.bene.nome:

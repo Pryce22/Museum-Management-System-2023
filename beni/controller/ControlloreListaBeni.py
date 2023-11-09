@@ -1,6 +1,7 @@
 from beni.model.ListaBeni import *
 import pickle
 import os
+import sys
 
 
 class ControlloreListaBeni:
@@ -19,7 +20,6 @@ class ControlloreListaBeni:
         if self.model.aggiungi_bene(bene):
             with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
                 pickle.dump(self.model.lista_beni, f)
-        self.model.print_lista_beni()
 
     def elimina_bene(self, bene):
         self.model.elimina_bene(bene)
@@ -46,7 +46,6 @@ class ControlloreListaBeni:
         return True
 
     def get_lista_nomi_beni(self):
-        self.model.print_lista_beni()
         return self.model.get_lista_nomi_beni()
 
     def get_lista_beni(self):
@@ -111,16 +110,17 @@ class ControlloreListaBeni:
             "Science room": True
         }
         print(aree_stato)
-        os.makedirs(os.path.dirname('beni/data/aree_stato.pickle'), exist_ok=True)
-        with open('beni/data/aree_stato.pickle', 'wb') as file:
-            pickle.dump(aree_stato, file)
-        with open('beni/data/aree_stato.pickle', 'rb') as f:
-            lista_aree = pickle.load(f)
-            print(lista_aree)
+        #os.makedirs(os.path.dirname('beni/data/aree_stato.pickle'), exist_ok=True)
+        if os.path.isfile("beni/data/aree_stato.pickle"):
+            with open("beni/data/aree_stato.pickle", 'wb') as file:
+                pickle.dump(aree_stato, file)
+            with open("beni/data/aree_stato.pickle", 'rb') as f:
+                lista_aree = pickle.load(f)
+                print(lista_aree)
 
 
     def carica_stato_aree(self):
-        with open('beni/data/aree_stato.pickle', 'rb') as file:
+        with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
             return aree_stato
 
@@ -146,12 +146,12 @@ class ControlloreListaBeni:
             aree_stato["Science room"] = True
         else:
             aree_stato["Science room"] = False
-        with open('beni/data/aree_stato.pickle', 'wb') as file:
+        with open("beni/data/aree_stato.pickle", 'wb') as file:
             pickle.dump(aree_stato, file)
         self.cambia_disponibilita_aree_lista_beni()
 
     def stato_area(self, area_bene):
-        with open('beni/data/aree_stato.pickle', 'rb') as file:
+        with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
             for area, stato in aree_stato.items():
                 if area_bene == area:
@@ -159,8 +159,9 @@ class ControlloreListaBeni:
 
 
     def cambia_disponibilita_aree_lista_beni(self):
-        with open('beni/data/aree_stato.pickle', 'rb') as file:
+        with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
+            print(aree_stato)
             for bene in self.get_lista_beni():
                 for area, stato in aree_stato.items():
                     if bene.area == area:
@@ -197,3 +198,24 @@ class ControlloreListaBeni:
                 return beni
         except (FileNotFoundError, EOFError):
             return []
+
+
+    def get_cartella_immagini(self):
+        file = os.path.abspath(__file__)
+        application_path = os.path.dirname(os.path.dirname(file))
+        images_folder = os.path.join(application_path, 'immagini beni')
+        lista_immagini = [os.path.join(images_folder, file) for file in os.listdir(images_folder) if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
+        return lista_immagini
+
+    def sostituisci_immagini(self):
+        lista_immagini = self.get_cartella_immagini()
+        for immagine in lista_immagini:
+            directory_immagine = os.path.split(immagine)[-1]
+
+            for bene in self.get_lista_beni():
+                directory_bene = os.path.split(bene.immagine)[-1]
+
+                if directory_bene == directory_immagine:
+                    bene.immagine = immagine
+
+

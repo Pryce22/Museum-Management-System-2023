@@ -70,6 +70,7 @@ class Ui_VistaListaBeniDipendente(object):
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
 
         self.popola_listview()
+        self.controller.sostituisci_immagini()
 
         self.lineEdit.setPlaceholderText("Inserisci Nome")
         if self.utente_attivo.is_dipendente:
@@ -165,6 +166,8 @@ class Ui_VistaListaBeniDipendente(object):
             self.listView.setModel(self.list_model)
         else:
             self.listView.setModel(None)
+
+
 
     def ordinamento_disponibilita(self):
         disponibile = self.checkBox.isChecked()

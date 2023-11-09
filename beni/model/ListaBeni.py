@@ -30,7 +30,6 @@ class ListaBeni:
         bene.nome = nome
         bene.immagine = immagine
         bene.area = area
-        print(area)
         bene.descrizione = descrizione
         bene.stato = stato
         bene.stato_area = stato_area
@@ -65,6 +64,5 @@ class ListaBeni:
                 lista_beni_salvata = sorted(lista_beni_salvata, key=lambda x: x.id_bene)
                 for bene in lista_beni_salvata:
                     lista_nomi_beni.append(bene.nome)
-        print("lista nomi", lista_nomi_beni)
         return lista_nomi_beni
 
