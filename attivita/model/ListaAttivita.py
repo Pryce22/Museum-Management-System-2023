@@ -12,7 +12,6 @@ class ListaAttivita:
         if os.path.isfile('attivita/data/lista_attivita_salvata.pickle'):
             with open('attivita/data/lista_attivita_salvata.pickle', 'rb') as f:
                 self.lista_attivita = pickle.load(f)
-                print("fatto")
         return self.lista_attivita
 
     def get_attivita(self, attivita_selezionata):
