@@ -33,7 +33,7 @@ class Ui_VistaInserisciBene(object):
         self.lineEdit_4.setText("")
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_8.setGeometry(QtCore.QRect(20, 320, 91, 21))
+        self.lineEdit_8.setGeometry(QtCore.QRect(20, 270, 91, 21))
         self.lineEdit_8.setObjectName("lineEdit_8")
         data_aggiunta_in = datetime.now()
         data_di_aggiunta_stringa = data_aggiunta_in.strftime('%d-%m-%Y')
@@ -55,9 +55,9 @@ class Ui_VistaInserisciBene(object):
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setGeometry(QtCore.QRect(20, 220, 141, 21))
         self.checkBox.setObjectName("checkBox")
-        self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
+        '''self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_2.setGeometry(QtCore.QRect(20, 270, 141, 21))
-        self.checkBox_2.setObjectName("checkBox_2")
+        self.checkBox_2.setObjectName("checkBox_2")'''
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(250, 30, 100, 21))
         font = QtGui.QFont()
@@ -82,14 +82,14 @@ class Ui_VistaInserisciBene(object):
         font.setPointSize(14)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        '''self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(20, 250, 131, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
+        self.label_6.setObjectName("label_6")'''
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(20, 300, 161, 21))
+        self.label_8.setGeometry(QtCore.QRect(20, 250, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_8.setFont(font)
@@ -137,12 +137,12 @@ class Ui_VistaInserisciBene(object):
             self.comboBox.setItemText(4, _translate("VistaInserisciBene", "Science room"))
             self.label.setText(_translate("VistaInserisciBene", "Nome"))
             self.checkBox.setText(_translate("VistaInserisciBene", "Disponibile"))
-            self.checkBox_2.setText(_translate("VistaInserisciBene", "Disponibile"))
+            #self.checkBox_2.setText(_translate("VistaInserisciBene", "Disponibile"))
             self.label_2.setText(_translate("VistaInserisciBene", "Immagine"))
             self.label_3.setText(_translate("VistaInserisciBene", "Area"))
             self.label_4.setText(_translate("VistaInserisciBene", "Descrizione"))
             self.label_5.setText(_translate("VistaInserisciBene", "Stato bene"))
-            self.label_6.setText(_translate("VistaInserisciBene", "Stato area"))
+            #self.label_6.setText(_translate("VistaInserisciBene", "Stato area"))
             self.label_8.setText(_translate("VistaInserisciBene", "Data di aggiunta"))
             self.label_9.setText(_translate("VistaInserisciBene", "Inserisci bene"))
             self.pushButton.setText(_translate("VistaInserisciBene", "Conferma"))
@@ -155,12 +155,12 @@ class Ui_VistaInserisciBene(object):
             area_in = self.comboBox.currentText()
             descrizione_in = self.lineEdit_4.text()
             stato_in = self.checkBox.isChecked()
-            stato_area_in = self.checkBox_2.isChecked()
             data_di_aggiunta_stringa = self.lineEdit_8.text()
             if nome_in == "" or immagine_in == "" or descrizione_in == "":
                 self.show_popup(0, "Compila tutti i campi per inserire il bene!")
             else:
                 if self.controller.controlla_nome(nome_in):
+                    stato_area_in = self.controller.stato_area(area_in)
                     id_bene_in = self.controller.crea_id_bene()
                     self.controller.inserisci_bene(Bene(nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in, id_bene_in, data_di_aggiunta_stringa))
                     self.show_popup(1, "Bene inserito!")
@@ -194,7 +194,8 @@ class Ui_VistaInserisciBene(object):
         files = event.mimeData().urls()
         if files and files[0].isLocalFile():
             path = files[0].toLocalFile()
-            self.lineEdit_2.setText(path)
+            path_tagliato = path.split('beni')[0] + 'beni'
+            self.lineEdit_2.setText(path_tagliato)
 
 
 def show_inserisci_bene(utente_attivo,callback):

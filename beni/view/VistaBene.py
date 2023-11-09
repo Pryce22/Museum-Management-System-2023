@@ -123,7 +123,6 @@ class Ui_VistaBene(object):
 
         self.checkBox.setChecked(self.bene.stato)
         self.checkBox_2.setChecked(self.bene.stato_area)
-        print(self.bene.area)
         self.lineEdit_2.hide()
         self.lineEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
@@ -231,7 +230,6 @@ class Ui_VistaBene(object):
         self.lineEdit.setReadOnly(False)
         self.lineEdit_8.setReadOnly(False)
         self.checkBox.setEnabled(True)
-        self.checkBox_2.setEnabled(True)
         self.pushButton.setVisible(True)
         self.lineEdit_10.hide()
         self.comboBox.show()
@@ -253,9 +251,7 @@ class Ui_VistaBene(object):
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
         if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
-            print(nome_in)
             immagine_in = self.lineEdit_2.text()
-            print(immagine_in)
             area_in = self.comboBox.currentText()
             descrizione_in = self.lineEdit_4.text()
             stato_in = self.checkBox.isChecked()

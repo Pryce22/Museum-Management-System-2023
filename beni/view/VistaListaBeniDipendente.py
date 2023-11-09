@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from beni.controller.ControlloreListaBeni import *
 from beni.view.VistaInserisciBene import *
 from beni.view.VistaBene import *
+from beni.view.VistaStatoAree import *
 
 
 
@@ -67,21 +68,8 @@ class Ui_VistaListaBeniDipendente(object):
         self.statusbar = QtWidgets.QStatusBar(VistaListaBeniDipendente)
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniDipendente.setStatusBar(self.statusbar)
-        def popola_listview():
-            #lista_beni = self.controller.get_lista_beni()
-            bene_names = list(self.controller.get_lista_nomi_beni())
-            #bene_names = list(set(bene.nome for bene in lista_beni))
-            #for item in bene_names:
-                #print(type(item), item)
-            if bene_names:
-                self.list_model = QtCore.QStringListModel(bene_names)
-                self.listView.setModel(self.list_model)
-            else:
-                self.listView.setModel(None)
 
-
-
-        popola_listview()
+        self.popola_listview()
 
         self.lineEdit.setPlaceholderText("Inserisci Nome")
         if self.utente_attivo.is_dipendente:
@@ -90,11 +78,13 @@ class Ui_VistaListaBeniDipendente(object):
 
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
-        self.pushButton.clicked.connect(self.ricerca_bene)
+        self.checkBox.clicked.connect(lambda: self.ordinamento_disponibilita())
+        self.checkBox_2.clicked.connect(lambda: self.ordinamento_disponibilita())
+        self.pushButton.clicked.connect(lambda: self.ricerca_bene())
         self.comboBox.currentIndexChanged.connect(lambda: self.ricerca_per_area(self.comboBox.currentText()))
         if self.utente_attivo.is_dipendente:
-            self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.update_ui))
-
+            self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.ordinamento_disponibilita))
+            self.pushButton_3.clicked.connect(lambda: show_stato_aree(self.utente_attivo, self.ordinamento_disponibilita))
 
 
         self.retranslateUi(VistaListaBeniDipendente)
@@ -121,7 +111,8 @@ class Ui_VistaListaBeniDipendente(object):
 
     def update_ui(self):
         # lista_beni = self.controller.get_lista_beni()
-        bene_names = list(self.controller.get_lista_nomi_beni())
+        beni_ordinati = sorted(self.controller.get_lista_beni(), key=lambda x: (not x.stato, x.id_bene))
+        bene_names = [bene.nome for bene in beni_ordinati]
         # bene_names = list(set(bene.nome for bene in lista_beni))
         if bene_names:
             self.list_model = QtCore.QStringListModel(bene_names)
@@ -135,12 +126,27 @@ class Ui_VistaListaBeniDipendente(object):
             nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
             #url = self.controller.ottieni_path_immagine_bene(nome_bene)
             bene = self.controller.cerca_bene_per_nome(nome_bene)
-            show_vista_bene(self.utente_attivo, bene, self.update_ui)
+            show_vista_bene(self.utente_attivo, bene, self.ordinamento_disponibilita)
         else:
             print("Nessun elemento selezionato")
 
+    def popola_listview(self):
+        # lista_beni = self.controller.get_lista_beni()
+        beni_ordinati = sorted(self.controller.get_lista_beni(), key=lambda x: (not x.stato, x.id_bene))
+        bene_names = [bene.nome for bene in beni_ordinati]
+        # bene_names = list(set(bene.nome for bene in lista_beni))
+        # for item in bene_names:
+        # print(type(item), item)
+        if bene_names:
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+        else:
+            self.listView.setModel(None)
+
 
     def ricerca_per_area(self, area_selezionata):
+        self.checkBox.setChecked(False)
+        self.checkBox_2.setChecked(False)
         beni_per_area = self.controller.get_lista_nomi_per_area(area_selezionata)
         if beni_per_area:
             self.list_model = QtCore.QStringListModel(beni_per_area)
@@ -149,6 +155,8 @@ class Ui_VistaListaBeniDipendente(object):
             self.listView.setModel(None)
 
     def ricerca_bene(self):
+        self.checkBox.setChecked(False)
+        self.checkBox_2.setChecked(False)
         testo_ricerca = self.lineEdit.text().lower()
         beni_corrispondenti = self.controller.get_lista_nomi_da_id_o_nome(testo_ricerca)
 
@@ -158,7 +166,28 @@ class Ui_VistaListaBeniDipendente(object):
         else:
             self.listView.setModel(None)
 
+    def ordinamento_disponibilita(self):
+        disponibile = self.checkBox.isChecked()
+        non_disponibile = self.checkBox_2.isChecked()
+        if disponibile and non_disponibile:
+            self.popola_listview()
+        elif disponibile:
+            bene_names = self.controller.visualizza_lista_beni_per_stato(True)
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+        elif non_disponibile:
+            bene_names = self.controller.visualizza_lista_beni_per_stato(False)
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
+        else:
+            self.popola_listview()
 
+    #def visualizza_lista_beni_disponibili(self):
+
+
+
+
+    #def visualizza_lista_beni_non_disponibili(self):
 
 
     def show_popup(self, n, text):
