@@ -56,7 +56,6 @@ class Ui_VistaListaAttivita(object):
             print("Nessun elemento selezionato")
 
     def stampa_lista_attivita(self, list_model):
-        lista = self.controller.get_lista_attivita()
         for a in self.controller.get_lista_attivita():
             add_item_to_listview(a.titolo, list_model)
 

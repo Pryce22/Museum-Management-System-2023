@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import backupemanutenzione.controller.ControlloreBackupEManutenzione
 from informazioniecontatti.view.VistaInformazioniEContatti import show_vista_informazioni_e_contatti
+from prenotazioni.view.VistaAggiungiPrenotazione import show_vista_aggiungi_prenotazione
 from utente.view.VistaGestioneUtente import *
 from utente.view.VistaGestioneUtente import show_gestione_utente
 from utente.view.VistaInserisciDipendente import *
@@ -47,7 +48,7 @@ class Ui_VistaHomeDirettore(object):
             self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_1.clicked.connect(lambda: show_gestione_utente(self.utente_attivo))
-        self.pushButton_3.clicked.connect(lambda: show_lista_attivita())
+        self.pushButton_3.clicked.connect(lambda: show_vista_aggiungi_prenotazione(self.utente_attivo))
         self.pushButton_4.clicked.connect(lambda: show_vista_informazioni_e_contatti(self.utente_attivo))
         self.pushButton_2.clicked.connect(lambda: show_listabeni_dipendente(self.utente_attivo))
         if self.utente_attivo.is_direttore:

@@ -21,7 +21,3 @@ class DataBaseEntry:
         if len(riga) == 3:
             for i in range(3):
                 self.matrice_clienti[i].append(riga[i])
-
-
-
-
