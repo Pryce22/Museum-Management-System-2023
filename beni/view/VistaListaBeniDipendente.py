@@ -85,7 +85,7 @@ class Ui_VistaListaBeniDipendente(object):
         self.comboBox.currentIndexChanged.connect(lambda: self.ricerca_per_area(self.comboBox.currentText()))
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.ordinamento_disponibilita))
-            self.pushButton_3.clicked.connect(lambda: show_stato_aree(self.utente_attivo, self.ordinamento_disponibilita))
+            self.pushButton_3.clicked.connect(lambda: show_stato_aree(self.utente_attivo, self.update_ui))
 
 
         self.retranslateUi(VistaListaBeniDipendente)
@@ -114,6 +114,8 @@ class Ui_VistaListaBeniDipendente(object):
         # lista_beni = self.controller.get_lista_beni()
         beni_ordinati = sorted(self.controller.get_lista_beni(), key=lambda x: (not x.stato, x.id_bene))
         bene_names = [bene.nome for bene in beni_ordinati]
+        self.checkBox.setChecked(False)
+        self.checkBox_2.setChecked(False)
         # bene_names = list(set(bene.nome for bene in lista_beni))
         if bene_names:
             self.list_model = QtCore.QStringListModel(bene_names)
