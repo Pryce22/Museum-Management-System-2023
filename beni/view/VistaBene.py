@@ -312,9 +312,6 @@ class Ui_VistaBene(object):
             self.lineEdit_2.setText(path)
 
 
-
-
-
 def show_vista_bene(utente_attivo, bene, callback):
     ui = Ui_VistaBene(utente_attivo, bene, callback)
     ui.setupUi(VistaBene)

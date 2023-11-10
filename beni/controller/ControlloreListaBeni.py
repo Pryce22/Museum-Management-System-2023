@@ -205,17 +205,25 @@ class ControlloreListaBeni:
         application_path = os.path.dirname(os.path.dirname(file))
         images_folder = os.path.join(application_path, 'immagini beni')
         lista_immagini = [os.path.join(images_folder, file) for file in os.listdir(images_folder) if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
+        print(lista_immagini)
         return lista_immagini
 
     def sostituisci_immagini(self):
         lista_immagini = self.get_cartella_immagini()
+        lista_beni = self.get_lista_beni()
         for immagine in lista_immagini:
-            directory_immagine = os.path.split(immagine)[-1]
+            directory_immagine = os.path.split(immagine)[-2]
+            print(directory_immagine)
 
-            for bene in self.get_lista_beni():
-                directory_bene = os.path.split(bene.immagine)[-1]
+            for bene in lista_beni:
+                directory_bene = os.path.split(bene.immagine)[-2]
+                print(directory_bene)
 
                 if directory_bene == directory_immagine:
                     bene.immagine = immagine
+                    print(bene.immagine)
+        with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
+            pickle.dump(lista_beni, f)
+
 
 
