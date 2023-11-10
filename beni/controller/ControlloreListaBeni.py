@@ -212,11 +212,11 @@ class ControlloreListaBeni:
         lista_immagini = self.get_cartella_immagini()
         lista_beni = self.get_lista_beni()
         for immagine in lista_immagini:
-            directory_immagine = os.path.split(immagine)[-2]
+            directory_immagine = os.path.split(immagine)[-1]
             print(directory_immagine)
 
             for bene in lista_beni:
-                directory_bene = os.path.split(bene.immagine)[-2]
+                directory_bene = os.path.split(bene.immagine)[-1]
                 print(directory_bene)
 
                 if directory_bene == directory_immagine:
