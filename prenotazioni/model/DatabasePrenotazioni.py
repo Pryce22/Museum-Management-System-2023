@@ -12,16 +12,14 @@ class DatabasePrenotazioni:
     def aggiungi_data_prenotabile(self, date, attivita, num):
         new_database_entry = DataBaseEntry(date, attivita, num)
         self.database_prenotazioni.append(new_database_entry)
-        with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
-            pickle.dump(self.database_prenotazioni, f)
+        self.save_data()
         print('data aggiunta')
 
     def elimina_data_prenotabile(self, data):
         for database_entry in self.database_prenotazioni:
             if database_entry is data:
                 self.database_prenotazioni.remove(database_entry)
-                with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
-                    pickle.dump(self.database_prenotazioni, f)
+                self.save_data()
 
     def visualizza_posti_disponibili(self, attivita):
         for data_prenotabile in self.database_prenotazioni:
@@ -55,9 +53,13 @@ class DatabasePrenotazioni:
         lista_date_per_attivita = []
         for entry in database:
             if (entry.attivita.titolo == attivita_selezionata and
-                    entry.get_numero_posti_prenotati() < entry.get_numero_massimo()):
+                    entry.get_numero_posti_prenotati() < entry.attivita.n_posti):
                 lista_date_per_attivita.append(entry.data)
         return lista_date_per_attivita
+
+    def save_data(self):
+        with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
+            pickle.dump(self.database_prenotazioni, f)
 
 
 '''def visualizza_date_prenotazioni(self, attivita):

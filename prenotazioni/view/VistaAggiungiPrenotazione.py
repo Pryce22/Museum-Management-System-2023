@@ -96,9 +96,10 @@ class Ui_Form(object):
             print(self.attivitaComboBox.currentText())
             lista_date = self.controller.get_data_prenotazione_per_attivita(self.attivitaComboBox.currentText())
             for data in lista_date:
-                self.datePrenotabiliComboBox.addItem(data.strftime("%Y -%m -%d") +
+                self.datePrenotabiliComboBox.addItem(data.strftime("%d - %m -  %Y") +
                                                      "    " +
-                                                     str(self.controller.get_posti_disponibili_per_data(data)))
+                                                     str(self.controller.get_posti_disponibili_per_data(data)) +
+                                                     " posti disp.")
 
         # Assuming you have an instance of Ui_Form called ui
         self.attivitaComboBox.currentTextChanged.connect(mostra_date_per_attivita)
@@ -108,7 +109,7 @@ class Ui_Form(object):
         self.pushButton_prenota.setGeometry(QtCore.QRect(110, 130, 101, 23))
         self.pushButton_prenota.setObjectName("pushButton_prenota")
 
-        self.pushButton_prenota.clicked.connect(lambda: show_popup_if_form_not_filled())
+        self.pushButton_prenota.clicked.connect(lambda: aggiungi_prenotazione())
 
         def is_form_filled():
             if (self.nomeLineEdit.text().strip() == "" or
@@ -123,8 +124,22 @@ class Ui_Form(object):
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Warning)
                 msg.setText("Per favore compila tutti i campi")
-                msg.setWindowTitle("Incomplete Form")
+                msg.setWindowTitle("Errore")
                 msg.exec_()
+
+        def aggiungi_prenotazione():
+            if show_popup_if_form_not_filled():
+                return
+            else:
+                self.controller.inserisci_prenotazione(self.attivitaComboBox.currentText(),
+                                                       self.datePrenotabiliComboBox.currentText().split("    ")[0],
+                                                       self.nomeLineEdit.text(),
+                                                       self.cognomeLineEdit.text(),
+                                                       self.utente_attivo.email)
+                print("Prenotazione aggiunta")
+                mostra_date_per_attivita()
+
+
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

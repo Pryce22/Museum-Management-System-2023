@@ -20,4 +20,9 @@ class ControlloreInserisciPrenotazione:
             if entry.data == data:
                 return entry.n_massimo - entry.get_numero_posti_prenotati()
 
-
+    def inserisci_prenotazione(self, attivita_selezionata, data, nome, cognome, email):
+        database = self.model.get_database_prenotazioni()
+        for entry in database:
+            if entry.data.strftime("%d - %m -  %Y") == data and entry.attivita.titolo == attivita_selezionata:
+                entry.aggiungi_riga(email, nome, cognome)
+                self.model.save_data()
