@@ -161,11 +161,13 @@ class ControlloreListaBeni:
     def cambia_disponibilita_aree_lista_beni(self):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
-            print(aree_stato)
-            for bene in self.get_lista_beni():
+            lista_beni = self.get_lista_beni()
+            for bene in lista_beni:
                 for area, stato in aree_stato.items():
                     if bene.area == area:
                         bene.stato_area = stato
+        with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
+            pickle.dump(lista_beni, f)
 
 
 
@@ -213,15 +215,12 @@ class ControlloreListaBeni:
         lista_beni = self.get_lista_beni()
         for immagine in lista_immagini:
             directory_immagine = os.path.split(immagine)[-1]
-            print(directory_immagine)
 
             for bene in lista_beni:
                 directory_bene = os.path.split(bene.immagine)[-1]
-                print(directory_bene)
 
                 if directory_bene == directory_immagine:
                     bene.immagine = immagine
-                    print(bene.immagine)
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
 
