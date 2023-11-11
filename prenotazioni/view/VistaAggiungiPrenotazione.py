@@ -10,6 +10,8 @@
 import sys
 import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
 from prenotazioni.Controller.ControlloreInserisciPrenotazione import *
 from attivita.controller.ControlloreListaAttivita import *
 
@@ -20,7 +22,6 @@ class Ui_Form(object):
         self.utente_attivo = utente_attivo
         self.controller = ControlloreInserisciPrenotazione()
         self.lista_attivita = ControlloreListaAttivita().get_lista_attivita()
-
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -68,11 +69,9 @@ class Ui_Form(object):
         self.attivitaComboBox.setObjectName("attivitaComboBox")
         self.attivitaComboBox.addItem("Seleziona un'attivitá")
 
-        #popola la combobox delle attivita
+        # popola la combobox delle attivita
         for attivita in self.lista_attivita:
             self.attivitaComboBox.addItem(attivita.titolo)
-
-
 
         self.attivitaComboBox.setCurrentIndex(0)
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.attivitaComboBox)
@@ -89,6 +88,8 @@ class Ui_Form(object):
         self.datePrenotabiliComboBox.setObjectName("datePrenotabiliComboBox")
         self.datePrenotabiliComboBox.addItem('Seleziona una data')
         self.datePrenotabiliComboBox.setCurrentIndex(0)
+        if self.attivitaComboBox.currentText() == "Seleziona un'attivitá":
+            self.datePrenotabiliComboBox.setEditable(False)
 
         def mostra_date_per_attivita():
             self.datePrenotabiliComboBox.clear()
@@ -106,6 +107,24 @@ class Ui_Form(object):
         self.pushButton_prenota = QtWidgets.QPushButton(Form)
         self.pushButton_prenota.setGeometry(QtCore.QRect(110, 130, 101, 23))
         self.pushButton_prenota.setObjectName("pushButton_prenota")
+
+        self.pushButton_prenota.clicked.connect(lambda: show_popup_if_form_not_filled())
+
+        def is_form_filled():
+            if (self.nomeLineEdit.text().strip() == "" or
+                    self.cognomeLineEdit.text().strip() == "" or
+                    self.attivitaComboBox.currentText() == "Seleziona un'attivitá" or
+                    self.datePrenotabiliComboBox.currentText() == 'Seleziona una data'):
+                return False
+            return True
+
+        def show_popup_if_form_not_filled():
+            if not is_form_filled():
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Per favore compila tutti i campi")
+                msg.setWindowTitle("Incomplete Form")
+                msg.exec_()
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -130,5 +149,4 @@ def show_vista_aggiungi_prenotazione(utente_attivo):
 app = QtWidgets.QApplication(sys.argv)
 Form = QtWidgets.QWidget()
 
-
-#sys.exit(app.exec_())
+# sys.exit(app.exec_())
