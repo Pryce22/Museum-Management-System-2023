@@ -16,6 +16,8 @@ class DataBaseEntry:
     def get_numero_posti_prenotati(self):
         return len(self.matrice_clienti[0])  # Usiamo la lunghezza di una delle sottoliste
 
+    def get_numero_massimo(self):
+        return self.n_massimo
     def aggiungi_riga(self, utente_attivo_email, nome, cognome):
         riga = [utente_attivo_email, nome, cognome]
         if len(riga) == 3:

@@ -50,6 +50,15 @@ class DatabasePrenotazioni:
                 self.database_prenotazioni = pickle.load(f)
         return self.database_prenotazioni
 
+    def get_date_per_attivita(self, attivita_selezionata):
+        database = self.get_database_prenotazioni()
+        lista_date_per_attivita = []
+        for entry in database:
+            if (entry.attivita.titolo == attivita_selezionata and
+                    entry.get_numero_posti_prenotati() < entry.get_numero_massimo()):
+                lista_date_per_attivita.append(entry.data)
+        return lista_date_per_attivita
+
 
 '''def visualizza_date_prenotazioni(self, attivita):
     for prenotazione in self.database_prenotazioni:
