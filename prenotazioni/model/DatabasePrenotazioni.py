@@ -31,12 +31,18 @@ class DatabasePrenotazioni:
                     return False
 
     def visualizza_lista_prenotazioni_per_email(self, email_utente):
-        lista_prenotazioni_email = [[], []]
-        for prenotazione in self.database_prenotazioni:
-            for cliente in prenotazione.lista_clienti:
-                if cliente.matrice_clienti[0] is email_utente:
-                    lista_prenotazioni_email.append(cliente.matrice_clienti[[1], [2]])
-        return lista_prenotazioni_email
+        lista_prenotazioni_per_email = []
+        for entry in self.get_database_prenotazioni():
+            for cliente in entry.matrice_clienti:
+                if cliente[0] is email_utente:
+                    lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
+                                                        "   " +
+                                                        cliente[1] +
+                                                        " " +
+                                                        cliente[2] +
+                                                        "   " +
+                                                        entry.attivita.titolo)
+        return lista_prenotazioni_per_email
 
     def return_last_date(self):
         database = self.get_database_prenotazioni()
@@ -61,8 +67,4 @@ class DatabasePrenotazioni:
         with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
             pickle.dump(self.database_prenotazioni, f)
 
-
-'''def visualizza_date_prenotazioni(self, attivita):
-    for prenotazione in self.database_prenotazioni:
-        if prenotazione.attivita is attivita and self.visualizza_posti_disponibili(attivita):'''
 

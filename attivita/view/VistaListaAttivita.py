@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from attivita.controller.ControlloreListaAttivita import *
 from attivita.model.Attivita import *
-from attivita.view.VistaAttivita_PROVA import *
+from attivita.view.VistaAttivita import *
 
 
 class Ui_VistaListaAttivita(object):
@@ -14,6 +14,7 @@ class Ui_VistaListaAttivita(object):
     def setupUi(self, VistaListaAttivita):
         VistaListaAttivita.setObjectName("VistaListaAttivita")
         VistaListaAttivita.resize(600, 350)
+        VistaListaAttivita.setFixedSize(600, 350)
         self.listView = QtWidgets.QListView(VistaListaAttivita)
         self.listView.setGeometry(QtCore.QRect(50, 90, 500, 221))
         self.listView.setObjectName("listView")

@@ -106,7 +106,7 @@ class Ui_Form(object):
 
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.datePrenotabiliComboBox)
         self.pushButton_prenota = QtWidgets.QPushButton(Form)
-        self.pushButton_prenota.setGeometry(QtCore.QRect(110, 130, 101, 23))
+        self.pushButton_prenota.setGeometry(QtCore.QRect(110, 130, 120, 22))
         self.pushButton_prenota.setObjectName("pushButton_prenota")
 
         self.pushButton_prenota.clicked.connect(lambda: aggiungi_prenotazione())
