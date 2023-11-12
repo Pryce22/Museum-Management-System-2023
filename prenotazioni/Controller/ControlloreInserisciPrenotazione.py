@@ -1,3 +1,4 @@
+from biglietto.controller.ControlloreBiglietto import ControlloreBiglietto
 from prenotazioni.model.DatabasePrenotazioni import *
 
 
@@ -6,6 +7,7 @@ class ControlloreInserisciPrenotazione:
     def __init__(self):
         super(ControlloreInserisciPrenotazione, self).__init__()
         self.model = DatabasePrenotazioni()
+        self.controller = ControlloreBiglietto()
 
     def get_data_prenotazione_per_attivita(self, attivita_selezionata):
         lista_date = self.model.get_date_per_attivita(attivita_selezionata)
@@ -22,6 +24,7 @@ class ControlloreInserisciPrenotazione:
 
     def inserisci_prenotazione(self, attivita_selezionata, data, nome, cognome, email):
         database = self.model.get_database_prenotazioni()
+        self.controller.invia_biglietto_per_email(email, data, attivita_selezionata, nome, cognome)
         for entry in database:
             if entry.data.strftime("%d - %m -  %Y") == data and entry.attivita.titolo == attivita_selezionata:
                 entry.aggiungi_riga(email, nome, cognome)

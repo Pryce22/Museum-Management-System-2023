@@ -49,27 +49,10 @@ class Ui_MainWindow(object):
         self.pushButton_Elimina.setObjectName("pushButton_Elimina")
         MainWindow.setCentralWidget(self.centralwidget)
 
-        def visualizza_prenotazioni_per_email(prenotazioni):
-            model = QStringListModel()
-            model.setStringList(prenotazioni)
-            self.listView.setModel(model)
+        self.visualizza_prenotazioni_per_email()
 
-        visualizza_prenotazioni_per_email(self.controller.visualizza_lista_prenotazioni_per_email(self.utente_attivo))
-
-        def show_popup_prenotazione_eliminata():
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Prenotazione eliminata")
-            msg.setWindowTitle("Conferma eliminazione")
-            msg.exec_()
-
-        def elimina_prenotazione():
-            self.controller.elimina_prenotazione(self.listView.currentIndex().data(), self.utente_attivo)
-            show_popup_prenotazione_eliminata()
-            visualizza_prenotazioni_per_email(
-                self.controller.visualizza_lista_prenotazioni_per_email(self.utente_attivo))
-
-        self.pushButton_Elimina.clicked.connect(lambda: elimina_prenotazione())
+        self.pushButton_Elimina.clicked.connect(lambda: self.elimina_prenotazione())
+        self.pushButton_scarica.clicked.connect(lambda: self.scarica_biglietto())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -81,6 +64,24 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Prenotazioni effettuate:"))
         self.pushButton_Elimina.setText(_translate("MainWindow", "Elimina Prenotazione"))
 
+    def visualizza_prenotazioni_per_email(self):
+        model = QStringListModel()
+        model.setStringList(self.controller.visualizza_lista_prenotazioni_per_email(self.utente_attivo))
+        self.listView.setModel(model)
+
+    def scarica_biglietto(self):
+        dati_prenotazione = self.listView.currentIndex().data().split("    ")
+        self.controller_biglietti.scarica_biglietto(dati_prenotazione[0],
+                                                    dati_prenotazione[2],
+                                                    self.utente_attivo.email,
+                                                    dati_prenotazione[1].split("  ")[0],
+                                                    dati_prenotazione[1].split("  ")[1])
+
+    def elimina_prenotazione(self):
+        self.controller.elimina_prenotazione(self.listView.currentIndex().data(), self.utente_attivo)
+        show_popup_prenotazione_eliminata()
+        self.visualizza_prenotazioni_per_email()
+
 
 def show_vista_prenotazioni_effettuate(utente_attivo):
     ui = Ui_MainWindow(utente_attivo)
@@ -89,6 +90,15 @@ def show_vista_prenotazioni_effettuate(utente_attivo):
     MainWindow.show()
 
     return ui
+
+
+
+def show_popup_prenotazione_eliminata():
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setText("Prenotazione eliminata")
+    msg.setWindowTitle("Conferma eliminazione")
+    msg.exec_()
 
 
 app = QtWidgets.QApplication(sys.argv)

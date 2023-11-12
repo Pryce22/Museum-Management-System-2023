@@ -148,8 +148,6 @@ class Ui_Form(object):
                 mostra_date_per_attivita()
                 Form.close()
 
-
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 

@@ -56,13 +56,13 @@ class ControlloreBiglietto:
         # Verifica se l'utente ha scelto un percorso
         if file_path:
             # Salva il file PDF nel percorso scelto
-            biglietto_pdf.save(file_path)
+            biglietto_pdf.save()
             print(f"Biglietto salvato con successo in: {file_path}")
         else:
             print("Operazione di salvataggio annullata dall'utente")
 
-    def invia_biglietto_per_email(self, destinatario, data, attivita, email, nome, cognome):
-        biglietto_pdf = self.genera_biglietto(data, attivita, email, nome, cognome)
+    def invia_biglietto_per_email(self, destinatario, data, attivita, nome, cognome):
+        biglietto_pdf = self.genera_biglietto(data, attivita, destinatario, nome, cognome)
 
         # Configura le informazioni dell'account email
         email_mittente = "museo.noreply@gmail.com"
@@ -96,12 +96,3 @@ class ControlloreBiglietto:
             print(f"Errore durante l'invio dell'email: {e}")
 
 
-data = "Visita"
-attivita = "attivita"
-email = "email"
-nome = "nome"
-cognome = "Libofsha"
-
-controller = ControlloreBiglietto()
-#controller.scarica_biglietto(data, attivita, email, nome, cognome)
-controller.invia_biglietto_per_email("S1104826@studenti.univpm.it", data, attivita, email, nome, cognome)
