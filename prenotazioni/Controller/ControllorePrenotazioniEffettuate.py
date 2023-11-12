@@ -3,10 +3,9 @@ from prenotazioni.model.DatabasePrenotazioni import DatabasePrenotazioni
 
 class ControllorePrenotazioniEffettuate:
 
-    def __init__(self, utente_attivo):
+    def __init__(self):
         super(ControllorePrenotazioniEffettuate, self).__init__()
-        self.utente_attivo = utente_attivo
         self.model = DatabasePrenotazioni()
 
-    def visualizza_lista_prenotazioni_per_email(self):
-        return self.model.visualizza_lista_prenotazioni_per_email(self.utente_attivo.email)
+    def visualizza_lista_prenotazioni_per_email(self, utente_attivo):
+        return self.model.visualizza_lista_prenotazioni_per_email(utente_attivo.email)
