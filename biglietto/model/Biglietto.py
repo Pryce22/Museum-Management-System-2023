@@ -1,5 +1,5 @@
 class Biglietto:
-    def __init__(self, email, password, is_dipendente, is_direttore):
+    def __init__(self, attivita, data, email, nome, cognome):
         self.attivita = attivita
         self.data = data
         self.email = email

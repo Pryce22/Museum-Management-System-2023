@@ -1,4 +1,4 @@
-from biglietto.controller.ControlloreBiglietto import ControlloreBiglietto
+from biglietto.controller.ControlloreBiglietto import *
 from prenotazioni.model.DatabasePrenotazioni import *
 
 
