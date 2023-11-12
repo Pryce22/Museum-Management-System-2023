@@ -7,6 +7,3 @@ if __name__ == '__main__':
     show_login_utente()
     sys.exit(app.exec_())
 
-
-
-

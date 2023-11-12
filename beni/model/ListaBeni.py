@@ -18,7 +18,8 @@ class ListaBeni:
                 self.lista_beni.remove(bene)
                 return True
         return False
-    def cerca_bene_per_nome(self,nome):
+
+    def cerca_bene_per_nome(self, nome):
         for b in self.get_lista_beni():
             if b.nome == nome:
                 return b
@@ -27,6 +28,8 @@ class ListaBeni:
     def aggiorna_bene(self, nome_vecchio, nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
         #bene_vecchio = self.cerca_bene_per_nome(bene.nome)
         bene = self.cerca_bene_per_nome(nome_vecchio)
+        self.print_lista_beni()
+        print(bene.nome)
         bene.nome = nome
         bene.immagine = immagine
         bene.area = area
@@ -40,6 +43,7 @@ class ListaBeni:
         #self.elimina_bene(bene_vecchio)
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(self.lista_beni, f)
+        self.print_lista_beni()
 
     def get_lista_beni(self):
         if os.path.isfile('beni/data/lista_beni_salvata.pickle'):
@@ -49,7 +53,7 @@ class ListaBeni:
         return self.lista_beni
 
     def print_lista_beni(self):
-        for b in self.lista_beni:
+        for b in self.get_lista_beni():
             print("Nome: ", b.nome, "Immagine: ", b.immagine)
 
 
@@ -65,4 +69,3 @@ class ListaBeni:
                 for bene in lista_beni_salvata:
                     lista_nomi_beni.append(bene.nome)
         return lista_nomi_beni
-
