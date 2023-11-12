@@ -34,18 +34,17 @@ class DatabasePrenotazioni:
         lista_prenotazioni_per_email = []
         for entry in self.get_database_prenotazioni():
             print("ciao")
-            for cliente in entry.matrice_clienti:
-                print(entry.matrice_clienti)
-                for email in cliente[0]:
-                    if email == email_utente:
-                        print("email trovata")
-                        lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
-                                                            "   " +
-                                                            cliente[1] +
-                                                            " " +
-                                                            cliente[2] +
-                                                            "   " +
-                                                            entry.attivita.titolo)
+            lista_email = entry.matrice_clienti[0]
+            for email in lista_email:
+                if email is email_utente:
+                    index = lista_email.index(email)
+                    lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
+                                                        "    " +
+                                                        entry.matrice_clienti[1][index] +
+                                                        "  " +
+                                                        entry.matrice_clienti[2][index] +
+                                                        "    " +
+                                                        entry.attivita.titolo)
         print(lista_prenotazioni_per_email)
         return lista_prenotazioni_per_email
 

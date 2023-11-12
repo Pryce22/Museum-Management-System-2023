@@ -76,7 +76,6 @@ def show_home_direttore(utente_attivo):
     ui = Ui_VistaHomeDirettore(utente_attivo)
     ui.setupUi(VistaHomeDirettore)
     VistaHomeDirettore.show()
-
     return ui
 
 
