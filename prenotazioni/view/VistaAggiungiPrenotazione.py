@@ -127,6 +127,13 @@ class Ui_Form(object):
                 msg.setWindowTitle("Errore")
                 msg.exec_()
 
+        def show_popup_if_prenotazione_effettuata():
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Prenotazione effettuata!")
+            msg.setWindowTitle("Conferma prenotazione")
+            msg.exec_()
+
         def aggiungi_prenotazione():
             if show_popup_if_form_not_filled():
                 return
@@ -137,7 +144,9 @@ class Ui_Form(object):
                                                        self.cognomeLineEdit.text(),
                                                        self.utente_attivo.email)
                 print("Prenotazione aggiunta")
+                show_popup_if_prenotazione_effettuata()
                 mostra_date_per_attivita()
+                Form.close()
 
 
 

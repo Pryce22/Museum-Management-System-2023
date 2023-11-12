@@ -33,15 +33,20 @@ class DatabasePrenotazioni:
     def visualizza_lista_prenotazioni_per_email(self, email_utente):
         lista_prenotazioni_per_email = []
         for entry in self.get_database_prenotazioni():
+            print("ciao")
             for cliente in entry.matrice_clienti:
-                if cliente[0] is email_utente:
-                    lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
-                                                        "   " +
-                                                        cliente[1] +
-                                                        " " +
-                                                        cliente[2] +
-                                                        "   " +
-                                                        entry.attivita.titolo)
+                print(entry.matrice_clienti)
+                for email in cliente[0]:
+                    if email == email_utente:
+                        print("email trovata")
+                        lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
+                                                            "   " +
+                                                            cliente[1] +
+                                                            " " +
+                                                            cliente[2] +
+                                                            "   " +
+                                                            entry.attivita.titolo)
+        print(lista_prenotazioni_per_email)
         return lista_prenotazioni_per_email
 
     def return_last_date(self):

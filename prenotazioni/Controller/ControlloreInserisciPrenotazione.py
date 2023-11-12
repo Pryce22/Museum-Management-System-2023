@@ -25,4 +25,6 @@ class ControlloreInserisciPrenotazione:
         for entry in database:
             if entry.data.strftime("%d - %m -  %Y") == data and entry.attivita.titolo == attivita_selezionata:
                 entry.aggiungi_riga(email, nome, cognome)
+                print(entry.matrice_clienti[0][0])
+
                 self.model.save_data()

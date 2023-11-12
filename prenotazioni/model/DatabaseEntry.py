@@ -13,6 +13,7 @@ class DataBaseEntry:
         print(self.data)
         print(self.n_massimo)
 
+
     def get_numero_posti_prenotati(self):
         return len(self.matrice_clienti[0])  # Usiamo la lunghezza di una delle sottoliste
 
