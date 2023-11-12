@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtCore import QStringListModel
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QListView
 
 from biglietto.controller.ControlloreBiglietto import ControlloreBiglietto
 # Form implementation generated from reading ui file 'VistaPrenotazioniEffettuate.ui'
@@ -68,6 +68,7 @@ class Ui_MainWindow(object):
         model = QStringListModel()
         model.setStringList(self.controller.visualizza_lista_prenotazioni_per_email(self.utente_attivo))
         self.listView.setModel(model)
+        self.listView.setEditTriggers(QListView.NoEditTriggers)
 
     def scarica_biglietto(self):
         dati_prenotazione = self.listView.currentIndex().data().split("    ")

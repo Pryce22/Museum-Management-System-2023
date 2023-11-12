@@ -36,7 +36,7 @@ class DatabasePrenotazioni:
             print("ciao")
             lista_email = entry.matrice_clienti[0]
             for email in lista_email:
-                if email is email_utente:
+                if email == email_utente:
                     index = lista_email.index(email)
                     lista_prenotazioni_per_email.append(entry.data.strftime("%d - %m -  %Y") +
                                                         "    " +

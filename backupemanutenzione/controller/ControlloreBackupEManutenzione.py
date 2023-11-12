@@ -58,3 +58,45 @@ class ControlloreBackupEManutenzione:
         for prenotazione in self.DatabasePrenotazioni:
             if prenotazione.data < datetime.date.today():
                 self.database.elimina_data_prenotabile(prenotazione)
+
+    def copia_lista_utenti(self):
+        if os.path.isfile('backupemanutenzione/data/lista_utenti_backup.pickle'):
+            with open('backupemanutenzione/data/lista_utenti_backup.pickle', "rb") as g:
+                lista_utenti_backup = pickle.load(g)
+            with open("utente/data/lista_utenti_salvata.pickle", 'rb') as f:
+                pickle.dump(lista_utenti_backup, f)
+                return lista_utenti_backup
+
+    def copia_lista_beni(self):
+        if os.path.isfile('backupemanutenzione/data/lista_beni_backup.pickle'):
+            with open('backupemanutenzione/data/lista_beni_backup.pickle', "rb") as g:
+                lista_beni_backup = pickle.load(g)
+            with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
+                pickle.dump(lista_beni_backup, f)
+                return lista_beni_backup
+
+    def copia_lista_prenotazioni(self):
+        if os.path.isfile('backupemanutenzione/data/lista_prenotazioni_backup.pickle'):
+            with open('backupemanutenzione/data/lista_beni_backup.pickle', "rb") as g:
+                lista_prenotazioni_backup = pickle.load(g)
+            with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'rb') as f:
+                pickle.dump(lista_prenotazioni_backup, f)
+                return lista_prenotazioni_backup
+
+    def copia_informazioni_e_contatti(self):
+        if os.path.isfile('backupemanutenzione/data/informazioni_e_contatti_backup.pickle'):
+            with open('backupemanutenzione/data/informazioni_e_contatti_backup.pickle', "rb") as g:
+                informazioni_e_contatti_backup = pickle.load(g)
+            with open('informazioniecontatti/data/informazioni_salvate.pickle', 'rb') as f:
+                pickle.dump(informazioni_e_contatti_backup, f)
+                return informazioni_e_contatti_backup
+
+    def save_data(self):
+        if os.path.isfile('backupemanutenzione/data/backup_completo.pickle'):
+            with open('backupemanutenzione/data/backup_completo.pickle', 'rb') as f:
+                dati_backup = [self.copia_lista_utenti(),
+                               self.copia_lista_beni(),
+                               self.copia_lista_prenotazioni(),
+                               self.copia_informazioni_e_contatti()]
+                pickle.dump(dati_backup, f)
+

@@ -37,12 +37,12 @@ class ControlloreBiglietto:
         # Aggiungi il contenuto al PDF
         #c.setFont("Helvetica", 10)
         y_position = 700  # Altezza iniziale del testo
-        for i in range(4):
+        for i in range(5):
             print(len(heading[i]))
             c.setFont("Helvetica-Bold", 12)
             c.drawString(12, y_position, heading[i])
             c.setFont("Helvetica", 10)
-            c.drawString(80, y_position, content[i])
+            c.drawString(100, y_position, content[i])
             y_position -= 12  # Spaziatura tra le linee
         return c
 
@@ -79,7 +79,10 @@ class ControlloreBiglietto:
         msg['Subject'] = "Biglietto d'ingresso"
 
         # Aggiungi il corpo del messaggio
-        msg.attach(MIMEText("Testo email", 'plain'))
+        msg.attach(MIMEText(f"Gentile {nome} {cognome}, in allegato trova il Suo biglietto.\n "
+                            f"Il biglietto é nominativo e va presentato al bancone di ingresso del museo "
+                            f"per accedere ai servizi da Lei prenotati.\n"
+                            f"Cordiali saluti", 'plain'))
 
         # Aggiungi l'allegato PDF
         with open("output.pdf", "rb") as pdf_file:
