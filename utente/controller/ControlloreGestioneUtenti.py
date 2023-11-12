@@ -42,7 +42,7 @@ class ControlloreGestioneUtenti:
             for u in self.model.get_lista_utenti():
                 if u.email == email_in:
                     return False
-            #return True
+            return True
         #else:
             #return False
 
