@@ -91,62 +91,14 @@ class Ui_Form(object):
         if self.attivitaComboBox.currentText() == "Seleziona un'attivitá":
             self.datePrenotabiliComboBox.setEditable(False)
 
-        def mostra_date_per_attivita():
-            self.datePrenotabiliComboBox.clear()
-            print(self.attivitaComboBox.currentText())
-            lista_date = self.controller.get_data_prenotazione_per_attivita(self.attivitaComboBox.currentText())
-            for data in lista_date:
-                self.datePrenotabiliComboBox.addItem(data.strftime("%d - %m -  %Y") +
-                                                     "    " +
-                                                     str(self.controller.get_posti_disponibili_per_data(data)) +
-                                                     " posti disp.")
-
-        # Assuming you have an instance of Ui_Form called ui
-        self.attivitaComboBox.currentTextChanged.connect(mostra_date_per_attivita)
+        self.attivitaComboBox.currentTextChanged.connect(self.mostra_date_per_attivita)
 
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.datePrenotabiliComboBox)
         self.pushButton_prenota = QtWidgets.QPushButton(Form)
         self.pushButton_prenota.setGeometry(QtCore.QRect(110, 130, 120, 22))
         self.pushButton_prenota.setObjectName("pushButton_prenota")
 
-        self.pushButton_prenota.clicked.connect(lambda: aggiungi_prenotazione())
-
-        def is_form_filled():
-            if (self.nomeLineEdit.text().strip() == "" or
-                    self.cognomeLineEdit.text().strip() == "" or
-                    self.attivitaComboBox.currentText() == "Seleziona un'attivitá" or
-                    self.datePrenotabiliComboBox.currentText() == 'Seleziona una data'):
-                return False
-            return True
-
-        def show_popup_if_form_not_filled():
-            if not is_form_filled():
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setText("Per favore compila tutti i campi")
-                msg.setWindowTitle("Errore")
-                msg.exec_()
-
-        def show_popup_if_prenotazione_effettuata():
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Prenotazione effettuata!")
-            msg.setWindowTitle("Conferma prenotazione")
-            msg.exec_()
-
-        def aggiungi_prenotazione():
-            if show_popup_if_form_not_filled():
-                return
-            else:
-                self.controller.inserisci_prenotazione(self.attivitaComboBox.currentText(),
-                                                       self.datePrenotabiliComboBox.currentText().split("    ")[0],
-                                                       self.nomeLineEdit.text(),
-                                                       self.cognomeLineEdit.text(),
-                                                       self.utente_attivo.email)
-                print("Prenotazione aggiunta")
-                show_popup_if_prenotazione_effettuata()
-                mostra_date_per_attivita()
-                Form.close()
+        self.pushButton_prenota.clicked.connect(lambda: self.aggiungi_prenotazione())
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -160,6 +112,52 @@ class Ui_Form(object):
         self.Label_date.setText(_translate("Form", "Date prenotabili:"))
         self.pushButton_prenota.setText(_translate("Form", "Prenota attività"))
 
+    def mostra_date_per_attivita(self):
+        self.datePrenotabiliComboBox.clear()
+        print(self.attivitaComboBox.currentText())
+        lista_date = self.controller.get_data_prenotazione_per_attivita(self.attivitaComboBox.currentText())
+        for data in lista_date:
+            self.datePrenotabiliComboBox.addItem(data.strftime("%d - %m -  %Y") +
+                                                 "    " +
+                                                 str(self.controller.get_posti_disponibili_per_data(data)) +
+                                                 " posti disp.")
+
+    def is_form_filled(self):
+        if (self.nomeLineEdit.text().strip() == "" or
+                self.cognomeLineEdit.text().strip() == "" or
+                self.attivitaComboBox.currentText() == "Seleziona un'attivitá" or
+                self.datePrenotabiliComboBox.currentText() == 'Seleziona una data'):
+            return False
+        return True
+
+    def show_popup_if_form_not_filled(self):
+        if not self.is_form_filled():
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Per favore compila tutti i campi")
+            msg.setWindowTitle("Errore")
+            msg.exec_()
+
+    def show_popup_if_prenotazione_effettuata(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Prenotazione effettuata! \n "
+                    "una copia del biglietto é stata inviata all'e-mail associata all'account")
+        msg.setWindowTitle("Conferma prenotazione")
+        msg.exec_()
+
+    def aggiungi_prenotazione(self):
+        if self.show_popup_if_form_not_filled():
+            return
+        else:
+            self.controller.inserisci_prenotazione(self.attivitaComboBox.currentText(),
+                                                   self.datePrenotabiliComboBox.currentText().split("    ")[0],
+                                                   self.nomeLineEdit.text(),
+                                                   self.cognomeLineEdit.text(),
+                                                   self.utente_attivo.email)
+            self.show_popup_if_prenotazione_effettuata()
+            self.mostra_date_per_attivita()
+            Form.close()
 
 def show_vista_aggiungi_prenotazione(utente_attivo):
     ui = Ui_Form(utente_attivo)

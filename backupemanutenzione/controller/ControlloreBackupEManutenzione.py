@@ -1,5 +1,8 @@
 from attivita import *
 from prenotazioni.data import *
+from utente.data import *
+from beni.data import *
+from informazioniecontatti.data import *
 from prenotazioni.model.DatabasePrenotazioni import *
 from attivita.model.ListaAttivita import *
 import datetime
@@ -93,10 +96,9 @@ class ControlloreBackupEManutenzione:
 
     def save_data(self):
         if os.path.isfile('backupemanutenzione/data/backup_completo.pickle'):
-            with open('backupemanutenzione/data/backup_completo.pickle', 'rb') as f:
+            with open('backupemanutenzione/data/backup_completo.pickle', 'wb') as f:
                 dati_backup = [self.copia_lista_utenti(),
                                self.copia_lista_beni(),
                                self.copia_lista_prenotazioni(),
                                self.copia_informazioni_e_contatti()]
                 pickle.dump(dati_backup, f)
-

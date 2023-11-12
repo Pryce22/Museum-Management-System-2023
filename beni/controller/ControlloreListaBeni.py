@@ -170,29 +170,6 @@ class ControlloreListaBeni:
             pickle.dump(lista_beni, f)
 
 
-
-    '''if bene.area == lista_aree[0]:
-        bene.stato_area = lista_stato_aree[0]
-        if not bene.stato_area:
-            bene.stato = False
-    if bene.area == lista_aree[1]:
-        bene.stato_area = lista_stato_aree[1]
-        if not bene.stato_area:
-            bene.stato = False
-    if bene.area == lista_aree[2]:
-        bene.stato_area = lista_stato_aree[2]
-        if not bene.stato_area:
-            bene.stato = False
-    if bene.area == lista_aree[3]:
-        bene.stato_area = lista_stato_aree[3]
-        if not bene.stato_area:
-            bene.stato = False
-    if bene.area == lista_aree[4]:
-        bene.stato_area = lista_stato_aree[4]
-        if not bene.stato_area:
-            bene.stato = False'''
-
-
     def ottieni_beni_da_file(self):
         try:
             with open('beni/data/lista_beni_salvata.pickle', 'rb') as file:
@@ -223,6 +200,4 @@ class ControlloreListaBeni:
                     bene.immagine = immagine
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
-
-
 

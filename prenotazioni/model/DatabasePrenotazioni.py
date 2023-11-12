@@ -70,5 +70,3 @@ class DatabasePrenotazioni:
     def save_data(self):
         with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'wb') as f:
             pickle.dump(self.database_prenotazioni, f)
-
-

@@ -29,7 +29,3 @@ class ControlloreListaAttivita:
         for a in self.model.get_lista_attivita():
             if titolo_in == a.titolo:
                 return a
-
-
-#attivita_prova = ControlloreListaAttivita()
-#attivita_prova.get_lista_attivita()

@@ -25,8 +25,10 @@ class Ui_VistaHomeDirettore(object):
         VistaHomeDirettore.setObjectName("VistaHomeDirettore")
         if self.utente_attivo.is_direttore:
             VistaHomeDirettore.resize(400, 421)
+            VistaHomeDirettore.setFixedSize(400, 421)
         else:
             VistaHomeDirettore.resize(400, 281)
+            VistaHomeDirettore.setFixedSize(400, 281)
         self.pushButton_1 = QtWidgets.QPushButton(VistaHomeDirettore)
         self.pushButton_1.setGeometry(QtCore.QRect(0, 0, 200, 140))
         self.pushButton_1.setObjectName("pushButton_1")
@@ -71,10 +73,16 @@ class Ui_VistaHomeDirettore(object):
             self.pushButton_5.setText(_translate("VistaHomeDirettore", "Elimina dipendenti"))
             self.pushButton_6.setText(_translate("VistaHomeDirettore", "Inserisci dipendente"))
 
+    def closeEvent(self, event):
+        self.controller.save_data()
+        print('backup fatto')
+        event.accept()
+
 
 def show_home_direttore(utente_attivo):
     ui = Ui_VistaHomeDirettore(utente_attivo)
     ui.setupUi(VistaHomeDirettore)
+    VistaHomeDirettore.closeEvent = ui.closeEvent
     VistaHomeDirettore.show()
     return ui
 
