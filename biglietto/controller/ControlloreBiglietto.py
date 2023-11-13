@@ -63,7 +63,7 @@ class ControlloreBiglietto:
             print("Operazione di salvataggio annullata dall'utente")
 
     def invia_biglietto_per_email(self, destinatario, data, attivita, nome, cognome):
-        biglietto_pdf = self.genera_biglietto("output.pdf", data, attivita, destinatario, nome, cognome)
+        biglietto_pdf = self.genera_biglietto('biglietto/data/output.pdf', data, attivita, destinatario, nome, cognome)
         biglietto_pdf.save()
 
         # Configura le informazioni dell'account email
@@ -85,7 +85,7 @@ class ControlloreBiglietto:
                             f"Cordiali saluti", 'plain'))
 
         # Aggiungi l'allegato PDF
-        with open("output.pdf", "rb") as pdf_file:
+        with open("biglietto/data/output.pdf", "rb") as pdf_file:
             part = MIMEApplication(pdf_file.read(), Name="Biglietto d'ingresso.pdf")
             part['Content-Disposition'] = f'attachment; filename="Biglietto ingresso.pdf"'
             msg.attach(part)
