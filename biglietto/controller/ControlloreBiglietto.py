@@ -2,8 +2,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 import tkinter as tk
 from tkinter import filedialog
 from biglietto.model.Biglietto import *
@@ -23,7 +21,7 @@ class ControlloreBiglietto:
         heading = ["Data: ", "Attivita: ", "Email: ", "Nome: ", "Cognome: "]
 
         # Crea un documento PDF
-        c = canvas.Canvas(file_path, pagesize=letter)
+        c = canvas.Canvas(file_path, pagesize=reportlab.lib.pagesizes.letter)
         c.setTitle("Biglietto d'ingresso")
 
         # Aggiungi il titolo al PDF
