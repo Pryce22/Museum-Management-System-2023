@@ -266,7 +266,7 @@ class Ui_VistaBene(object):
                         descrizione_in = self.bene.descrizione
                     if data_aggiunta_in == "":
                         data_aggiunta_in = self.bene.data_di_aggiunta
-                    self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,data_aggiunta_in)
+                    self.controller.aggiorna_bene(self.bene.nome, nome_in, immagine_in, area_in, descrizione_in, stato_in, stato_area_in,self.bene.id_bene,data_aggiunta_in)
                     self.show_popup(1, "Bene Aggiornato!")
                     self.callback()
                     VistaBene.close()

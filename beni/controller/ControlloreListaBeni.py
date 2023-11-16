@@ -1,4 +1,5 @@
 from beni.model.ListaBeni import *
+from beni.model.Bene import *
 import pickle
 import os
 import sys
@@ -51,8 +52,10 @@ class ControlloreListaBeni:
     def get_lista_beni(self):
         return self.model.get_lista_beni()
 
-    def aggiorna_bene(self, nome_vecchio, nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta):
-        self.model.aggiorna_bene(nome_vecchio, nome, immagine, area, descrizione, stato, stato_area, data_di_aggiunta)
+    def aggiorna_bene(self, nome_vecchio, nome, immagine, area, descrizione, stato, stato_area,id_bene, data_di_aggiunta):
+        bene_aggiornato = Bene(nome,immagine,area, descrizione,stato,stato_area,id_bene,data_di_aggiunta)
+        bene = self.cerca_bene_per_nome(nome_vecchio)
+        self.model.aggiorna_bene(bene, bene_aggiornato)
         #self.inserisci_bene(bene)
         #self.elimina_bene(bene_vecchio)
         #with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
@@ -98,8 +101,7 @@ class ControlloreListaBeni:
             return bene.immagine
         return None
 
-    def get_bene_by_index(self, index):
-        return self.model.get_bene_by_index(index)
+
 
     def salva_aree_e_loro_stati(self):
         aree_stato = {

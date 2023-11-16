@@ -8,7 +8,6 @@ from test.test_beni.BeneTest import *
 class TestControlloreListaBeni(unittest.TestCase):
     def setUp(self):
         self.controllore = ControlloreListaBeni()
-        # Aggiungi un bene fittizio per il testing
         self.bene_di_test = Bene(nome="Bene di Test", immagine="test.jpg", area="Area Test", descrizione="Descrizione di Test", stato=True, stato_area=True,id_bene=1, data_di_aggiunta="01-01-2023")
         self.controllore.inserisci_bene(self.bene_di_test)
 
@@ -32,7 +31,6 @@ class TestControlloreListaBeni(unittest.TestCase):
         risultato = self.controllore.controlla_nome("Bene di Test")
         self.assertFalse(risultato)
 
-    # Aggiungi altri test in base alle funzionalità del tuo controllore
 
     def tearDown(self):
         # Ripristina lo stato iniziale eliminando il bene di test
