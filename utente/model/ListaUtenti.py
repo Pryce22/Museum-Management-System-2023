@@ -28,9 +28,6 @@ class ListaUtenti:
     def get_lista_utenti(self):
         return self.lista_utenti
 
-    def get_utente_by_index(self, index):
-        return self.lista_utenti[index]
-
     def show_popup(self, text):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)

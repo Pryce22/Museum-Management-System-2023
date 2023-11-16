@@ -2,8 +2,8 @@ class InformazioniEContatti:
 
         def __init__ (self):
             super(InformazioniEContatti, self).__init__()
-            self.informazioni = "Ciao\n"
-            self.contatti = "Peni\n"
+            self.informazioni = "informazioni_temp\n"
+            self.contatti = "contatti_temp\n"
 
         def aggiorna_informazioni(self, informazioni_aggiornate):
             self.informazioni = informazioni_aggiornate

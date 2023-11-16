@@ -4,7 +4,7 @@ from beni.controller.ControlloreListaBeni import *
 
 class Ui_StatoAree(object):
 
-    def __init__(self, utente_attivo,callback):
+    def __init__(self, utente_attivo, callback):
         super(Ui_StatoAree, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo

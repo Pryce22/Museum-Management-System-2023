@@ -79,12 +79,12 @@ class Ui_VistaListaBeniDipendente(object):
 
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
-        self.checkBox.clicked.connect(lambda: self.ordinamento_disponibilita())
-        self.checkBox_2.clicked.connect(lambda: self.ordinamento_disponibilita())
+        self.checkBox.clicked.connect(lambda: self.filtra_per_stato())
+        self.checkBox_2.clicked.connect(lambda: self.filtra_per_stato())
         self.pushButton.clicked.connect(lambda: self.ricerca_bene())
         self.comboBox.currentIndexChanged.connect(lambda: self.ricerca_per_area(self.comboBox.currentText()))
         if self.utente_attivo.is_dipendente:
-            self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo,self.ordinamento_disponibilita))
+            self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo, self.filtra_per_stato))
             self.pushButton_3.clicked.connect(lambda: show_stato_aree(self.utente_attivo, self.update_ui))
 
 
@@ -129,7 +129,7 @@ class Ui_VistaListaBeniDipendente(object):
             nome_bene = self.list_model.data(index, QtCore.Qt.DisplayRole)
             #url = self.controller.ottieni_path_immagine_bene(nome_bene)
             bene = self.controller.cerca_bene_per_nome(nome_bene)
-            show_vista_bene(self.utente_attivo, bene, self.ordinamento_disponibilita)
+            show_vista_bene(self.utente_attivo, bene, self.filtra_per_stato)
         else:
             print("Nessun elemento selezionato")
 
@@ -169,30 +169,27 @@ class Ui_VistaListaBeniDipendente(object):
         else:
             self.listView.setModel(None)
 
-
-
-    def ordinamento_disponibilita(self):
+    def filtra_per_stato(self):
         disponibile = self.checkBox.isChecked()
         non_disponibile = self.checkBox_2.isChecked()
         if disponibile and non_disponibile:
             self.popola_listview()
         elif disponibile:
-            bene_names = self.controller.visualizza_lista_beni_per_stato(True)
-            self.list_model = QtCore.QStringListModel(bene_names)
-            self.listView.setModel(self.list_model)
+            self.visualizza_beni_disponibili()
         elif non_disponibile:
-            bene_names = self.controller.visualizza_lista_beni_per_stato(False)
-            self.list_model = QtCore.QStringListModel(bene_names)
-            self.listView.setModel(self.list_model)
+            self.visualizza_beni_non_disponibili()
         else:
             self.popola_listview()
 
-    #def visualizza_lista_beni_disponibili(self):
+    def visualizza_beni_disponibili(self):
+            bene_names = self.controller.visualizza_lista_beni_per_stato(True)
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
 
-
-
-
-    #def visualizza_lista_beni_non_disponibili(self):
+    def visualizza_beni_non_disponibili(self):
+            bene_names = self.controller.visualizza_lista_beni_per_stato(False)
+            self.list_model = QtCore.QStringListModel(bene_names)
+            self.listView.setModel(self.list_model)
 
 
     def show_popup(self, n, text):
