@@ -1,7 +1,7 @@
 import pickle
 import unittest
 from utente.model.Utente import Utente
-from test.test_utente.ControlloreGestioneUtenti import ControlloreGestioneUtenti
+from Test.test_utente.ControlloreGestioneUtenti import ControlloreGestioneUtenti
 
 
 class TestControlloreGestioneUtenti(unittest.TestCase):
