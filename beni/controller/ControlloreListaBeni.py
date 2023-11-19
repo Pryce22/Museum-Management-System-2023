@@ -92,8 +92,12 @@ class ControlloreListaBeni:
         return beni_per_area
 
     def crea_id_bene(self):
-        id_bene = len(self.model.lista_beni) + 1
-        return id_bene
+        if len(self.get_lista_beni()) == 0:
+            id_bene_nuovo = 1
+        else:
+            ultimo_bene = self.get_lista_beni()[-1]
+            id_bene_nuovo = ultimo_bene.id_bene + 1
+        return id_bene_nuovo
 
     def ottieni_path_immagine_bene(self,nome):
         bene = self.cerca_bene_per_nome(nome)
