@@ -65,12 +65,16 @@ class Ui_MainWindow(object):
 
     # preleva i dati della prenotazione selezionata e genera il pdf del biglietto da scaricare
     def scarica_biglietto(self):
-        dati_prenotazione = self.listView.currentIndex().data().split("    ")
-        self.controller_biglietti.scarica_biglietto(dati_prenotazione[0],
-                                                    dati_prenotazione[2],
-                                                    self.utente_attivo.email,
-                                                    dati_prenotazione[1].split("  ")[0],
-                                                    dati_prenotazione[1].split("  ")[1])
+        if self.listView.currentIndex().data() == None:
+            show_popup_errore_scarica()
+            pass
+        else:
+            dati_prenotazione = self.listView.currentIndex().data().split("    ")
+            self.controller_biglietti.scarica_biglietto(dati_prenotazione[0],
+                                                        dati_prenotazione[2],
+                                                        self.utente_attivo.email,
+                                                        dati_prenotazione[1].split("  ")[0],
+                                                        dati_prenotazione[1].split("  ")[1])
 
     # elimina la prenotazione selezionata dal DatabasePrenotazioni
     def elimina_prenotazione(self):
@@ -88,6 +92,12 @@ def show_vista_prenotazioni_effettuate(utente_attivo):
     return ui
 
 
+def show_popup_errore_scarica():
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Critical)
+    msg.setText("Seleziona una prenotazione")
+    msg.setWindowTitle("Errore")
+    msg.exec_()
 
 def show_popup_prenotazione_eliminata():
     msg = QMessageBox()
@@ -99,5 +109,3 @@ def show_popup_prenotazione_eliminata():
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()
-
-# sys.exit(app.exec_())

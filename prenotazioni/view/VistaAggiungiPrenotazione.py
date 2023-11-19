@@ -130,6 +130,7 @@ class Ui_Form(object):
             msg.setText("Per favore compila tutti i campi")
             msg.setWindowTitle("Errore")
             msg.exec_()
+            return True
 
     # mostra un popup di conferma nel caso in cui una prenotazione é andata a buon fine
     def show_popup_if_prenotazione_effettuata(self):
@@ -143,7 +144,7 @@ class Ui_Form(object):
     # aggiunge una prenotazione a DatabasePrenotazioni con i campi inseriti dall'utente
     def aggiungi_prenotazione(self):
         if self.show_popup_if_form_not_filled():
-            return
+            pass
         else:
             self.controller.inserisci_prenotazione(self.attivitaComboBox.currentText(),
                                                    self.datePrenotabiliComboBox.currentText().split("    ")[0],
@@ -151,7 +152,6 @@ class Ui_Form(object):
                                                    self.cognomeLineEdit.text(),
                                                    self.utente_attivo.email)
             self.show_popup_if_prenotazione_effettuata()
-            self.mostra_date_per_attivita()
             Form.close()
 
 def show_vista_aggiungi_prenotazione(utente_attivo):

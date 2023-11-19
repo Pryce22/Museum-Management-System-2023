@@ -5,6 +5,9 @@ from email.mime.application import MIMEApplication
 import tkinter as tk
 from tkinter import filedialog
 
+import reportlab
+from reportlab.pdfgen import canvas
+
 #import reportlab
 #from reportlab.pdfgen import canvas
 
@@ -41,7 +44,6 @@ class ControlloreBiglietto:
         #c.setFont("Helvetica", 10)
         y_position = 700  # Altezza iniziale del testo
         for i in range(5):
-            print(len(heading[i]))
             c.setFont("Helvetica-Bold", 12)
             c.drawString(12, y_position, heading[i])
             c.setFont("Helvetica", 10)
@@ -56,7 +58,6 @@ class ControlloreBiglietto:
         root = tk.Tk()
         root.withdraw()  # Nasconde la finestra principale di Tkinter
         file_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF files", "*.pdf")], initialfile="Biglietto d'ingresso")
-        print(file_path)
         biglietto_pdf = self.genera_biglietto(file_path, data, attivita, email, nome, cognome)
         # Verifica se l'utente ha scelto un percorso
         if file_path:
