@@ -15,6 +15,7 @@ class ControlloreBiglietto:
     def __init__(self):
         super(ControlloreBiglietto, self).__init__()
 
+    # genera un biglietto in base ai parametri forniti
     def genera_biglietto(self, file_path, data, attivita, email, nome, cognome):
         self.biglietto = Biglietto(attivita, data, email, nome, cognome)
 

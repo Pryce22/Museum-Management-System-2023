@@ -107,6 +107,7 @@ class Ui_Vista_attivita(object):
         self.retranslateUi(Vista_attivita)
         QtCore.QMetaObject.connectSlotsByName(Vista_attivita)
 
+    # assegna ai campi i dati rilevanti
     def retranslateUi(self, Vista_attivita):
         _translate = QtCore.QCoreApplication.translate
         Vista_attivita.setWindowTitle(_translate("Vista_attivita", self.attivita_selezionata.titolo))

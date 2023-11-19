@@ -13,40 +13,36 @@ class TestControlloreInserisciPrenotazione(unittest.TestCase):
         self.database_prenotazioni = DatabasePrenotazioni().get_database_prenotazioni()
 
     def test_get_data_prenotazione_per_attivita(self):
-        # Test the method to get dates for a specific activity
+        # testa il metodo per ottenere le date per una specfica attivita
         attivita = "Visita senza guida"
         result = self.controller_inserisci.get_data_prenotazione_per_attivita(attivita)
         print(result)
         self.assertIsInstance(result, list)
 
     def test_get_database_prenotazioni(self):
-        # Test the method to get the pre-booking database
+        # testa il metodo per ottenere il database delle prenotazioni
         result = self.controller_inserisci.get_database_prenotazioni()
         self.assertIsInstance(result, list)
 
     def test_get_posti_disponibili_per_data(self):
-        # Test the method to get available seats for a specific date
+        # testa il metodo per ottenere i posti disponibili per una data specifica
         date = datetime.today()
         result = self.controller_inserisci.get_posti_disponibili_per_data(date)
         self.assertIsInstance(result, int)
 
     def test_inserisci_prenotazione(self):
+        # Assegna dei valori di prova alle variabili da passare alla funzione
         attivita = "Visita senza guida"
         data = datetime.today()
-        nome = "John"
-        cognome = "Doe"
-        email = "john.doe@example.com"
+        nome = "Nome"
+        cognome = "Cognome"
+        email = "nome.cognome@example.com"
 
-        # Mock the necessary dependencies or use setUp to create the expected conditions
-        self.controller_inserisci.model.get_database_prenotazioni = lambda: self.database_prenotazioni
-        self.controller_inserisci.controller.invia_biglietto_per_email = lambda *args, **kwargs: None
-
-        # Perform the test
+        # Esegui il test
         self.controller_inserisci.inserisci_prenotazione(attivita, data, nome, cognome, email)
 
-        # Add assertions to check if the booking was added successfully
         self.assertIsInstance(len(self.database_prenotazioni), int)
-        # Add more assertions based on your implementation
+
 
 if __name__ == '__main__':
     unittest.main()
