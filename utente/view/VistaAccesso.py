@@ -124,7 +124,7 @@ class Ui_VistaAccesso(object):
             self.show_popup(0, "Compila tutti i campi per il signup!")
         else:
             if self.controller.controlla_email(email_in):
-                self.controller.inserisci_utente(Utente(email_in, password_in, False, False))
+                self.controller.inserisci_utente(Utente(email_in, password_in, False,  False))
                 self.show_popup(1, "Account registrato!")
             else:
                 self.show_popup(0, "Email non valida!")
