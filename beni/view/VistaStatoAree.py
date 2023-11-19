@@ -104,6 +104,7 @@ class Ui_StatoAree(object):
         self.checkBox_5.setText(_translate("StatoAree", "Disponibile"))
         self.push_button.setText(_translate("StatoAree","Conferma"))
 
+    # setto le checkbox in base alla disponibilità delle aree
     def disponibilita_aree(self):
         aree_stato = self.controller.carica_stato_aree()
         self.checkBox.setChecked(aree_stato.get("Area Geologica"))
@@ -112,16 +113,20 @@ class Ui_StatoAree(object):
         self.checkBox_4.setChecked(aree_stato.get("Area esposizione temporanee"))
         self.checkBox_5.setChecked(aree_stato.get("Science room"))
 
+    # modifico la disponibilità premendo sulle checkbox
+
     def cambia_disponibilita_aree(self):
         self.controller.cambia_disponibilita_aree(self.checkBox.isChecked(), self.checkBox_2.isChecked(), self.checkBox_3.isChecked(), self.checkBox_4.isChecked(), self.checkBox_5.isChecked())
         self.callback()
         StatoAree.close()
+
 
 def show_stato_aree(utente_attivo,callback):
     ui = Ui_StatoAree(utente_attivo,callback)
     ui.setupUi(StatoAree)
     StatoAree.show()
     return ui
+
 
 app = QtWidgets.QApplication(sys.argv)
 StatoAree = QtWidgets.QMainWindow()

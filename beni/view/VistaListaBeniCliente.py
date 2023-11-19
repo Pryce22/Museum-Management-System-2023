@@ -56,7 +56,7 @@ class Ui_VistaListaBeniCliente(object):
         self.statusbar.setObjectName("statusbar")
         VistaListaBeniCliente.setStatusBar(self.statusbar)
 
-        #aggiunta selezione beni dalla lista
+        #popolo la listview
 
         def popola_listview():
             lista_beni = self.controller.model.get_lista_beni()
@@ -99,14 +99,12 @@ class Ui_VistaListaBeniCliente(object):
         else:
             print("Nessun elemento selezionato")
 
+
 def show_listabeni_cliente(utente_attivo):
     ui = Ui_VistaListaBeniCliente(utente_attivo)
     ui.setupUi(VistaListaBeniCliente)
     VistaListaBeniCliente.show()
     return ui
-
-
-
 
 
 app = QtWidgets.QApplication(sys.argv)

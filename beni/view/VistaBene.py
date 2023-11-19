@@ -14,6 +14,7 @@ class Ui_VistaBene(object):
         #self.image_url = url
         self.bene = bene
         self.callback = callback
+
     def setupUi(self, VistaBene):
         VistaBene.setObjectName("VistaBene")
         VistaBene.resize(800, 600)
@@ -169,7 +170,6 @@ class Ui_VistaBene(object):
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
             self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
 
-
         '''response = requests.get(self.image_url)
         image_data = response.content
 
@@ -219,6 +219,7 @@ class Ui_VistaBene(object):
             self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
             self.pushButton_3.setText(_translate("VistaBene", "Elimina bene"))
 
+    # attiva possibilità di aggiornamento
 
     def aggiorna_bene(self):
         self.lineEdit.setPlaceholderText("inserisci il nuovo nome")
@@ -241,11 +242,14 @@ class Ui_VistaBene(object):
         self.lineEdit_2.dropEvent = self.dropEvent
         self.lineEdit_2.show()
 
+    # eliminazione del bene
+
     def elimina_bene(self):
         self.controller.elimina_bene(self.bene)
         self.callback()
         VistaBene.close()
 
+    # conferma di aggiornamento
 
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
@@ -277,6 +281,7 @@ class Ui_VistaBene(object):
         else:
             self.show_popup(0,"Il nome non deve contenere numeri")
 
+    # verifica aggiornamento data corretto
 
     def verifica_formato_data(self, data):
         pattern = re.compile(r'\d{1,2}-\d{1,2}-\d{4}')
@@ -284,7 +289,6 @@ class Ui_VistaBene(object):
             return True
         else:
             return False
-
 
     def show_popup(self, n, text):
         msg = QMessageBox()

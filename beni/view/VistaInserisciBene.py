@@ -15,7 +15,6 @@ class Ui_VistaInserisciBene(object):
         self.utente_attivo = utente_attivo
         self.callback = callback
 
-
     def setupUi(self, VistaInserisciBene):
         VistaInserisciBene.setObjectName("VistaInserisciBene")
         VistaInserisciBene.resize(476, 504)
@@ -126,7 +125,6 @@ class Ui_VistaInserisciBene(object):
         self.retranslateUi(VistaInserisciBene)
         QtCore.QMetaObject.connectSlotsByName(VistaInserisciBene)
 
-
     def retranslateUi(self, VistaInserisciBene):
             _translate = QtCore.QCoreApplication.translate
             VistaInserisciBene.setWindowTitle(_translate("VistaInserisciBene", "Inserisci bene"))
@@ -147,6 +145,7 @@ class Ui_VistaInserisciBene(object):
             self.label_9.setText(_translate("VistaInserisciBene", "Inserisci bene"))
             self.pushButton.setText(_translate("VistaInserisciBene", "Conferma"))
 
+    # conferma di inserimento bene, passa tutti dati inseriti e costruisce il bene
 
     def conferma_aggiunta(self):
         nome_in = self.lineEdit.text()
@@ -170,7 +169,6 @@ class Ui_VistaInserisciBene(object):
                     self.show_popup(0, "Nome già presente!")
         else:
             self.show_popup(0,"Il nome non deve contenere numeri")
-
 
     def show_popup(self, n, text):
         msg = QMessageBox()

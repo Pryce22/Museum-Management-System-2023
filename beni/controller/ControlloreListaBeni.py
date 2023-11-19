@@ -15,8 +15,6 @@ class ControlloreListaBeni:
                 if not self.model.lista_beni:
                     self.model.lista_beni = lista_beni_salvata
 
-
-
     def inserisci_bene(self, bene):
         if self.model.aggiungi_bene(bene):
             with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
@@ -52,6 +50,8 @@ class ControlloreListaBeni:
     def get_lista_beni(self):
         return self.model.get_lista_beni()
 
+    # aggiornamento di un bene
+
     def aggiorna_bene(self, nome_vecchio, nome, immagine, area, descrizione, stato, stato_area,id_bene, data_di_aggiunta):
         bene_aggiornato = Bene(nome,immagine,area, descrizione,stato,stato_area,id_bene,data_di_aggiunta)
         bene = self.cerca_bene_per_nome(nome_vecchio)
@@ -60,6 +60,8 @@ class ControlloreListaBeni:
         #self.elimina_bene(bene_vecchio)
         #with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             #pickle.dump(self.model.lista_beni, f)
+
+    # ritorna la lista dei nomi dei beni in base all'id o nome/carattere inserito nella ricerca
 
     def get_lista_nomi_da_id_o_nome(self,nome_o_id):
         beni_corrispondenti = []
@@ -72,6 +74,8 @@ class ControlloreListaBeni:
                 beni_corrispondenti.append(bene.nome)
         return beni_corrispondenti
 
+    # ritorna la lista dei nomi dei beni in base allo stato selezionato
+
     def visualizza_lista_beni_per_stato(self, stato):
         beni_disponibili = []
         for bene in sorted(self.get_lista_beni(), key=lambda x: (not x.stato_area and not x.stato, x.id_bene)):
@@ -79,6 +83,7 @@ class ControlloreListaBeni:
                 beni_disponibili.append(bene.nome)
         return beni_disponibili
 
+    # ritorna la lista dei nomi dei beni in base all'area selezionata
 
     def get_lista_nomi_per_area(self, area_selezionata):
         if area_selezionata.lower() == "tutte":
@@ -91,18 +96,13 @@ class ControlloreListaBeni:
                 beni_per_area.append(bene.nome)
         return beni_per_area
 
+    # genera l'id bene all'aggiunta di un nuovo bene
+
     def crea_id_bene(self):
         id_bene = len(self.model.lista_beni) + 1
         return id_bene
 
-    def ottieni_path_immagine_bene(self,nome):
-        bene = self.cerca_bene_per_nome(nome)
-        if bene:
-            return bene.immagine
-        return None
-
-
-
+    # genera la prima volta il pickle delle aree
     def salva_aree_e_loro_stati(self):
         aree_stato = {
             "Area Geologica": True,
@@ -120,11 +120,12 @@ class ControlloreListaBeni:
                 lista_aree = pickle.load(f)
                 print(lista_aree)
 
-
     def carica_stato_aree(self):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
             return aree_stato
+
+    # modifica il pickle della disponibilità delle aree
 
     def cambia_disponibilita_aree(self,Geologica,Zoologica,Paleontologica,Esp_Temp,Science):
         aree_stato = self.carica_stato_aree()
@@ -152,6 +153,7 @@ class ControlloreListaBeni:
             pickle.dump(aree_stato, file)
         self.cambia_disponibilita_aree_lista_beni()
 
+    # prende lo stato delle aree da un pickle
     def stato_area(self, area_bene):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
@@ -159,6 +161,7 @@ class ControlloreListaBeni:
                 if area_bene == area:
                     return stato
 
+    # modifica la disponibilità aree dei beni in base al pickle dello stato delle aree
 
     def cambia_disponibilita_aree_lista_beni(self):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
@@ -171,16 +174,8 @@ class ControlloreListaBeni:
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
 
-
-    def ottieni_beni_da_file(self):
-        try:
-            with open('beni/data/lista_beni_salvata.pickle', 'rb') as file:
-                beni = pickle.load(file)
-                return beni
-        except (FileNotFoundError, EOFError):
-            return []
-
-
+    # le due funzioni sotto servono a modificare il path dell'immagine del bene in modo che sia visualizzabile senza
+    # considerare il path dell'utente originario che lo ha inserito
     def get_cartella_immagini(self):
         file = os.path.abspath(__file__)
         application_path = os.path.dirname(os.path.dirname(file))
