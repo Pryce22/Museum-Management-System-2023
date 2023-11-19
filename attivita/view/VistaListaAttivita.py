@@ -33,7 +33,9 @@ class Ui_VistaListaAttivita(object):
             self.list_model = QtCore.QStringListModel(attivita_names)
             self.listView.setModel(self.list_model)
 
-        # popola_lista(self), usato solo per la generazione della lista
+        # Usato solo per la generazione della lista
+        # popola_lista(self)
+
         popola_lista_attivita()
         self.listView.doubleClicked.connect(lambda: self.doppio_click())
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -65,7 +67,7 @@ def add_item_to_listview(text, list_model):
 def popola_lista(self):
     self.controller.aggiungi_attivita(
         Attivita("Visita senza guida",
-                 "Descrizione prima attivita",
+                 "Semplice ingresso nel museo",
                  "Lun-Dom",
                  1,
                  60,
@@ -73,32 +75,34 @@ def popola_lista(self):
                  "3€"))
     self.controller.aggiungi_attivita(
         Attivita("Visita guidata",
-                 "Descrizione seconda attivita",
-                 "Lun-Dom",
-                 2, 60,
+                 "Itinerario gestito da una guida",
+                 "Sab-Dom",
+                 2,
+                 30,
                  "10:30",
                  "4€"))
     self.controller.aggiungi_attivita(
         Attivita("Attività didattiche per gruppi classe presso il museo",
-                 "Descrizione terza attivita",
-                 "Lun-Dom",
+                 "Tour del museo per gruppi classe con esperimenti",
+                 "Mar",
                  3,
-                 60,
+                 30,
                  "10:30",
                  "5€"))
     self.controller.aggiungi_attivita(
         Attivita("Attività didattiche per gruppi classe presso sede scolastica",
-                 "Descrizione quarta attivita",
-                 "Lun-Dom",
-                 4, 60,
+                 "Esperimenti presso la sede scolastica del cliente",
+                 "Gio",
+                 4,
+                 5,
                  "10:30",
                  "6€"))
     self.controller.aggiungi_attivita(
         Attivita("Escursioni geologiche per gruppi classe presso Parco del Conero o Parco dei Monti Sibillini",
-                 "Descrizione quinta attivita",
-                 "Lun-Dom",
+                 "Aventura nei meandri dei Parchi Regionali",
+                 "Mer",
                  5,
-                 60,
+                 20,
                  "10:30",
                  "6€"))
 

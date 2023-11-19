@@ -9,7 +9,6 @@ from utente.view.VistaGestioneUtente import show_gestione_utente
 from utente.view.VistaInserisciDipendente import *
 from utente.view.VistaEliminaDipendente import *
 from beni.view.VistaListaBeniDipendente import *
-from beni.view.VistaListaBeniCliente import *
 from attivita.view.VistaListaAttivita import *
 from backupemanutenzione.controller.ControlloreBackupEManutenzione import *
 

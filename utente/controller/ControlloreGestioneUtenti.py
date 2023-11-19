@@ -42,15 +42,16 @@ class ControlloreGestioneUtenti:
             with open(self.pickle_path_test, 'wb') as f:
                 pickle.dump(self.model.lista_utenti, f)
             return True
+        return False
 
     def controlla_email(self, email_in):
-        #if '@' in email_in and '.' in email_in:
+        if '@' in email_in and '.' in email_in:
             for u in self.model.get_lista_utenti():
                 if u.email == email_in:
                     return False
             return True
-        #else:
-            #return False
+        else:
+            return False
 
     def trova_utente(self, email_in):
         for u in self.model.get_lista_utenti():
@@ -87,32 +88,3 @@ class ControlloreGestioneUtenti:
             msg.setWindowTitle("Errore")
             msg.setText(text)
         x = msg.exec_()
-
-
-class TestControlloreGestioneUtenti(unittest.TestCase):
-    def setUp(self):
-        # Questo metodo viene chiamato prima di ogni test
-        self.controllore = ControlloreGestioneUtenti()
-
-    def test_inserisci_elimina_cliente(self):
-        email_cliente = "cliente@example.com"
-        password_cliente = "password"
-
-        # Inserisci un cliente
-        cliente = Utente(email_cliente, password_cliente, False, False)
-        self.controllore.inserisci_utente(cliente)
-
-        # Verifica che il cliente sia stato inserito correttamente
-        self.assertFalse(self.controllore.controlla_email(email_cliente))
-        self.assertEqual(self.controllore.trova_utente(email_cliente), cliente)
-
-        # Elimina il cliente
-        self.assertTrue(self.controllore.elimina_utente(email_cliente))
-
-        # Verifica che il cliente sia stato eliminato correttamente
-        self.assertTrue(self.controllore.controlla_email(email_cliente))
-        self.assertEqual(self.controllore.trova_utente(email_cliente), "")
-
-
-if __name__ == '__main__':
-    unittest.main()

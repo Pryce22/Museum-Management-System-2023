@@ -169,8 +169,8 @@ class Ui_VistaBene(object):
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
             self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
 
-
-        '''response = requests.get(self.image_url)
+        '''
+        response = requests.get(self.image_url)
         image_data = response.content
 
         pixmap = QtGui.QPixmap()
@@ -181,7 +181,9 @@ class Ui_VistaBene(object):
         label.setPixmap(pixmap)
         label.setScaledContents(True)
         label.setObjectName("imageLabel")
-        label.show()'''
+        label.show()
+        '''
+
         pixmap = QtGui.QPixmap(self.bene.immagine)
         label = QtWidgets.QLabel(self.centralwidget)
         label.setGeometry(QtCore.QRect(610, 110, 171, 171))
@@ -277,14 +279,12 @@ class Ui_VistaBene(object):
         else:
             self.show_popup(0,"Il nome non deve contenere numeri")
 
-
     def verifica_formato_data(self, data):
         pattern = re.compile(r'\d{1,2}-\d{1,2}-\d{4}')
         if re.match(pattern, data):
             return True
         else:
             return False
-
 
     def show_popup(self, n, text):
         msg = QMessageBox()

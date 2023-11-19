@@ -5,8 +5,8 @@ from email.mime.application import MIMEApplication
 import tkinter as tk
 from tkinter import filedialog
 
-import reportlab
-from reportlab.pdfgen import canvas
+#import reportlab
+#from reportlab.pdfgen import canvas
 
 from biglietto.model.Biglietto import *
 
