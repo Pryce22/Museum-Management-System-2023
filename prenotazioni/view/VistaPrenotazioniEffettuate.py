@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from PyQt5.QtCore import QStringListModel
 from PyQt5.QtWidgets import QMessageBox, QListView
 from biglietto.controller.ControlloreBiglietto import ControlloreBiglietto

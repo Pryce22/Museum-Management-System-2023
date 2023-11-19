@@ -277,12 +277,14 @@ class Ui_VistaBene(object):
         else:
             self.show_popup(0,"Il nome non deve contenere numeri")
 
+
     def verifica_formato_data(self, data):
         pattern = re.compile(r'\d{1,2}-\d{1,2}-\d{4}')
         if re.match(pattern, data):
             return True
         else:
             return False
+
 
     def show_popup(self, n, text):
         msg = QMessageBox()

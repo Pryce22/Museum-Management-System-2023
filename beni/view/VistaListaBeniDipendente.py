@@ -6,6 +6,7 @@ from beni.view.VistaBene import *
 from beni.view.VistaStatoAree import *
 
 
+
 class Ui_VistaListaBeniDipendente(object):
 
     def __init__(self, utente_attivo):

@@ -43,6 +43,8 @@ class ListaBeni:
         for b in self.get_lista_beni():
             print("Nome: ", b.nome, "Immagine: ", b.immagine)
 
+
+
     def get_lista_nomi_beni(self):
         lista_nomi_beni = []
         if os.path.isfile('beni/data/lista_beni_salvata.pickle'):

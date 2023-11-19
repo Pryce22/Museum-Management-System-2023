@@ -154,7 +154,6 @@ class Ui_Form(object):
             self.mostra_date_per_attivita()
             Form.close()
 
-
 def show_vista_aggiungi_prenotazione(utente_attivo):
     ui = Ui_Form(utente_attivo)
     ui.setupUi(Form)
