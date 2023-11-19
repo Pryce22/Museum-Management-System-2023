@@ -119,10 +119,10 @@ class Ui_Form(object):
         for data in lista_date:
             self.datePrenotabiliComboBox.addItem(data.strftime("%d - %m -  %Y") +
                                                  "    " +
-                                                 str(self.controller.get_posti_disponibili_per_data(data)) +
+                                                 str(self.controller.visualizza_posti_disponibili(data)) +
                                                  " posti disp.")
 
-    def is_form_filled(self):
+    def campi_compilati(self):
         if (self.nomeLineEdit.text().strip() == "" or
                 self.cognomeLineEdit.text().strip() == "" or
                 self.attivitaComboBox.currentText() == "Seleziona un'attivitá" or
@@ -131,7 +131,7 @@ class Ui_Form(object):
         return True
 
     def show_popup_if_form_not_filled(self):
-        if not self.is_form_filled():
+        if not self.campi_compilati():
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
             msg.setText("Per favore compila tutti i campi")

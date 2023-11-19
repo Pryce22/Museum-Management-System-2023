@@ -1,4 +1,4 @@
-from Test.test_prenotazioni.ControlloreBiglietto import *
+from test.test_prenotazioni.ControlloreBiglietto import *
 from prenotazioni.model.DatabasePrenotazioni import *
 
 

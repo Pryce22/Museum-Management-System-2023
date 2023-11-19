@@ -17,7 +17,7 @@ class ControlloreInserisciPrenotazione:
     def get_database_prenotazioni(self):
         return self.model.get_database_prenotazioni()
 
-    def get_posti_disponibili_per_data(self, data):
+    def visualizza_posti_disponibili(self, data):
         for entry in self.model.get_database_prenotazioni():
             if entry.data == data:
                 return entry.n_massimo - entry.get_numero_posti_prenotati()

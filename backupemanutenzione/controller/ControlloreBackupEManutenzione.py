@@ -19,13 +19,14 @@ class ControlloreBackupEManutenzione:
         self.lista = ListaAttivita()
         self.ListaAttivita = self.lista.get_lista_attivita()
 
+    # aggiunge nuove DatabaseEntry in funzione della data odierna e
+    # del giorno della settimana in cui dovrebbe essere aggiunta
     def aggiungi_nuove_prenotazioni(self):
         if len(self.DatabasePrenotazioni) == 0:
             self.database.aggiungi_data_prenotabile(
                 datetime.date.today(),
                 self.lista.get_attivita_by_ID(1),
                 self.lista.get_attivita_by_ID(1).n_posti)
-            print("Fatto")
         while len(self.DatabasePrenotazioni) > 0 and (self.database.return_last_date() < datetime.date.today() + datetime.timedelta(days=30)):
             if self.database.return_last_date() is not datetime.date.today():
                 self.database.aggiungi_data_prenotabile(
@@ -57,11 +58,13 @@ class ControlloreBackupEManutenzione:
                     self.lista.get_attivita_by_ID(2)
                 )
 
+    # elimina le DatabaseEntry precedenti al giorno corrente
     def elimina_prenotazioni_scadute(self):
         for prenotazione in self.DatabasePrenotazioni:
             if prenotazione.data < datetime.date.today():
                 self.database.elimina_data_prenotabile(prenotazione)
 
+    # crea un nuovo pickle du backup con la lista utenti
     def copia_lista_utenti(self):
         with open("utente/data/lista_utenti_salvata.pickle", 'rb') as f:
             lista_utenti_backup = pickle.load(f)
@@ -69,6 +72,7 @@ class ControlloreBackupEManutenzione:
             pickle.dump(lista_utenti_backup, g)
             return lista_utenti_backup
 
+    # crea un nuovo pickle di backup con la lista dei beni
     def copia_lista_beni(self):
         with open('beni/data/lista_beni_salvata.pickle', 'rb') as f:
             lista_beni_backup = pickle.load(f)
@@ -76,6 +80,7 @@ class ControlloreBackupEManutenzione:
             pickle.dump(lista_beni_backup, g)
             return lista_beni_backup
 
+    # crea un nuovo pickle di backup con la lista delle prenotazioni
     def copia_lista_prenotazioni(self):
         with open('prenotazioni/data/lista_prenotazioni_salvata.pickle', 'rb') as f:
             lista_prenotazioni_backup = pickle.load(f)
@@ -83,6 +88,7 @@ class ControlloreBackupEManutenzione:
             pickle.dump(lista_prenotazioni_backup, g)
             return lista_prenotazioni_backup
 
+    # crea un nuovo pickle di backup con le informazioni e i contatti
     def copia_informazioni_e_contatti(self):
         informazioni_e_contatti_backup = []
         with open('informazioniecontatti/data/informazioni_salvate.pickle', 'rb') as f:
@@ -93,6 +99,7 @@ class ControlloreBackupEManutenzione:
             pickle.dump(informazioni_e_contatti_backup, g)
             return informazioni_e_contatti_backup
 
+    # combina tutti i pickle di backup in un unico pickle
     def save_data(self):
         if os.path.isfile('backupemanutenzione/data/backup_completo.pickle'):
             with open('backupemanutenzione/data/backup_completo.pickle', 'wb') as f:
