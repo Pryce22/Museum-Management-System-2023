@@ -15,6 +15,7 @@ class Ui_VistaBene(object):
         #self.image_url = url
         self.bene = bene
         self.callback = callback
+
     def setupUi(self, VistaBene):
         VistaBene.setObjectName("VistaBene")
         VistaBene.resize(800, 600)
@@ -258,7 +259,6 @@ class Ui_VistaBene(object):
         self.callback()
         VistaBene.close()
 
-
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
         if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
@@ -331,4 +331,3 @@ def show_vista_bene(utente_attivo, bene, callback):
 
 app = QtWidgets.QApplication(sys.argv)
 VistaBene = QtWidgets.QMainWindow()
-

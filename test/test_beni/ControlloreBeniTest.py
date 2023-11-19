@@ -195,4 +195,3 @@ class ControlloreListaBeni:
                     bene.immagine = immagine
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
-

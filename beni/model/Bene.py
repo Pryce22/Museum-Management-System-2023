@@ -1,4 +1,3 @@
-
 class Bene:
     def __init__(self, nome, immagine, area, descrizione, stato, stato_area, id_bene, data_di_aggiunta):
         self.nome = nome

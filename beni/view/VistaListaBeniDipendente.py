@@ -6,7 +6,6 @@ from beni.view.VistaBene import *
 from beni.view.VistaStatoAree import *
 
 
-
 class Ui_VistaListaBeniDipendente(object):
 
     def __init__(self, utente_attivo):
@@ -76,7 +75,6 @@ class Ui_VistaListaBeniDipendente(object):
         if self.utente_attivo.is_dipendente:
             self.lineEdit.setPlaceholderText("Inserisci Nome o ID")
 
-
         self.listView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView.doubleClicked.connect(lambda: self.item_clicked())
         self.checkBox.clicked.connect(lambda: self.filtra_per_stato())
@@ -86,7 +84,6 @@ class Ui_VistaListaBeniDipendente(object):
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.clicked.connect(lambda: show_inserisci_bene(self.utente_attivo, self.filtra_per_stato))
             self.pushButton_3.clicked.connect(lambda: show_stato_aree(self.utente_attivo, self.update_ui))
-
 
         self.retranslateUi(VistaListaBeniDipendente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniDipendente)
@@ -108,7 +105,6 @@ class Ui_VistaListaBeniDipendente(object):
         if self.utente_attivo.is_dipendente:
             self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
             self.pushButton_3.setText(_translate("VistaListaBeniDipendente", "Stato Aree"))
-
 
     def update_ui(self):
         # lista_beni = self.controller.get_lista_beni()
@@ -145,7 +141,6 @@ class Ui_VistaListaBeniDipendente(object):
             self.listView.setModel(self.list_model)
         else:
             self.listView.setModel(None)
-
 
     def ricerca_per_area(self, area_selezionata):
         self.checkBox.setChecked(False)
@@ -191,7 +186,6 @@ class Ui_VistaListaBeniDipendente(object):
             self.list_model = QtCore.QStringListModel(bene_names)
             self.listView.setModel(self.list_model)
 
-
     def show_popup(self, n, text):
         msg = QMessageBox()
         if n == 0:
@@ -205,8 +199,6 @@ class Ui_VistaListaBeniDipendente(object):
         x = msg.exec_()
 
 
-
-
 def show_listabeni_dipendente(utente_attivo):
     ui = Ui_VistaListaBeniDipendente(utente_attivo)
     ui.setupUi(VistaListaBeniDipendente)
@@ -216,5 +208,3 @@ def show_listabeni_dipendente(utente_attivo):
 
 app = QtWidgets.QApplication(sys.argv)
 VistaListaBeniDipendente = QtWidgets.QMainWindow()
-
-#sys.exit(app.exec_())

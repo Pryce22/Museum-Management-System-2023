@@ -136,4 +136,3 @@ def show_attivita(attivita_selezionata):
 
 app = QtWidgets.QApplication(sys.argv)
 Vista_attivita = QtWidgets.QWidget()
-

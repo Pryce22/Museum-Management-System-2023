@@ -163,5 +163,3 @@ def show_vista_aggiungi_prenotazione(utente_attivo):
 
 app = QtWidgets.QApplication(sys.argv)
 Form = QtWidgets.QWidget()
-
-# sys.exit(app.exec_())

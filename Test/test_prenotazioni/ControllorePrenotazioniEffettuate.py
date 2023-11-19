@@ -23,4 +23,3 @@ class ControllorePrenotazioniEffettuate:
                             for i in range(3):
                                 del entry.matrice_clienti[i][index]
                                 self.model.save_data()
-

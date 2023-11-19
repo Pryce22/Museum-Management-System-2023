@@ -1,6 +1,5 @@
 import os.path
 import pickle
-
 from prenotazioni.model.DatabaseEntry import *
 
 
