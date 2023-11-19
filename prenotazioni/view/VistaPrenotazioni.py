@@ -1,5 +1,3 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-
 from attivita.view.VistaListaAttivita import show_lista_attivita
 from prenotazioni.view.VistaSchermataPrenotazioni import *
 import sys

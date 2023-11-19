@@ -31,10 +31,10 @@ class TestControlloreListaBeni(unittest.TestCase):
         risultato = self.controllore.controlla_nome("Bene di Test")
         self.assertFalse(risultato)
 
-
     def tearDown(self):
         # Ripristina lo stato iniziale eliminando il bene di test
         self.controllore.elimina_bene(self.bene_di_test)
+
 
 if __name__ == '__main__':
     unittest.main()

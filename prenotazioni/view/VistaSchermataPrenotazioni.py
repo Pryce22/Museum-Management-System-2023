@@ -1,7 +1,5 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 from prenotazioni.view.VistaAggiungiPrenotazione import *
 import sys
-
 from prenotazioni.view.VistaPrenotazioniEffettuate import show_vista_prenotazioni_effettuate
 
 

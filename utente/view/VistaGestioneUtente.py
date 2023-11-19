@@ -1,3 +1,7 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+from utente.controller.ControlloreGestioneUtenti import *
+from utente.view.VistaAggiornaUtente import *
 from utente.view.VistaAccesso import *
 
 
