@@ -46,6 +46,8 @@ class Ui_VistaEliminaDipendente(object):
         else:
             if self.controller.elimina_utente(email_in):
                 VistaEliminaDipendente.close()
+            else:
+                self.show_popup(0, "Dipendente non trovato!")
 
     def show_popup(self, n, text):
         msg = QMessageBox()

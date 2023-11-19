@@ -42,6 +42,7 @@ class ControlloreGestioneUtenti:
             with open(self.pickle_path_test, 'wb') as f:
                 pickle.dump(self.model.lista_utenti, f)
             return True
+        return False
 
     def controlla_email(self, email_in):
         if '@' in email_in and '.' in email_in:
