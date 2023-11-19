@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
 from informazioniecontatti.controller.ControlloreInformazioniEContatti import *
 import sys
 
@@ -88,6 +90,15 @@ class Ui_InformazioniEContatti(object):
     def aggiorna_informazioni_e_contatti_clicked(self, informazioni_aggiornate, contatti_aggiornati):
         self.controller.aggiorna_informazioni(informazioni_aggiornate)
         self.controller.aggiorna_contatti(contatti_aggiornati)
+        self.show_popup(0, "Informazioni e contatti aggiornati")
+
+    def show_popup(self, n, text):
+        msg = QMessageBox()
+        if n == 0:
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Conferma Aggiornamento")
+            msg.setText(text)
+        x = msg.exec_()
 
 
 def show_vista_informazioni_e_contatti(utente_attivo):
