@@ -9,6 +9,7 @@ class Ui_VistaBene(object):
 
     def __init__(self, utente_attivo, bene, callback):
         super(Ui_VistaBene, self).__init__()
+        self.plainTextEdit_4 = None
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
         #self.image_url = url
@@ -37,14 +38,21 @@ class Ui_VistaBene(object):
         font.setPointSize(14)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
+        '''self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_4.setGeometry(QtCore.QRect(10, 210, 401, 51))
         self.lineEdit_4.setText("")
         self.lineEdit_4.setMaxLength(5000)
         self.lineEdit_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_4.setObjectName("lineEdit_4")'''
         #self.lineEdit_4.setPlaceholderText(self.bene.descrizione)
-        self.lineEdit_4.setText(self.bene.descrizione)
+        # self.lineEdit_4.setText(self.bene.descrizione)
+        self.plainTextEdit_4 = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit_4.setGeometry(QtCore.QRect(10, 210, 400, 55))
+        #self.plainTextEdit_4.setPlainText("")
+        #self.plainTextEdit_4.setMaxLength(5000
+        #self.plainTextEdit_4.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        self.plainTextEdit_4.setObjectName("plainTextEdit_4")
+        self.plainTextEdit_4.setPlainText(self.bene.descrizione)
         #self.lineEdit_4.setStyleSheet("QlineEdit:disabled { color: black; }")
         self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(10, 460, 30, 21))
@@ -123,7 +131,8 @@ class Ui_VistaBene(object):
         self.checkBox.setChecked(self.bene.stato)
         self.checkBox_2.setChecked(self.controller.stato_area(self.bene.area))
         self.lineEdit_2.hide()
-        self.lineEdit_4.setReadOnly(True)
+        #self.lineEdit_4.setReadOnly(True)
+        self.plainTextEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_7.hide()
@@ -163,7 +172,6 @@ class Ui_VistaBene(object):
             self.comboBox.addItem("")
             self.comboBox.addItem("")
             self.comboBox.hide()
-
 
             self.pushButton_2.clicked.connect(lambda: self.aggiorna_bene())
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
@@ -224,9 +232,11 @@ class Ui_VistaBene(object):
 
     def aggiorna_bene(self):
         self.lineEdit.setPlaceholderText("inserisci il nuovo nome")
-        self.lineEdit_4.setPlaceholderText("inserisci la nuova descrizione")
+        #self.lineEdit_4.setPlaceholderText("inserisci la nuova descrizione")
+        self.plainTextEdit_4.setPlaceholderText("inserisci la nuova descrizione")
         self.lineEdit_8.setPlaceholderText("inserisci la nuova data(G-M-A)")
-        self.lineEdit_4.setReadOnly(False)
+        #self.lineEdit_4.setReadOnly(False)
+        self.plainTextEdit_4.setReadOnly(False)
         self.lineEdit_2.setReadOnly(False)
         self.lineEdit.setReadOnly(False)
         self.lineEdit_8.setReadOnly(False)
@@ -254,7 +264,8 @@ class Ui_VistaBene(object):
         if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
             immagine_in = self.lineEdit_2.text()
             area_in = self.comboBox.currentText()
-            descrizione_in = self.lineEdit_4.text()
+            #descrizione_in = self.lineEdit_4.text()
+            descrizione_in = self.plainTextEdit_4.toPlainText()
             stato_in = self.checkBox.isChecked()
             stato_area_in = self.controller.stato_area(area_in)
             data_aggiunta_in = self.lineEdit_8.text()
