@@ -50,12 +50,12 @@ class Ui_InformazioniEContatti(object):
         self.label_contatti.setFont(font)
         self.label_contatti.setObjectName("label_contatti")
         self.verticalLayout.addWidget(self.label_contatti)
-
         self.Text_contatti = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(18)
         self.Text_contatti.setFont(font)
+        # se l'utente attivo non é il direttore non puó modificare i campi
         if not self.utente_attivo.is_direttore:
             self.Text_contatti.setReadOnly(True)
         self.Text_contatti.setObjectName("Text_contatti")
@@ -63,12 +63,11 @@ class Ui_InformazioniEContatti(object):
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem2)
 
+        # mostra il tasto di aggiornamento solo se l'utente attivo é il direttore
         if self.utente_attivo.is_direttore:
             self.pushButton1 = QtWidgets.QPushButton(InformazioniEContatti)
             self.pushButton1.setGeometry(QtCore.QRect(0, 0, 300, 40))
             self.verticalLayout.addWidget(self.pushButton1)
-
-        if self.utente_attivo.is_direttore:
             self.pushButton1.clicked.connect(lambda: self.aggiorna_informazioni_e_contatti_clicked
             (self.Text_informazioni.toPlainText(), self.Text_contatti.toPlainText()))
 
@@ -85,6 +84,7 @@ class Ui_InformazioniEContatti(object):
         if self.utente_attivo.is_direttore:
             self.pushButton1.setText(_translate("InformazioniEContatti", "Aggiorna"))
 
+    # aggiorna i contatti solo quando l'utente clicca l'apposito tasto
     def aggiorna_informazioni_e_contatti_clicked(self, informazioni_aggiornate, contatti_aggiornati):
         self.controller.aggiorna_informazioni(informazioni_aggiornate)
         self.controller.aggiorna_contatti(contatti_aggiornati)

@@ -112,6 +112,7 @@ class Ui_Form(object):
         self.Label_date.setText(_translate("Form", "Date prenotabili:"))
         self.pushButton_prenota.setText(_translate("Form", "Prenota attività"))
 
+    # mostra le date prenotabili in funzione delláttivitá selezionata
     def mostra_date_per_attivita(self):
         self.datePrenotabiliComboBox.clear()
         print(self.attivitaComboBox.currentText())
@@ -122,6 +123,7 @@ class Ui_Form(object):
                                                  str(self.controller.visualizza_posti_disponibili(data)) +
                                                  " posti disp.")
 
+    # verifica che tutti i campi siano compilati
     def campi_compilati(self):
         if (self.nomeLineEdit.text().strip() == "" or
                 self.cognomeLineEdit.text().strip() == "" or
@@ -130,6 +132,7 @@ class Ui_Form(object):
             return False
         return True
 
+    # mostra un popup di errore se almeno un campo non é stato compilato
     def show_popup_if_form_not_filled(self):
         if not self.campi_compilati():
             msg = QMessageBox()
@@ -138,6 +141,7 @@ class Ui_Form(object):
             msg.setWindowTitle("Errore")
             msg.exec_()
 
+    # mostra un popup di conferma nel caso in cui una prenotazione é andata a buon fine
     def show_popup_if_prenotazione_effettuata(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -146,6 +150,7 @@ class Ui_Form(object):
         msg.setWindowTitle("Conferma prenotazione")
         msg.exec_()
 
+    # aggiunge una prenotazione a DatabasePrenotazioni con i campi inseriti dall'utente
     def aggiungi_prenotazione(self):
         if self.show_popup_if_form_not_filled():
             return

@@ -64,12 +64,14 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Prenotazioni effettuate:"))
         self.pushButton_Elimina.setText(_translate("MainWindow", "Elimina Prenotazione"))
 
+    # popola la listview con le prenotazioni effettuate dall'utente
     def visualizza_prenotazioni_per_email(self):
         model = QStringListModel()
         model.setStringList(self.controller.visualizza_lista_prenotazioni_per_email(self.utente_attivo))
         self.listView.setModel(model)
         self.listView.setEditTriggers(QListView.NoEditTriggers)
 
+    # preleva i dati della prenotazione selezionata e genera il pdf del biglietto da scaricare
     def scarica_biglietto(self):
         dati_prenotazione = self.listView.currentIndex().data().split("    ")
         self.controller_biglietti.scarica_biglietto(dati_prenotazione[0],
@@ -78,6 +80,7 @@ class Ui_MainWindow(object):
                                                     dati_prenotazione[1].split("  ")[0],
                                                     dati_prenotazione[1].split("  ")[1])
 
+    # elimina la prenotazione selezionata dal DatabasePrenotazioni
     def elimina_prenotazione(self):
         self.controller.elimina_prenotazione(self.listView.currentIndex().data(), self.utente_attivo)
         show_popup_prenotazione_eliminata()
