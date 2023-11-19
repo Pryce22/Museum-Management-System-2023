@@ -1,4 +1,3 @@
-import pickle
 import unittest
 from utente.model.Utente import Utente
 from test.test_utente.ControlloreGestioneUtenti import ControlloreGestioneUtenti

@@ -4,6 +4,7 @@ from biglietto.controller.ControlloreBiglietto import ControlloreBiglietto
 from prenotazioni.model.DatabasePrenotazioni import DatabasePrenotazioni
 from prenotazioni.Controller import ControlloreInserisciPrenotazione  # Replace with your actual module name
 
+
 class TestControlloreInserisciPrenotazione(unittest.TestCase):
 
     def setUp(self):

@@ -1,6 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-
 from utente.controller.ControlloreGestioneUtenti import ControlloreGestioneUtenti
 import sys
 
@@ -54,6 +53,7 @@ class Ui_VistaAggiornaUtente(object):
         self.lineEdit_2.setPlaceholderText(_translate("VistaAggiornaUtente", "Nuova password"))
         self.pushButton_1.setText(_translate("VistaAggiornaUtente", "Conferma"))
 
+    #Aggiorna i dati nella vista dell'area personale dell'utente
     def aggiorna_utente(self, utente_attivo):
         ok = True
         email_nuova = utente_attivo.email

@@ -1,7 +1,3 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-import sys
-from utente.controller.ControlloreGestioneUtenti import *
-from utente.view.VistaAggiornaUtente import *
 from utente.view.VistaAccesso import *
 
 
@@ -101,6 +97,7 @@ class Ui_VistaUtente(object):
         if self.controller.elimina_utente(self.utente_attivo.email):
             sys.exit()
 
+    #Definisce che tipo di account ha fatto l'accesso
     def tipo_account(self):
         if self.utente_attivo.is_direttore:
             return "Direttore"

@@ -1,6 +1,5 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 import backupemanutenzione.controller.ControlloreBackupEManutenzione
 from informazioniecontatti.view.VistaInformazioniEContatti import show_vista_informazioni_e_contatti
 from prenotazioni.view.VistaPrenotazioni import show_vista_prenotazioni

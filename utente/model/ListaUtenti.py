@@ -1,7 +1,6 @@
 import os
 import pickle
 import sys
-
 from PyQt5.QtWidgets import QMessageBox
 
 

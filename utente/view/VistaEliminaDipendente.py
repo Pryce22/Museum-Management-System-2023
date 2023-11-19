@@ -1,8 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-
 from PyQt5.QtWidgets import QMessageBox
-
 from utente.controller.ControlloreGestioneUtenti import ControlloreGestioneUtenti
 
 

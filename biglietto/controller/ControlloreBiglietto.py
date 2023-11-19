@@ -5,8 +5,8 @@ from email.mime.application import MIMEApplication
 import tkinter as tk
 from tkinter import filedialog
 
-import reportlab
-from reportlab.pdfgen import canvas
+#import reportlab
+#from reportlab.pdfgen import canvas
 
 from biglietto.model.Biglietto import *
 
@@ -15,7 +15,6 @@ class ControlloreBiglietto:
     def __init__(self):
         super(ControlloreBiglietto, self).__init__()
 
-    # genera un biglietto in base ai parametri forniti
     def genera_biglietto(self, file_path, data, attivita, email, nome, cognome):
         self.biglietto = Biglietto(attivita, data, email, nome, cognome)
 
@@ -49,7 +48,6 @@ class ControlloreBiglietto:
             y_position -= 12  # Spaziatura tra le linee
         return c
 
-    # scarica il biglietto in formato pdf
     def scarica_biglietto(self, data, attivita, email, nome, cognome):
 
         # Utilizza la finestra di dialogo per selezionare il percorso di salvataggio
@@ -62,8 +60,10 @@ class ControlloreBiglietto:
         if file_path:
             # Salva il file PDF nel percorso scelto
             biglietto_pdf.save()
+            print(f"Biglietto salvato con successo in: {file_path}")
+        else:
+            print("Operazione di salvataggio annullata dall'utente")
 
-    # invia il biglietto all'indirizzo e-mail con cui si é registrato l'utente
     def invia_biglietto_per_email(self, destinatario, data, attivita, nome, cognome):
         biglietto_pdf = self.genera_biglietto('biglietto/data/output.pdf', data, attivita, destinatario, nome, cognome)
         biglietto_pdf.save()

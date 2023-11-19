@@ -1,8 +1,6 @@
-from test.test_utente.ListaUtenti import *
+from Test.test_utente.ListaUtenti import *
 import pickle
 import os
-from utente.model.Utente import Utente
-
 import unittest
 from utente.model.Utente import Utente
 
@@ -11,7 +9,6 @@ class ControlloreGestioneUtenti:
     def __init__(self):
         super(ControlloreGestioneUtenti, self).__init__()
         self.model = ListaUtenti()
-        #self.pickle_path = 'utente/data/lista_utenti_salvata.pickle'
         self.pickle_path_test = 'lista_utenti_salvata.pickle'
 
         if os.path.isfile(self.pickle_path_test):

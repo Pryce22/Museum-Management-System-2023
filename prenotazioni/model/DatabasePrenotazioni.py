@@ -1,8 +1,6 @@
 import os.path
 import pickle
-
 from prenotazioni.model.DatabaseEntry import *
-
 
 class DatabasePrenotazioni:
     def __init__(self):

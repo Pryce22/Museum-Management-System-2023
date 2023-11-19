@@ -1,7 +1,5 @@
 import os
 import pickle
-import sys
-
 from PyQt5.QtWidgets import QMessageBox
 
 
@@ -22,7 +20,6 @@ class ListaUtenti:
         for utente in self.lista_utenti:
             if utente.email == email_eliminare:
                 self.lista_utenti.remove(utente)
-                #self.show_popup("Account eliminato.")
                 return True
 
     def get_lista_utenti(self):
