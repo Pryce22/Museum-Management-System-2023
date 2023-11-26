@@ -102,7 +102,11 @@ class Ui_Vista_attivita(object):
         self.plainTextEdit_5.setObjectName("plainTextEdit_5")
         self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.plainTextEdit_5)
         self.verticalLayout.addLayout(self.formLayout_2)
-
+        self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit_2.setReadOnly(True)
+        self.plainTextEdit_3.setReadOnly(True)
+        self.plainTextEdit_4.setReadOnly(True)
+        self.plainTextEdit_5.setReadOnly(True)
         self.label_Titolo.hide()
         self.retranslateUi(Vista_attivita)
         QtCore.QMetaObject.connectSlotsByName(Vista_attivita)
@@ -132,4 +136,3 @@ def show_attivita(attivita_selezionata):
 
 app = QtWidgets.QApplication(sys.argv)
 Vista_attivita = QtWidgets.QWidget()
-

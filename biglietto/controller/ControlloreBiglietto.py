@@ -4,10 +4,8 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import tkinter as tk
 from tkinter import filedialog
-
 import reportlab
 from reportlab.pdfgen import canvas
-
 from biglietto.model.Biglietto import *
 
 
@@ -41,7 +39,6 @@ class ControlloreBiglietto:
         #c.setFont("Helvetica", 10)
         y_position = 700  # Altezza iniziale del testo
         for i in range(5):
-            print(len(heading[i]))
             c.setFont("Helvetica-Bold", 12)
             c.drawString(12, y_position, heading[i])
             c.setFont("Helvetica", 10)
@@ -49,22 +46,20 @@ class ControlloreBiglietto:
             y_position -= 12  # Spaziatura tra le linee
         return c
 
+    # scarica il biglietto in formato pdf
     def scarica_biglietto(self, data, attivita, email, nome, cognome):
 
         # Utilizza la finestra di dialogo per selezionare il percorso di salvataggio
         root = tk.Tk()
         root.withdraw()  # Nasconde la finestra principale di Tkinter
         file_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF files", "*.pdf")], initialfile="Biglietto d'ingresso")
-        print(file_path)
         biglietto_pdf = self.genera_biglietto(file_path, data, attivita, email, nome, cognome)
         # Verifica se l'utente ha scelto un percorso
         if file_path:
             # Salva il file PDF nel percorso scelto
             biglietto_pdf.save()
-            print(f"Biglietto salvato con successo in: {file_path}")
-        else:
-            print("Operazione di salvataggio annullata dall'utente")
 
+    # invia il biglietto all'indirizzo e-mail con cui si é registrato l'utente
     def invia_biglietto_per_email(self, destinatario, data, attivita, nome, cognome):
         biglietto_pdf = self.genera_biglietto('biglietto/data/output.pdf', data, attivita, destinatario, nome, cognome)
         biglietto_pdf.save()

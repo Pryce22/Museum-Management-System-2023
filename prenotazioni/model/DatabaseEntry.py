@@ -1,6 +1,3 @@
-import datetime
-
-
 class DataBaseEntry:
 
     def __init__(self, date, attivita, n_massimo):

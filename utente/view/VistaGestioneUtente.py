@@ -34,7 +34,7 @@ class Ui_VistaUtente(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(VistaUtente)
-        self.label_3.setGeometry(QtCore.QRect(90, 20, 82, 23))
+        self.label_3.setGeometry(QtCore.QRect(90, 20, 250, 23))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -101,6 +101,7 @@ class Ui_VistaUtente(object):
         if self.controller.elimina_utente(self.utente_attivo.email):
             sys.exit()
 
+    #Definisce che tipo di account ha fatto l'accesso
     def tipo_account(self):
         if self.utente_attivo.is_direttore:
             return "Direttore"

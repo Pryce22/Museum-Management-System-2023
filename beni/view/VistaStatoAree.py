@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from beni.controller.ControlloreListaBeni import *
 
+
 class Ui_StatoAree(object):
 
     def __init__(self, utente_attivo, callback):
@@ -130,5 +131,3 @@ def show_stato_aree(utente_attivo,callback):
 
 app = QtWidgets.QApplication(sys.argv)
 StatoAree = QtWidgets.QMainWindow()
-
-#sys.exit(app.exec_())

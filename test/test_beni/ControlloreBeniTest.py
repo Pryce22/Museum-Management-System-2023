@@ -14,21 +14,16 @@ class ControlloreListaBeni:
                 if not self.model.lista_beni:
                     self.model.lista_beni = lista_beni_salvata
 
-
-
-
     def inserisci_bene(self, bene):
         if self.model.aggiungi_bene(bene):
             with open('lista_beni_salvata_test.pickle', 'wb') as f:
                 pickle.dump(self.model.lista_beni, f)
-
 
     def elimina_bene(self, bene):
         self.model.elimina_bene(bene)
         with open('lista_beni_salvata_test.pickle', 'wb') as f:
             pickle.dump(self.model.lista_beni, f)
         return True
-
 
     def cerca_bene_per_id(self, id_bene):
         for b in self.model.get_lista_beni():
@@ -122,7 +117,6 @@ class ControlloreListaBeni:
                 lista_aree = pickle.load(f)
                 print(lista_aree)
 
-
     def carica_stato_aree(self):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
@@ -161,7 +155,6 @@ class ControlloreListaBeni:
                 if area_bene == area:
                     return stato
 
-
     def cambia_disponibilita_aree_lista_beni(self):
         with open("beni/data/aree_stato.pickle", 'rb') as file:
             aree_stato = pickle.load(file)
@@ -173,7 +166,6 @@ class ControlloreListaBeni:
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
 
-
     def ottieni_beni_da_file(self):
         try:
             with open('beni/data/lista_beni_salvata.pickle', 'rb') as file:
@@ -181,7 +173,6 @@ class ControlloreListaBeni:
                 return beni
         except (FileNotFoundError, EOFError):
             return []
-
 
     def get_cartella_immagini(self):
         file = os.path.abspath(__file__)
@@ -204,4 +195,3 @@ class ControlloreListaBeni:
                     bene.immagine = immagine
         with open('beni/data/lista_beni_salvata.pickle', 'wb') as f:
             pickle.dump(lista_beni, f)
-

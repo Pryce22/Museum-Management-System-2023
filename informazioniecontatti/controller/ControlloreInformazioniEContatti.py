@@ -5,6 +5,7 @@ import os
 
 class ControlloreInformazioniEContatti:
 
+    #inizializzazione con lettura dei file pickle
     def __init__(self):
         super(ControlloreInformazioniEContatti, self).__init__()
         self.model = InformazioniEContatti()
@@ -30,10 +31,12 @@ class ControlloreInformazioniEContatti:
     def get_contatti(self):
         return self.model.get_contatti()
 
+    # aggiorna il pickle delle informazioni con i dati correnti
     def aggiorna_informazioni(self, informazioni_aggiornate):
         with open('informazioniecontatti/data/informazioni_salvate.pickle', 'wb') as f:
             pickle.dump(informazioni_aggiornate, f)
 
+    # aggiorna il pickle dei contatti con i dati correnti
     def aggiorna_contatti(self, contatti_aggiornati):
         with open('informazioniecontatti/data/contatti_salvati.pickle', 'wb') as f:
             pickle.dump(contatti_aggiornati, f)

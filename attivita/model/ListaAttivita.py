@@ -31,4 +31,3 @@ class ListaAttivita:
     def aggiungi_attivita(self, attivita):
         self.lista_attivita.append(attivita)
         return True
-

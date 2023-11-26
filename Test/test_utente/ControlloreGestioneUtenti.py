@@ -1,4 +1,4 @@
-from test.test_utente.ListaUtenti import *
+from Test.test_utente.ListaUtenti import *
 import pickle
 import os
 from utente.model.Utente import Utente

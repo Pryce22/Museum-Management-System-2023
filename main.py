@@ -1,3 +1,5 @@
+# 4081 Righe di codice
+import sys
 from PyQt5.QtWidgets import QApplication
 from utente.view.VistaAccesso import *
 

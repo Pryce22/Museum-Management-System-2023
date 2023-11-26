@@ -7,9 +7,11 @@ class ControllorePrenotazioniEffettuate:
         super(ControllorePrenotazioniEffettuate, self).__init__()
         self.model = DatabasePrenotazioni()
 
+    # ritorna la lista delle prenotazioni effettuate da un singolo utente
     def visualizza_lista_prenotazioni_per_email(self, utente_attivo):
         return self.model.visualizza_lista_prenotazioni_per_email(utente_attivo.email)
 
+    # elimina la prenotazione selezionata dall'utente e salva il databse aggiornato
     def elimina_prenotazione(self, dati_prenotazione, utente_attivo):
         dati = dati_prenotazione.split("    ")
         for entry in self.model.get_database_prenotazioni():
@@ -24,4 +26,3 @@ class ControllorePrenotazioniEffettuate:
                             for i in range(3):
                                 del entry.matrice_clienti[i][index]
                                 self.model.save_data()
-

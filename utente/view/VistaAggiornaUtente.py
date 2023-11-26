@@ -96,4 +96,3 @@ def show_aggiorna_utente(utente_attivo, callback):
 
 app = QtWidgets.QApplication(sys.argv)
 VistaAggiornaUtente = QtWidgets.QWidget()
-

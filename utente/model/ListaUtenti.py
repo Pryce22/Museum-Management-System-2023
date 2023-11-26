@@ -24,6 +24,7 @@ class ListaUtenti:
                 self.lista_utenti.remove(utente)
                 self.show_popup("Account eliminato.")
                 return True
+        return False
 
     def get_lista_utenti(self):
         return self.lista_utenti

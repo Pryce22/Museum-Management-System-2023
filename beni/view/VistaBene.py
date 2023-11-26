@@ -9,6 +9,7 @@ class Ui_VistaBene(object):
 
     def __init__(self, utente_attivo, bene, callback):
         super(Ui_VistaBene, self).__init__()
+        self.plainTextEdit_4 = None
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
         #self.image_url = url
@@ -38,14 +39,21 @@ class Ui_VistaBene(object):
         font.setPointSize(14)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
+        '''self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_4.setGeometry(QtCore.QRect(10, 210, 401, 51))
         self.lineEdit_4.setText("")
         self.lineEdit_4.setMaxLength(5000)
         self.lineEdit_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_4.setObjectName("lineEdit_4")'''
         #self.lineEdit_4.setPlaceholderText(self.bene.descrizione)
-        self.lineEdit_4.setText(self.bene.descrizione)
+        # self.lineEdit_4.setText(self.bene.descrizione)
+        self.plainTextEdit_4 = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit_4.setGeometry(QtCore.QRect(10, 210, 400, 55))
+        #self.plainTextEdit_4.setPlainText("")
+        #self.plainTextEdit_4.setMaxLength(5000
+        #self.plainTextEdit_4.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        self.plainTextEdit_4.setObjectName("plainTextEdit_4")
+        self.plainTextEdit_4.setPlainText(self.bene.descrizione)
         #self.lineEdit_4.setStyleSheet("QlineEdit:disabled { color: black; }")
         self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(10, 460, 30, 21))
@@ -124,7 +132,8 @@ class Ui_VistaBene(object):
         self.checkBox.setChecked(self.bene.stato)
         self.checkBox_2.setChecked(self.controller.stato_area(self.bene.area))
         self.lineEdit_2.hide()
-        self.lineEdit_4.setReadOnly(True)
+        #self.lineEdit_4.setReadOnly(True)
+        self.plainTextEdit_4.setReadOnly(True)
         self.lineEdit_7.setReadOnly(True)
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_7.hide()
@@ -165,12 +174,12 @@ class Ui_VistaBene(object):
             self.comboBox.addItem("")
             self.comboBox.hide()
 
-
             self.pushButton_2.clicked.connect(lambda: self.aggiorna_bene())
             self.pushButton.clicked.connect(lambda: self.conferma_aggiornamento_bene())
             self.pushButton_3.clicked.connect(lambda: self.elimina_bene())
 
-        '''response = requests.get(self.image_url)
+        '''
+        response = requests.get(self.image_url)
         image_data = response.content
 
         pixmap = QtGui.QPixmap()
@@ -181,7 +190,9 @@ class Ui_VistaBene(object):
         label.setPixmap(pixmap)
         label.setScaledContents(True)
         label.setObjectName("imageLabel")
-        label.show()'''
+        label.show()
+        '''
+
         pixmap = QtGui.QPixmap(self.bene.immagine)
         label = QtWidgets.QLabel(self.centralwidget)
         label.setGeometry(QtCore.QRect(610, 110, 171, 171))
@@ -219,13 +230,14 @@ class Ui_VistaBene(object):
             self.pushButton_2.setText(_translate("VistaBene", "Aggiorna bene"))
             self.pushButton_3.setText(_translate("VistaBene", "Elimina bene"))
 
-    # attiva possibilità di aggiornamento
 
     def aggiorna_bene(self):
         self.lineEdit.setPlaceholderText("inserisci il nuovo nome")
-        self.lineEdit_4.setPlaceholderText("inserisci la nuova descrizione")
+        #self.lineEdit_4.setPlaceholderText("inserisci la nuova descrizione")
+        self.plainTextEdit_4.setPlaceholderText("inserisci la nuova descrizione")
         self.lineEdit_8.setPlaceholderText("inserisci la nuova data(G-M-A)")
-        self.lineEdit_4.setReadOnly(False)
+        #self.lineEdit_4.setReadOnly(False)
+        self.plainTextEdit_4.setReadOnly(False)
         self.lineEdit_2.setReadOnly(False)
         self.lineEdit.setReadOnly(False)
         self.lineEdit_8.setReadOnly(False)
@@ -242,21 +254,18 @@ class Ui_VistaBene(object):
         self.lineEdit_2.dropEvent = self.dropEvent
         self.lineEdit_2.show()
 
-    # eliminazione del bene
-
     def elimina_bene(self):
         self.controller.elimina_bene(self.bene)
         self.callback()
         VistaBene.close()
-
-    # conferma di aggiornamento
 
     def conferma_aggiornamento_bene(self):
         nome_in = self.lineEdit.text()
         if all(carattere.isalpha() or carattere.isspace() for carattere in nome_in) or nome_in == "":
             immagine_in = self.lineEdit_2.text()
             area_in = self.comboBox.currentText()
-            descrizione_in = self.lineEdit_4.text()
+            #descrizione_in = self.lineEdit_4.text()
+            descrizione_in = self.plainTextEdit_4.toPlainText()
             stato_in = self.checkBox.isChecked()
             stato_area_in = self.controller.stato_area(area_in)
             data_aggiunta_in = self.lineEdit_8.text()
@@ -280,8 +289,6 @@ class Ui_VistaBene(object):
                 self.show_popup(0, "La data deve essere nel formato gg-mm-aaaa numerico")
         else:
             self.show_popup(0,"Il nome non deve contenere numeri")
-
-    # verifica aggiornamento data corretto
 
     def verifica_formato_data(self, data):
         pattern = re.compile(r'\d{1,2}-\d{1,2}-\d{4}')
@@ -324,4 +331,3 @@ def show_vista_bene(utente_attivo, bene, callback):
 
 app = QtWidgets.QApplication(sys.argv)
 VistaBene = QtWidgets.QMainWindow()
-

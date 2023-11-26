@@ -9,7 +9,7 @@ from datetime import datetime
 
 class Ui_VistaInserisciBene(object):
 
-    def __init__(self, utente_attivo,callback):
+    def __init__(self, utente_attivo, callback):
         super(Ui_VistaInserisciBene, self).__init__()
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
@@ -144,8 +144,6 @@ class Ui_VistaInserisciBene(object):
             self.label_8.setText(_translate("VistaInserisciBene", "Data di aggiunta"))
             self.label_9.setText(_translate("VistaInserisciBene", "Inserisci bene"))
             self.pushButton.setText(_translate("VistaInserisciBene", "Conferma"))
-
-    # conferma di inserimento bene, passa tutti dati inseriti e costruisce il bene
 
     def conferma_aggiunta(self):
         nome_in = self.lineEdit.text()

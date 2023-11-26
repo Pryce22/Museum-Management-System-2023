@@ -13,7 +13,6 @@ class Ui_VistaListaBeniDipendente(object):
         self.controller = ControlloreListaBeni()
         self.utente_attivo = utente_attivo
         self.list_model = None
-
     def setupUi(self, VistaListaBeniDipendente):
         VistaListaBeniDipendente.setObjectName("VistaListaBeniDipendente")
         VistaListaBeniDipendente.resize(858, 646)
@@ -89,6 +88,7 @@ class Ui_VistaListaBeniDipendente(object):
         self.retranslateUi(VistaListaBeniDipendente)
         QtCore.QMetaObject.connectSlotsByName(VistaListaBeniDipendente)
 
+
     def retranslateUi(self, VistaListaBeniDipendente):
         _translate = QtCore.QCoreApplication.translate
         VistaListaBeniDipendente.setWindowTitle(_translate("VistaListaBeniDipendente", "Vista lista beni"))
@@ -106,7 +106,6 @@ class Ui_VistaListaBeniDipendente(object):
             self.pushButton_2.setText(_translate("VistaListaBeniDipendente", "Inserisci Bene"))
             self.pushButton_3.setText(_translate("VistaListaBeniDipendente", "Stato Aree"))
 
-    # update della lista
     def update_ui(self):
         # lista_beni = self.controller.get_lista_beni()
         beni_ordinati = sorted(self.controller.get_lista_beni(), key=lambda x: (not x.stato, x.id_bene))
@@ -120,8 +119,6 @@ class Ui_VistaListaBeniDipendente(object):
         else:
             self.listView.setModel(None)
 
-    # cliccando su un bene mi restituisce il bene e lo passo alla vista del bene
-
     def item_clicked(self):
         index = self.listView.currentIndex()
         if index.isValid():
@@ -131,8 +128,6 @@ class Ui_VistaListaBeniDipendente(object):
             show_vista_bene(self.utente_attivo, bene, self.filtra_per_stato)
         else:
             print("Nessun elemento selezionato")
-
-    # popolo la lista
 
     def popola_listview(self):
         # lista_beni = self.controller.get_lista_beni()
@@ -147,8 +142,6 @@ class Ui_VistaListaBeniDipendente(object):
         else:
             self.listView.setModel(None)
 
-    # ricerca in base alle aree dei beni
-
     def ricerca_per_area(self, area_selezionata):
         self.checkBox.setChecked(False)
         self.checkBox_2.setChecked(False)
@@ -158,8 +151,6 @@ class Ui_VistaListaBeniDipendente(object):
             self.listView.setModel(self.list_model)
         else:
             self.listView.setModel(None)
-
-    # ricerca in base all'id o al nome del bene
 
     def ricerca_bene(self):
         self.checkBox.setChecked(False)
@@ -172,8 +163,6 @@ class Ui_VistaListaBeniDipendente(object):
             self.listView.setModel(self.list_model)
         else:
             self.listView.setModel(None)
-
-    # filtra per stato con sotto visualizza beni disponibili e non
 
     def filtra_per_stato(self):
         disponibile = self.checkBox.isChecked()
@@ -219,5 +208,3 @@ def show_listabeni_dipendente(utente_attivo):
 
 app = QtWidgets.QApplication(sys.argv)
 VistaListaBeniDipendente = QtWidgets.QMainWindow()
-
-#sys.exit(app.exec_())

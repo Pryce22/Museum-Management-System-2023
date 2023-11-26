@@ -9,4 +9,3 @@ class Attivita:
         self.n_posti = n_posti
         self.orario = orario
         self.prezzo = prezzo
-
