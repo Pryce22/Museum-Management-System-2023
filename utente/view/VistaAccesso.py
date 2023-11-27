@@ -127,7 +127,7 @@ class Ui_VistaAccesso(object):
                 self.controller.inserisci_utente(Utente(email_in, password_in, False,  False))
                 self.show_popup(1, "Account registrato!")
             else:
-                self.show_popup(0, "Email non valida!")
+                self.show_popup(0, "Email già esistente oppure non valida!")
 
     def show_popup(self, n, text):
         msg = QMessageBox()

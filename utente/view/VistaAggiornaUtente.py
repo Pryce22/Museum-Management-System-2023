@@ -63,7 +63,7 @@ class Ui_VistaAggiornaUtente(object):
                 email_nuova = self.lineEdit.text()
             else:
                 ok = False
-                self.show_popup(0, "Email già esistente!")
+                self.show_popup(0, "Email già esistente oppure non valida!")
         if self.lineEdit_2.text() != "":
             password_nuova = self.lineEdit_2.text()
         if ok:
