@@ -1,80 +1,103 @@
 # Museum Management System
 
-A comprehensive museum management application built with Python and PyQt5, designed to handle activities, bookings, and user management for museums.
+A comprehensive university project designed with Python and PyQt5, this application offers efficient management of museum activities, bookings, user authentication, and asset tracking. It also supports ticketing and backup maintenance, adhering to modern software development principles.
+
+---
 
 ## Technologies Used
-- Python 3.x
-- PyQt5
-- SQLite/Pickle (for data persistence)
-- pytest (for testing)
+- **Python 3.x**: Core programming language
+- **PyQt5**: For building the graphical user interface
+- **SQLite/Pickle**: For data persistence and storage
+- **pytest**: For testing and ensuring code quality
+
+---
 
 ## Installation
 
-1. Clone the repository:
-git clone https://github.com/MColletta02/progettoingsoftware2023.git
-cd museum-management-system
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/MColletta02/progettoingsoftware2023.git
+   cd museum-management-system
+   ```
 
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-2. Install dependencies:
-pip install -r requirements.txt
+---
 
 ## Project Structure
-├── attivita/               # Activities management
-│   ├── controller/
-│   ├── model/
-│   ├── view/
-│   └── data/
-├── backupemanutenzione/    # Backup and maintenance
-│   ├── controller/
-│   └── data/
-├── beni/                   # Museum assets management
-│   ├── controller/
-│   ├── model/
-│   ├── view/
-│   └── data/
-├── biglietto/             # Ticket management
-│   ├── controller/
-│   ├── model/
-│   └── data/
-├── prenotazioni/          # Booking system
-│   ├── controller/
-│   ├── model/
-│   ├── view/
-│   └── data/
-├── utente/                # User management
-│   ├── controller/
-│   ├── model/
-│   └── view/
-├── UI/                    # UI resources
-├── Test/                  # Test files
-└── main.py               # Application entry point
 
+```plaintext
+├── attivita/               # Activities management
+│   ├── controller/         # Business logic for activities
+│   ├── model/              # Data models for activities
+│   ├── view/               # GUI components for activities
+│   └── data/               # Data storage for activities
+├── backupemanutenzione/    # Backup and maintenance utilities
+│   ├── controller/         # Backup logic and controllers
+│   └── data/               # Backup data files
+├── beni/                   # Museum assets management
+│   ├── controller/         # Business logic for assets
+│   ├── model/              # Data models for assets
+│   ├── view/               # GUI components for assets
+│   └── data/               # Data storage for assets
+├── biglietto/              # Ticket management
+│   ├── controller/         # Logic for ticket generation
+│   ├── model/              # Data models for tickets
+│   └── data/               # Ticket storage
+├── prenotazioni/           # Booking system
+│   ├── controller/         # Booking logic
+│   ├── model/              # Booking data models
+│   ├── view/               # GUI components for bookings
+│   └── data/               # Booking data storage
+├── utente/                 # User management
+│   ├── controller/         # User authentication logic
+│   ├── model/              # User data models
+│   └── view/               # GUI components for user management
+├── UI/                     # UI resources
+├── Test/                   # Unit test files
+└── main.py                 # Application entry point
+```
+
+---
 
 ## Features
-1. User Authentication: Login and registration system
-2. Activity Management: Create, update, and delete museum activities
-3. Booking System: Handle reservations for museum visits
-4. Ticket Generation: Create and manage digital tickets
-5. Asset Management: Track and manage museum artifacts
-6. Backup System: Data backup and maintenance utilities
 
+1. **User Authentication**: Secure login and registration system.  
+2. **Activity Management**: Tools to create, update, and delete museum activities.  
+3. **Booking System**: Efficient handling of reservations for museum visits.  
+4. **Ticket Generation**: Generate and manage digital tickets for users.  
+5. **Asset Management**: Track and organize museum artifacts seamlessly.  
+6. **Backup System**: Reliable utilities for data backup and maintenance.  
+
+---
 
 ## Running the Application
 
-1. Start the application:
-python main.py
+1. **Start the application**:
+   ```bash
+   python main.py
+   ```
 
-2. Login with your credentials or register a new account
+2. **Login or Register**:  
+   Use your credentials to log in or create a new account.
 
+---
 
 ## Testing
 
-Run the test suite:
+To run the test suite and validate the functionality:  
+```bash
 pytest Test/
+```
 
+---
 
 ## Development Guidelines
-1. Follow MVC (Model-View-Controller) pattern
-2. Use PyQt5 for all GUI components
-3. Maintain separation of concerns between layers
-4. Write unit tests for new features
+
+1. Follow the **MVC (Model-View-Controller)** design pattern.  
+2. Use **PyQt5** for all graphical user interface components.  
+3. Maintain **separation of concerns** between layers for cleaner code.  
+4. Write **unit tests** for any new features or changes to ensure reliability.
