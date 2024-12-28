@@ -11,7 +11,7 @@ A comprehensive museum management application built with Python and PyQt5, desig
 ## Installation
 
 1. Clone the repository:
-git clone https://github.com/MColletta02/museum-management-system.git
+git clone https://github.com/MColletta02/progettoingsoftware2023.git
 cd museum-management-system
 
 
